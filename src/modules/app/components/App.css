@@ -1,0 +1,104 @@
+.app {
+    text-align: center;
+}
+
+.app-header {
+    background-color: #222;
+    height: 2em;
+    padding: 20px;
+    color: white;
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+    font-size: 1em;
+}
+
+.app-title {
+    font-size: 1.5em;
+}
+
+.app-body{
+    min-height: 700px;
+
+    background-image: url("../../../../public/background.jpeg") ;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.app-footer {
+    padding: 10px 0;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+}
+
+#nav-title{
+    margin-right: auto;
+    color: white;
+}
+
+.nav__links{
+    list-style: none;
+    cursor:pointer;
+    padding: 0px 20px;
+    transition: all 0.3s ease-in 0s;
+}
+
+#sign-in-link{
+    text-decoration: none;
+    cursor:pointer;
+    color:#FFF;
+}
+
+#sign-in-link:hover{
+    color:#0088a9
+}
+
+a:any-link {
+    text-decoration-line: none;
+}
+
+#sign-up-button{
+    padding: 9px 25px;
+    background-color: rgba(0,136,169,1);
+    border:none;
+    border-radius: 50px ;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: #FFF;
+    font-size: 1em;
+}
+
+#sign-up-button:hover{
+    background-color: rgba(0,136,169,0.8);
+}
+
+/* Body page */
+#body-wrapper{
+    background: white;
+    border-radius: 5px;
+
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Sign-in page */
+#sign-in-wrapper{
+    background: white;
+    border-radius: 10px;
+
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Sign-up page */
+#sign-up-wrapper{
+    background: white;
+    border-radius: 5px;
+
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+}
