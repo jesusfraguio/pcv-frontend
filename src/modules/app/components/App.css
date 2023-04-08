@@ -117,3 +117,30 @@ a:any-link {
     background: linear-gradient(to bottom, #f2f2f2, #ffffff);
     border: none;
 }
+
+.phone-input-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.phone-input input {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.phone-input input:first-child {
+    width: 70px;
+    text-align: center;
+}
