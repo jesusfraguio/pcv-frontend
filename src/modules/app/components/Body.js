@@ -10,13 +10,13 @@ import SideBar from "./SideBar";
 const Body = () => {
 
     const loggedIn = useSelector(users.selectors.isLoggedIn);
-    
+    const isAdmin = useSelector(users.selectors.isAdmin);
    return (
 
        <div className="app-body">
             <br/>
             <AppGlobalComponents/>
-            {loggedIn && <SideBar/>}
+            {isAdmin && <SideBar/>}
             <nav className="nav__links">
             <Routes>
                 <Route path="/*" element={<Home/>}/>
