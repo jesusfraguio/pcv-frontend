@@ -1,74 +1,59 @@
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 import users from '../../users';
 
 const Header = () => {
 
-    const userName = useSelector(users.selectors.getUserName);
-
+    const userName = useSelector(users.selectors.getEmail);
     return (
-
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border">
-            <Link className="navbar-brand" to="/">Plataforma Coruñesa de Voluntariado</Link>
-            <button className="navbar-toggler" type="button" 
-                data-toggle="collapse" data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" 
-                aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul className="navbar-nav mr-auto">
-                </ul>
-                
-                {userName ? 
-
-                <ul className="navbar-nav">
-                
-                    <li className="nav-item dropdown">
-
-                        <a className="dropdown-toggle nav-link" href="/"
-                            data-toggle="dropdown">
-                            <span className="fa-solid fa-user"></span>&nbsp;
-                            {userName}
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-right">
-                            <Link className="dropdown-item" to="/users/update-profile">
-                                <FormattedMessage id="project.users.UpdateProfile.title"/>
-                            </Link>
-                            <Link className="dropdown-item" to="/users/change-password">
-                                <FormattedMessage id="project.users.ChangePassword.title"/>
-                            </Link>
-                            <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="/users/logout">
-                                <FormattedMessage id="project.app.Header.logout"/>
-                            </Link>
-                        </div>
-
-                    </li>
-
-                </ul>
-                
-                :
-
-                <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/users/login">
-                            <FormattedMessage id="project.users.Login.title"/>
-                        </Link>
-                    </li>
-                </ul>
-
-                }
-
-            </div>
-        </nav>
-
+    <Navbar bg="light" expand="lg">
+        <Navbar.Brand style={{ fontSize: '1.4rem', fontWeight: 'lighter', marginLeft: '5px'}} href="/"> Plataforma Coruñesa de Voluntariado</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+                <Nav.Link href="/main/who" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                    <FormattedMessage id="project.header.whoWeAre"/>
+                </Nav.Link>
+                <Nav.Link href="/main/what" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                    <FormattedMessage id="project.header.whatAreWeDoing"/>
+                </Nav.Link>
+                <Nav.Link href="/main/2030Agenda" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                    <FormattedMessage id="project.header.2030Agenda"/>
+                </Nav.Link>
+                <Nav.Link href="/projects/myProjects" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                    <FormattedMessage id="project.header.projects"/>
+                </Nav.Link>
+                <Nav.Link href="/entities/seeEntities" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                    <FormattedMessage id="project.header.entities"/>
+                </Nav.Link>
+            </Nav>
+            <Nav>
+                {userName ? (
+                    <NavDropdown title={userName} id="user-dropdown">
+                        <NavDropdown.Item as={Link} to="/users/update-profile">
+                            <FormattedMessage id="project.users.UpdateProfile.title" />
+                        </NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/users/change-password">
+                            <FormattedMessage id="project.users.ChangePassword.title" />
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item as={Link} to="/users/logout">
+                            <FormattedMessage id="project.app.Header.logout" />
+                        </NavDropdown.Item>
+                    </NavDropdown>
+                ) : (
+                    <Nav.Link href="/users/login" style={{ backgroundColor: '#c634e2', color: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
+                        <FormattedMessage id="project.users.Login.title"/>
+                    </Nav.Link>
+                )}
+            </Nav>
+        </Navbar.Collapse>
+    </Navbar>
     );
-
 };
+
 
 export default Header;
