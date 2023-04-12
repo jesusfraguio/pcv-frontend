@@ -30,7 +30,7 @@ export const SideBarData = [
     },
     {
         title: 'Dar de alta un representante',
-        path: '/create-representative',
+        path: '/admin/create-representative',
         icon: <IoIcons.IoIosCreate />,
         cName: 'nav-text'
     },
