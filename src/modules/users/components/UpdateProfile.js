@@ -26,8 +26,8 @@ const UpdateProfile = () => {
             
             dispatch(actions.updateProfile(
                 {id: user.id,
-                firstName: firstName.trim(),
-                lastName: lastName.trim(),
+                name: firstName.trim(),
+                surname: lastName.trim(),
                 email: email.trim()},
                 () => navigate('/'),
                 errors => setBackendErrors(errors)));

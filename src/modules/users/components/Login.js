@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {Errors} from '../../common';
 import * as actions from '../actions';
+import {Card, Nav} from "react-bootstrap";
 
 const Login = () => {
 
@@ -42,32 +43,29 @@ const Login = () => {
 
     return (
         <div id="sign-in-wrapper">
-            <p className="text-center">
-                <Link to="/users/signup">
-                    <FormattedMessage id="project.users.SignUp.title"/>
-                </Link>
-            </p>
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-            <div className="card bg-light border-dark">
-                <h5 className="card-header">
-                    <FormattedMessage id="project.users.Login.title"/>
-                </h5>
-                <div className="card-body">
+            <Card className="card-main">
+                <Card.Header className="bg-transparent border-0 text-center">
+                    <h5>
+                        <FormattedMessage id="project.users.Login.title"/>
+                    </h5>
+                </Card.Header>
+                <Card.Body className="px-4 py-3">
                     <form ref={node => form = node} 
                         className="needs-validation" noValidate 
                         onSubmit={e => handleSubmit(e)}>
                         <div className="form-group row">
                             <label htmlFor="userName" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.userName"/>
+                                <FormattedMessage id="project.global.fields.email"/>
                             </label>
                             <div className="col-md-5 col-form-label text center">
-                                <input type="text" id="userName" className="form-control"
+                                <input type="email" id="userName" className="form-control"
                                     value={userName}
                                     onChange={e => setUserName(e.target.value)}
                                     autoFocus
                                     required/>
                                 <div className="invalid-feedback">
-                                    <FormattedMessage id='project.global.validator.required'/>
+                                    <FormattedMessage id='project.global.validator.email'/>
                                 </div>
                             </div>
                         </div>
@@ -87,13 +85,29 @@ const Login = () => {
                         </div>
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-1">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="buttonSecondary btn btn-primary">
                                     <FormattedMessage id="project.users.Login.title"/>
                                 </button>
                             </div>
                         </div>
                     </form>
-                </div>
+                </Card.Body>
+            </Card>
+            <div className="mt-4">
+                <p className="text-center">
+                    <Link to="/users/forgotPassword">
+                        <FormattedMessage id="project.users.forgotPassword.title"/>
+                    </Link>
+                </p>
+
+                <p className="text-center">
+                        <FormattedMessage id="project.users.noAccount.title"/>
+                </p>
+            <p className="text-center">
+                <Nav.Link href="/users/signup" style={{ backgroundColor: '#A0A0A0', color: '#fff', padding: '6px 12px', borderRadius: '6px', display: 'inline-block'}}>
+                    <FormattedMessage id="project.users.SignUp.title"/>
+                </Nav.Link>
+            </p>
             </div>
         </div>
     );

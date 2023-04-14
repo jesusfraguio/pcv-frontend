@@ -8,6 +8,7 @@ export default {
     
     'project.common.ErrorDialog.title': 'Error',
 
+    'project.global.buttons.register':'Dar de alta',
     'project.global.buttons.cancel': 'Cancelar',
     'project.global.buttons.close': 'Cerrar',
     'project.global.buttons.next': 'Siguiente',
@@ -16,6 +17,9 @@ export default {
     'project.global.buttons.save': 'Guardar',
     'project.global.exceptions.NetworkError': 'Fallo de comunicación',
     'project.global.fields.date': 'Fecha',
+    'project.global.fields.birthDate': 'Fecha de Nacimiento',
+    'project.global.fields.locality': 'Localidad',
+    'project.global.fields.phone': 'Teléfono',
     'project.global.fields.email': 'Correo electrónico',
     'project.global.fields.firstName': 'Nombre',
     'project.global.fields.lastName': 'Apellidos',
@@ -35,6 +39,26 @@ export default {
     'project.users.Login.title': 'Autenticarse',
     'project.users.SignUp.fields.confirmPassword': 'Confirmar contraseña',
     'project.users.SignUp.title': 'Registrarse',
-    'project.users.UpdateProfile.title': 'Actualizar perfil'
+    'project.users.UpdateProfile.title': 'Actualizar perfil',
 
+    'project.header.whoWeAre': 'Quiénes somos',
+    'project.header.whatAreWeDoing': 'Qué hacemos',
+    'project.header.2030Agenda': 'Agenda 2030',
+    'project.header.projects': 'Proyectos',
+    'project.header.entities': 'Entidades',
+    'project.users.noAccount.title' : 'No tienes cuenta?',
+    'project.users.forgotPassword.title': 'Olvidé la contraseña',
+    'project.month.January':'Enero',
+    'project.month.February':'Febrero',
+    'project.month.March':'Marzo',
+    'project.month.April':'Abril',
+    'project.month.May':'Mayo',
+    'project.month.June':'Junio',
+    'project.month.July':'Julio',
+    'project.month.August':'Agosto',
+    'project.month.September':'Septiembre',
+    'project.month.October':'Octubre',
+    'project.month.November':'Noviembre',
+    'project.month.December':'Diciembre',
+    'project.admin.CreateRepresentative.title': 'Datos del representante'
 }
