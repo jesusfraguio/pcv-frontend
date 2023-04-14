@@ -8,6 +8,7 @@ export default {
     
     'project.common.ErrorDialog.title': 'Error',
 
+    'project.global.buttons.register':'Dar de alta',
     'project.global.buttons.cancel': 'Cancelar',
     'project.global.buttons.close': 'Cerrar',
     'project.global.buttons.next': 'Siguiente',
@@ -58,7 +59,6 @@ export default {
     'project.month.September':'Septiembre',
     'project.month.October':'Octubre',
     'project.month.November':'Noviembre',
-    'project.month.December':'Diciembre'
-
-
+    'project.month.December':'Diciembre',
+    'project.admin.CreateRepresentative.title': 'Datos del representante'
 }

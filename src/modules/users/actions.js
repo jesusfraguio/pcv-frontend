@@ -15,6 +15,15 @@ export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => d
         onErrors,
         reauthenticationCallback);
 
+export const createPassword = (newPassword, onSuccess, onErrors, reauthenticationCallback) => dispatch =>
+    backend.userService.createNewPassword(newPassword,
+        authenticatedUser => {
+            dispatch(loginCompleted(authenticatedUser));
+            onSuccess();
+        },
+        onErrors,
+        reauthenticationCallback);
+
 const loginCompleted = authenticatedUser => ({
     type: actionTypes.LOGIN_COMPLETED,
     authenticatedUser

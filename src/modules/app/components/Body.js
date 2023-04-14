@@ -3,9 +3,10 @@ import {Route, Routes} from 'react-router-dom';
 
 import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
-import {Login, SignUp, UpdateProfile, ChangePassword, Logout} from '../../users';
+import {Login, SignUp, UpdateProfile, ChangePassword, Logout, ValidateToken} from '../../users';
 import users from '../../users';
 import SideBar from "./SideBar";
+import {CreateRep} from "../../admin";
 
 const Body = () => {
 
@@ -20,9 +21,11 @@ const Body = () => {
             <nav className="nav__links">
             <Routes>
                 <Route path="/*" element={<Home/>}/>
+                <Route path="/users/validate/registerToken/:registerToken" element={<ValidateToken/>}/>
                 {loggedIn && <Route path="/users/update-profile" element={<UpdateProfile/>}/>}
                 {loggedIn && <Route path="/users/change-password" element={<ChangePassword/>}/>}
                 {loggedIn && <Route path="/users/logout" element={<Logout/>}/>}
+                {isAdmin && <Route path="/admin/create-representative" element={<CreateRep/>}/>}
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
             </Routes>

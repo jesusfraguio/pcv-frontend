@@ -50,3 +50,12 @@ export const changePassword = (id, oldPassword, newPassword, onSuccess,
     appFetch(`/users/${id}/changePassword`, 
         config('POST', {oldPassword, newPassword}),
         onSuccess, onErrors);
+
+export const createNewPassword = (newPassword, onSuccess, onErrors, reauthenticationCallback) =>
+    appFetch('/users/newPasswordByTemporallyToken', config('POST', {newPassword}),
+        authenticatedUser => {
+            setServiceToken(authenticatedUser.serviceToken);
+            setReauthenticationCallback(reauthenticationCallback);
+            onSuccess(authenticatedUser);
+        },
+        onErrors);

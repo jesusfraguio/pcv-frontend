@@ -1,0 +1,1 @@
+//export const CREATE_REPRESENTATIVE_COMPLETED = '/admin/create-representative/completed';
