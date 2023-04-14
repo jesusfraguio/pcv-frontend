@@ -30,7 +30,7 @@ const CreateRep = () => {
                     phone: phone.trim(),
                     name: firstName.trim(),
                     surname: lastName.trim()},
-                () => navigate('/'),
+                message => setSuccess(message.message),
                 errors => setBackendErrors(errors),
             ));
 
