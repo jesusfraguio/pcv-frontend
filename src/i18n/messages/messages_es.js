@@ -16,6 +16,11 @@ export default {
     'project.global.buttons.back': 'Anterior',
     'project.global.buttons.save': 'Guardar',
     'project.global.exceptions.NetworkError': 'Fallo de comunicación',
+    'project.global.fields.url' :'URL',
+    'project.global.fields.address':'Dirección',
+    'project.global.fields.photo':'Foto',
+    'project.global.fields.agreement.file':'Archivo de compromiso (sin firmar)',
+    'project.global.fields.shortDescription' :'Descripción breve',
     'project.global.fields.date': 'Fecha',
     'project.global.fields.birthDate': 'Fecha de Nacimiento',
     'project.global.fields.locality': 'Localidad',
@@ -60,5 +65,7 @@ export default {
     'project.month.October':'Octubre',
     'project.month.November':'Noviembre',
     'project.month.December':'Diciembre',
-    'project.admin.CreateRepresentative.title': 'Datos del representante'
+    'project.admin.CreateRepresentative.title': 'Datos del representante',
+    'project.admin.CreateEntity.title': 'Datos de la entidad',
+    'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente. El certificado es {certFile} y el logo es {logo}'
 }

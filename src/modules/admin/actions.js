@@ -14,3 +14,12 @@ export const createRepresentative = (user, onSuccess, onErrors) => dispatch =>
         },
         onErrors
 );
+
+export const createEntity = (formData, onSuccess, onErrors) => dispatch =>
+    backend.adminService.createEntity(formData,
+        msg => {
+            //dispatch(createRepresentativeCompleted(msg));
+            onSuccess(msg);
+        },
+        onErrors
+    );

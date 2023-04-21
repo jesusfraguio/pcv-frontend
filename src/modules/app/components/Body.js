@@ -6,7 +6,7 @@ import Home from './Home';
 import {Login, SignUp, UpdateProfile, ChangePassword, Logout, ValidateToken} from '../../users';
 import users from '../../users';
 import SideBar from "./SideBar";
-import {CreateRep} from "../../admin";
+import {CreateRep, CreateEntity} from "../../admin";
 
 const Body = () => {
 
@@ -26,6 +26,7 @@ const Body = () => {
                 {loggedIn && <Route path="/users/change-password" element={<ChangePassword/>}/>}
                 {loggedIn && <Route path="/users/logout" element={<Logout/>}/>}
                 {isAdmin && <Route path="/admin/create-representative" element={<CreateRep/>}/>}
+                {isAdmin && <Route path="/admin/create-entity" element={<CreateEntity/>}/>}
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
             </Routes>
