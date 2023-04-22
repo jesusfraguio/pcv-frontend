@@ -7,5 +7,17 @@ export const registerRepresentative = (user, onSuccess, onErrors) => {
             onSuccess(msg);
         },
         onErrors);
-
 }
+
+export const createEntity = (formData, onSuccess, onErrors) => {
+    appFetch('/admin/createEntity',config('POST',formData),
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors);
+}
+
+export const seeEntitiesList = ({page,size}, onSuccess) =>
+    appFetch(`/admin/getEntities?page=${page}&size=${size}`, config('GET'), onSuccess);
+
+

@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useNavigate} from 'react-router-dom';
 import { FaPhone } from 'react-icons/fa';
@@ -7,6 +7,8 @@ import { FaPhone } from 'react-icons/fa';
 import {Errors, Success} from '../../common';
 import * as actions from '../actions';
 import {Card} from "react-bootstrap";
+import * as selectors from '../selectors';
+import Select from 'react-select';
 
 const CreateRep = () => {
 
@@ -18,18 +20,29 @@ const CreateRep = () => {
     const [phone, setPhone] = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
     const [createdOk, setSuccess] = useState(null);
+    const entities = useSelector(selectors.getEntities);
+    const [selectedEntity, setSelectedEntity] = useState(null);
+    const [selectEmptyError, setSelectEmptyError] = useState(false);
+    const options = entities?.items?.map(a => ({
+        value: a.id,
+        label: a.name
+    }));
     let form;
-
+    useEffect(() => {dispatch(actions.seeEntitiesList({page: 0, size: 200}));}, [])
     const handleSubmit = event => {
 
         event.preventDefault();
-
+        if (!selectedEntity) {
+            setSelectEmptyError(true);
+            return;
+        }
         if (form.checkValidity()) {
             dispatch(actions.createRepresentative(
                 {email: email.trim(),
                     phone: phone.trim(),
                     name: firstName.trim(),
-                    surname: lastName.trim()},
+                    surname: lastName.trim(),
+                    entityId: selectedEntity.value},
                 message => setSuccess(message.message),
                 errors => setBackendErrors(errors),
             ));
@@ -129,6 +142,27 @@ const CreateRep = () => {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="form-group row mb-2">
+                            <label htmlFor="lastName" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.lastName"/>
+                            </label>
+                            <div className="col-md-4">
+                                <Select
+                                    options={options}
+                                    value={selectedEntity}
+                                    onChange={setSelectedEntity}
+                                    isSearchable={true}
+                                    isMulti={false}
+                                    isClearable={false}
+                                    isInvalid={selectEmptyError}
+                                />
+                                {selectEmptyError && (
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='project.global.validator.required'/>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className="form-group row mb-2">

@@ -1,1 +1,1 @@
-//export const CREATE_REPRESENTATIVE_COMPLETED = '/admin/create-representative/completed';
+export const ENTITY_LIST_COMPLETED = '/admin/entity-list/completed';

@@ -42,7 +42,7 @@ export const SideBarData = [
     },
     {
         title: 'Crear una entidad',
-        path: '/create-entity',
+        path: '/admin/create-entity',
         icon: <FaIcons.FaBrush />,
         cName: 'nav-text'
     },

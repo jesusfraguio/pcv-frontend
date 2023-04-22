@@ -35,6 +35,7 @@ export default {
     'project.users.Login.title': 'Login',
     'project.users.SignUp.fields.confirmPassword': 'Confirm password',
     'project.users.SignUp.title': 'Sign up',
-    'project.users.UpdateProfile.title': 'Update profile'
+    'project.users.UpdateProfile.title': 'Update profile',
+    'project.created.entity.success': 'Entity {name} created succesfully. Cert file is {certFile} and logo is {logo}'
 
 }

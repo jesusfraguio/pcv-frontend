@@ -4,6 +4,7 @@ import reducer from './reducer';
 import * as selectors from './selectors';
 
 export {default as CreateRep} from './components/CreateRep';
+export {default as CreateEntity} from './components/CreateEntity';
 
 // eslint-disable-next-line
 export default {actions, actionTypes, reducer, selectors};

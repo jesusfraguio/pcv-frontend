@@ -1,10 +1,10 @@
-//import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes';
 import backend from '../../backend';
 
-/*const createRepresentativeCompleted = msg => ({
-    type: actionTypes.CREATE_REPRESENTATIVE_COMPLETED,
-    msg
-});*/
+const entityListCompleted = entities => ({
+    type: actionTypes.ENTITY_LIST_COMPLETED,
+    entities
+});
 
 export const createRepresentative = (user, onSuccess, onErrors) => dispatch =>
     backend.adminService.registerRepresentative(user,
@@ -14,3 +14,19 @@ export const createRepresentative = (user, onSuccess, onErrors) => dispatch =>
         },
         onErrors
 );
+
+export const createEntity = (formData, onSuccess, onErrors) => dispatch =>
+    backend.adminService.createEntity(formData,
+        msg => {
+            //dispatch(createRepresentativeCompleted(msg));
+            onSuccess(msg);
+        },
+        onErrors
+    );
+
+export const seeEntitiesList = criteria => dispatch =>
+    backend.adminService.seeEntitiesList(criteria,
+        entities => {
+            dispatch(entityListCompleted(entities));
+        }
+    );
