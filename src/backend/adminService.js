@@ -17,4 +17,7 @@ export const createEntity = (formData, onSuccess, onErrors) => {
         onErrors);
 }
 
+export const seeEntitiesList = ({page,size}, onSuccess) =>
+    appFetch(`/admin/getEntities?page=${page}&size=${size}`, config('GET'), onSuccess);
+
 

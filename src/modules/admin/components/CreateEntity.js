@@ -40,12 +40,12 @@ const CreateEntity = () => {
                 address: address.trim(),
                 shortDescription: shortDescription.trim()}));
             //This allows to send optional files so you can add them later
-            if(photoInput.files.length > 0){
+            //if(photoInput.files.length > 0){
                 formData.append('logo', photoInput.files[0], photoInput.files[0].name);
-            }
-            if(cert.files.length > 0){
+            //}
+            //if(cert.files.length > 0){
                 formData.append('cert', cert.files[0], cert.files[0].name);
-            }
+            //}
             dispatch(actions.createEntity(formData,
                 message => setSuccess(intl.formatMessage({ id: 'project.created.entity.success' }, { name: message.name,
                     certFile: message.certName ? message.certName : 'No se subió el certificado',
