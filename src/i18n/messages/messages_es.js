@@ -33,10 +33,21 @@ export default {
     'project.global.fields.postalAddress': 'Dirección postal',
     'project.global.fields.postalCode': 'Código postal',
     'project.global.fields.userName': 'Usuario',
+    'project.global.fields.entity': 'Entidad',
+    'project.global.fields.longDescription': 'Detalle de las funciones',
+    'project.global.fields.schedule': 'Horario',
+    'project.global.fields.capacity' : 'Número de voluntarios que se necesitan',
+    'project.global.fields.preferableVolunteer': 'Perfil del voluntario',
+    'project.global.fields.areChildren': '¿Hay menores?',
+    'project.global.fields.isVisible': '¿Hacerlo visible?',
+    'project.global.fields.tasks': 'Tareas',
+    'project.global.fields.ods': 'Objetivos de desarrollo sostenible',
+    'project.global.fields.collaborationArea': 'Área de colaboración',
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',
 
+    'project.admin.CreateProject.title':'Crear un proyecto',
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirmar contraseña nueva',
     'project.users.ChangePassword.fields.newPassword': 'Contraseña nueva',
     'project.users.ChangePassword.fields.oldPassword': 'Contraseña antigua',
@@ -67,5 +78,9 @@ export default {
     'project.month.December':'Diciembre',
     'project.admin.CreateRepresentative.title': 'Datos del representante',
     'project.admin.CreateEntity.title': 'Datos de la entidad',
-    'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente. El certificado es {certFile} y el logo es {logo}'
+    'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente. El certificado es {certFile} y el logo es {logo}',
+    'project.created.new.task': 'Nueva tarea',
+    'project.common.add.title':'Añadir',
+    'project.common.delete.title':'Eliminar',
+    'project.updateEntity.title':'Cambiar datos de {name}'
 }

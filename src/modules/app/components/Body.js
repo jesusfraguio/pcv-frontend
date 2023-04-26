@@ -6,18 +6,40 @@ import Home from './Home';
 import {Login, SignUp, UpdateProfile, ChangePassword, Logout, ValidateToken} from '../../users';
 import users from '../../users';
 import SideBar from "./SideBar";
+import SideBarRepresentative from "./SideBarRepresentative";
 import {CreateRep, CreateEntity} from "../../admin";
+import CreateProject from "../../project/components/CreateProject";
+import {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import project from "../../project";
+import admin from "../../admin";
 
 const Body = () => {
 
     const loggedIn = useSelector(users.selectors.isLoggedIn);
     const isAdmin = useSelector(users.selectors.isAdmin);
-   return (
+    const isRepresentative = useSelector(users.selectors.isRepresentative);
+    const isOnlyRepresentative = useSelector(users.selectors.isOnlyRepresentative);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        dispatch(project.actions.getOdsAndAreas());
+
+    }, []);
+    useEffect(() => {
+      if(isAdmin || isRepresentative) {
+          dispatch(admin.actions.getMyEntity());
+      }
+
+    }, [isAdmin, isRepresentative]);
+    return (
 
        <div className="app-body">
             <br/>
             <AppGlobalComponents/>
             {isAdmin && <SideBar/>}
+            {isOnlyRepresentative && <SideBarRepresentative/>}
             <nav className="nav__links">
             <Routes>
                 <Route path="/*" element={<Home/>}/>
@@ -29,6 +51,7 @@ const Body = () => {
                 {isAdmin && <Route path="/admin/create-entity" element={<CreateEntity/>}/>}
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
+                {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
             </Routes>
             </nav>
         </div>

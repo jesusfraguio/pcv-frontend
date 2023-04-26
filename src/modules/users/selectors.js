@@ -16,6 +16,9 @@ export const isAdmin = state =>
     isLoggedIn(state) ? getUser(state).role==="ADMIN" : null;
 
 export const isRepresentative = state =>
+    isLoggedIn(state) ? (getUser(state).role==="REPRESENTATIVE" || getUser(state).role==="ADMIN") : null;
+
+export const isOnlyRepresentative = state =>
     isLoggedIn(state) ? getUser(state).role==="REPRESENTATIVE" : null;
 
 
