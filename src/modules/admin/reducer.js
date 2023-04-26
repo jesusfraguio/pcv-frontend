@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
 
 import * as actionTypes from './actionTypes';
+import {MY_ENTITY_COMPLETED} from "./actionTypes";
 
 const initialState = {
-    entities: null
+    entities: null,
+    myEntity: null
 };
 
 const entities = (state = initialState.entities, action) => {
@@ -20,8 +22,23 @@ const entities = (state = initialState.entities, action) => {
 
 }
 
+const myEntity = (state = initialState.myEntity, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.MY_ENTITY_COMPLETED:
+            return action.myEntity;
+
+        default:
+            return state;
+
+    }
+
+}
+
 const reducer = combineReducers({
-    entities
+    entities,
+    myEntity
 });
 
 export default reducer;

@@ -145,8 +145,8 @@ const CreateRep = () => {
                             </div>
                         </div>
                         <div className="form-group row mb-2">
-                            <label htmlFor="lastName" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.lastName"/>
+                            <label htmlFor="entity" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.entity"/>
                             </label>
                             <div className="col-md-4">
                                 <Select

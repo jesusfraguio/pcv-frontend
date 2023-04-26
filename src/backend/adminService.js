@@ -20,4 +20,7 @@ export const createEntity = (formData, onSuccess, onErrors) => {
 export const seeEntitiesList = ({page,size}, onSuccess) =>
     appFetch(`/admin/getEntities?page=${page}&size=${size}`, config('GET'), onSuccess);
 
+export const seeMyEntity = (onSuccess) =>
+    appFetch(`/admin/getMyEntity`, config('GET'), onSuccess);
+
 
