@@ -3,7 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 
-export const SideBarData = [
+export const SideBarRepresentativeData = [
     {
         title: 'Home',
         path: '/',
@@ -38,18 +38,6 @@ export const SideBarData = [
         title: 'Ver contribuciones de cada entidad',
         path: '/see-contributions',
         icon: <IoIcons.IoMdHelpCircle />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Crear una entidad',
-        path: '/admin/create-entity',
-        icon: <FaIcons.FaBrush />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Eliminar a un usuario',
-        path: '/delete-user',
-        icon: <FaIcons.FaHammer />,
         cName: 'nav-text'
     }
 ];

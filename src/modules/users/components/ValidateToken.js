@@ -113,7 +113,7 @@ const ValidateToken = () => {
                         </div>
                         <div className="form-group row mb-2">
                             <div className="offset-md-3 col-md-1">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="buttonSecondary btn btn-primary">
                                     <FormattedMessage id="project.global.buttons.save"/>
                                 </button>
                             </div>
