@@ -1,13 +1,16 @@
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 import users from '../../users';
+import admin from '../../admin';
 
 const Header = () => {
 
     const userName = useSelector(users.selectors.getEmail);
+    const myEntityName = useSelector(admin.selectors.getMyEntity);
+    const intl = useIntl();
     return (
     <Navbar bg="light" expand="lg">
         <Navbar.Brand style={{ fontSize: '1.4rem', fontWeight: 'lighter', marginLeft: '5px'}} href="/"> Plataforma Coruñesa de Voluntariado</Navbar.Brand>
@@ -36,6 +39,11 @@ const Header = () => {
                         <NavDropdown.Item as={Link} to="/users/update-profile">
                             <FormattedMessage id="project.users.UpdateProfile.title" />
                         </NavDropdown.Item>
+                        {myEntityName &&
+                            <NavDropdown.Item as={Link} to="/admin/update-my-entity">
+                                {intl.formatMessage({ id: 'project.updateEntity.title' }, { name: myEntityName.name})}
+                            </NavDropdown.Item>
+                        }
                         <NavDropdown.Item as={Link} to="/users/change-password">
                             <FormattedMessage id="project.users.ChangePassword.title" />
                         </NavDropdown.Item>

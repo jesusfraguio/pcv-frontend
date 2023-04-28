@@ -93,17 +93,17 @@ export const removeServiceToken = () =>
 
 export const config = (method, body) => {
 
-    const config = {};
-
-    config.method = method;
+    const fConfig = {
+        method: method,
+    };
 
     if (body) {
         if (body instanceof FormData) {
-            config.headers = { "enctype": "multipart/form-data"};
-            config.body = body;
+            fConfig.headers = { 'enctype': 'multipart/form-data'};
+            fConfig.body = body;
         } else  {
-            config.headers = {'Content-Type': 'application/json'};
-            config.body = JSON.stringify(body);
+            fConfig.headers = {'Content-Type': 'application/json'};
+            fConfig.body = JSON.stringify(body);
         }
     }
 
@@ -111,15 +111,15 @@ export const config = (method, body) => {
 
     if (serviceToken) {
 
-        if (config.headers) {
-            config.headers['Authorization'] = `Bearer ${serviceToken}`;
+        if (fConfig.headers) {
+            fConfig.headers['Authorization'] = `Bearer ${serviceToken}`;
         } else {
-            config.headers = {'Authorization': `Bearer ${serviceToken}`};
+            fConfig.headers = {'Authorization': `Bearer ${serviceToken}`};
         }
 
     }
 
-    return config;
+    return fConfig;
 
 }
 
