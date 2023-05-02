@@ -82,5 +82,10 @@ export default {
     'project.created.new.task': 'Nueva tarea',
     'project.common.add.title':'Añadir',
     'project.common.delete.title':'Eliminar',
-    'project.updateEntity.title':'Cambiar datos de {name}'
+    'project.updateEntity.title':'Cambiar datos de {name}',
+    'project.projects.noProjectsFound':'No se encontraron proyectos',
+    'project.project.FindProject.title':'Buscar proyectos',
+    'project.project.buttons.addFilter':'Añadir filtros',
+    'project.global.buttons.searchProjects':'Buscar proyectos',
+    'project.allAreas.title': 'Todas las áreas',
 }

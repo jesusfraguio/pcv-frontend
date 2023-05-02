@@ -8,10 +8,9 @@ import users from '../../users';
 import SideBar from "./SideBar";
 import SideBarRepresentative from "./SideBarRepresentative";
 import {CreateRep, CreateEntity} from "../../admin";
-import CreateProject from "../../project/components/CreateProject";
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import project from "../../project";
+import project, {CreateProject, SeeProjectsFilters, SeeProjectsResult} from "../../project";
 import admin from "../../admin";
 
 const Body = () => {
@@ -52,6 +51,7 @@ const Body = () => {
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
+                <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
             </Routes>
             </nav>
         </div>

@@ -28,6 +28,10 @@ const handleOkResponse = (response, onSuccess) => {
         return true;
     }
 
+    if(response.status === 200 && response.headers.get("content-type").includes("image")){
+        response.blob().then(payload => onSuccess(payload));
+    }
+
     if (isJson(response)) {
         response.json().then(payload => onSuccess(payload));
     }
