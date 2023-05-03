@@ -23,3 +23,8 @@ export const getEntityLogo = (entityId, onSuccess) => {
     let path = `/projects/getLogo?entityId=${entityId}`;
     appFetch(path,config('GET'), image => onSuccess(image));
 }
+
+export const getProjectDetails = (projectId, onSuccess) => {
+    let path = `/projects/project/${projectId}`;
+    appFetch(path,config('GET'), onSuccess)
+}

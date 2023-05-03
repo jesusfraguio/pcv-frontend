@@ -10,7 +10,7 @@ import SideBarRepresentative from "./SideBarRepresentative";
 import {CreateRep, CreateEntity} from "../../admin";
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import project, {CreateProject, SeeProjectsFilters, SeeProjectsResult} from "../../project";
+import project, {CreateProject, ProjectDetail, SeeProjectsResult} from "../../project";
 import admin from "../../admin";
 
 const Body = () => {
@@ -52,6 +52,7 @@ const Body = () => {
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
                 <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
+                <Route path="/projects/:projectId" element={<ProjectDetail/>} />
             </Routes>
             </nav>
         </div>

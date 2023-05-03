@@ -38,6 +38,9 @@ export const getOdsAndAreas = () => (dispatch, getState) => {
 
 }
 
+export const findProjectDetails = (projectId, onSuccess) => dispatch =>
+    backend.projectService.getProjectDetails(projectId, project => {onSuccess(project); })
+
 export const findProjects = criteria => dispatch => {
 
     //dispatch(clearProjectSearch());
