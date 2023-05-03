@@ -20,7 +20,7 @@
 .app-body{
     min-height: 700px;
 
-    background-image: url("../../../../public/background.jpeg") ;
+    background-image: url("../../../../public/race-volunteers.jpg") ;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -110,6 +110,7 @@ a:any-link {
     padding: 6px 12px;
     border-radius: 6px;
     display: inline-block;
+    border:none;
 }
 
 /* otra alternativa con grises: #f2f2f2, #d9d9d9*/
@@ -143,4 +144,48 @@ a:any-link {
 .phone-input input:first-child {
     width: 70px;
     text-align: center;
+}
+
+.default-main-section {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.join-text {
+    color: #000000;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.background-secondary-image {
+    height: 100%;
+    width: 100%;
+    background-image: url('../../../../public/having-plants.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(90%);
+}
+
+.page-wrapper {
+    background-color: #ffffff;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    max-height: 70vh; /* Change this value to adjust the image height */
+    overflow: hidden;
 }

@@ -7,6 +7,11 @@ const findAllCachedDataCompleted = cachedData => ({
     cachedData
 });
 
+export const getLogoSuccess = (entityId, image) => ({
+    type: actionTypes.GET_LOGO_SUCCESS,
+    entitiesLogos: { entityId, image }
+});
+
 export const createProject = (project, onSuccess, onErrors) => dispatch =>
     backend.representativeService.createProject(project,
         msg => {
@@ -14,6 +19,11 @@ export const createProject = (project, onSuccess, onErrors) => dispatch =>
         },
         onErrors
     );
+
+export const getLogo = (entityId) => dispatch =>
+    backend.projectService.getEntityLogo(entityId, image =>
+        dispatch(getLogoSuccess(entityId,URL.createObjectURL(image))));
+
 
 export const getOdsAndAreas = () => (dispatch, getState) => {
 
@@ -27,3 +37,29 @@ export const getOdsAndAreas = () => (dispatch, getState) => {
     }
 
 }
+
+export const findProjectDetails = (projectId, onSuccess) => dispatch =>
+    backend.projectService.getProjectDetails(projectId, project => {onSuccess(project); })
+
+export const findProjects = criteria => dispatch => {
+
+    //dispatch(clearProjectSearch());
+    backend.projectService.findProjectsBy(criteria,
+        result => dispatch(findProjectsCompleted({ criteria, result })));
+
+}
+
+const findProjectsCompleted = projectSearch => ({
+    type: actionTypes.FIND_PROJECTS_COMPLETED,
+    projectSearch
+});
+
+const clearProjectSearch = () => ({
+    type: actionTypes.CLEAR_PROJECT_SEARCH
+});
+
+export const previousFindProjectsResultPage = criteria =>
+    findProjects({ ...criteria, page: criteria.page - 1 });
+
+export const nextFindProjectsResultPage = criteria =>
+    findProjects({ ...criteria, page: criteria.page + 1 });

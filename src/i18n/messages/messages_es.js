@@ -5,7 +5,10 @@ export default {
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Salir',
     'project.app.Home.welcome': 'Contenido de la página principal',
-    
+    'project.app.Home.joinCommunity':'Únete a la comunidad y elige tu voluntariado!',
+    'project.app.Home.IAmEntity':'Soy una entidad',
+    'project.app.Home.IWantBeVolunteer':'Quiero ser voluntario',
+
     'project.common.ErrorDialog.title': 'Error',
 
     'project.global.buttons.register':'Dar de alta',
@@ -15,12 +18,14 @@ export default {
     'project.global.buttons.ok': 'OK',
     'project.global.buttons.back': 'Anterior',
     'project.global.buttons.save': 'Guardar',
+    'project.global.buttons.interested':'Me interesa',
     'project.global.exceptions.NetworkError': 'Fallo de comunicación',
     'project.global.fields.url' :'URL',
     'project.global.fields.address':'Dirección',
     'project.global.fields.photo':'Foto',
     'project.global.fields.agreement.file':'Archivo de compromiso (sin firmar)',
     'project.global.fields.shortDescription' :'Descripción breve',
+    'project.global.fields.shortDescription.title':'Descripción',
     'project.global.fields.date': 'Fecha',
     'project.global.fields.birthDate': 'Fecha de Nacimiento',
     'project.global.fields.locality': 'Localidad',
@@ -82,5 +87,10 @@ export default {
     'project.created.new.task': 'Nueva tarea',
     'project.common.add.title':'Añadir',
     'project.common.delete.title':'Eliminar',
-    'project.updateEntity.title':'Cambiar datos de {name}'
+    'project.updateEntity.title':'Cambiar datos de {name}',
+    'project.projects.noProjectsFound':'No se encontraron proyectos',
+    'project.project.FindProject.title':'Buscar proyectos',
+    'project.project.buttons.addFilter':'Añadir filtros',
+    'project.global.buttons.searchProjects':'Buscar proyectos',
+    'project.allAreas.title': 'Todas las áreas',
 }
