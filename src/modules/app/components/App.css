@@ -112,6 +112,14 @@ a:any-link {
     display: inline-block;
     border:none;
 }
+.mainButton {
+    background-color: #1ec7cd;
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 6px;
+    display: inline-block;
+    border:none;
+}
 
 /* otra alternativa con grises: #f2f2f2, #d9d9d9*/
 .card-main {

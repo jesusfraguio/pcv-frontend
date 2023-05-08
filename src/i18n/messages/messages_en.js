@@ -36,6 +36,7 @@ export default {
     'project.users.SignUp.fields.confirmPassword': 'Confirm password',
     'project.users.SignUp.title': 'Sign up',
     'project.users.UpdateProfile.title': 'Update profile',
-    'project.created.entity.success': 'Entity {name} created succesfully. Cert file is {certFile} and logo is {logo}'
+    'project.created.entity.success': 'Entity {name} created succesfully. Cert file is {certFile} and logo is {logo}',
+    'project.project.CreateParticipationCompleted.title': 'Your interest in the program has been confirmed. The entity will contact you to arrange an interview'
 
 }
