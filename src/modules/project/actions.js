@@ -22,7 +22,7 @@ export const createProject = (project, onSuccess, onErrors) => dispatch =>
 
 export const getLogo = (entityId) => dispatch =>
     backend.projectService.getEntityLogo(entityId, image =>
-        dispatch(getLogoSuccess(entityId,URL.createObjectURL(image))));
+        dispatch(getLogoSuccess(entityId,URL.createObjectURL(image))), errors => dispatch(getLogoSuccess(entityId,process.env.PUBLIC_URL + "/logo192.png")));
 
 
 export const getOdsAndAreas = () => (dispatch, getState) => {
@@ -63,3 +63,12 @@ export const previousFindProjectsResultPage = criteria =>
 
 export const nextFindProjectsResultPage = criteria =>
     findProjects({ ...criteria, page: criteria.page + 1 });
+
+
+export const createParticipationAsVolunteer = (participation, onSuccess, onErrors) => dispatch =>
+    backend.projectService.createParticipationAsVolunteer(participation,
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors
+    );

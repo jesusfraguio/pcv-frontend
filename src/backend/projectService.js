@@ -19,12 +19,20 @@ export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, 
 
 }
 
-export const getEntityLogo = (entityId, onSuccess) => {
+export const getEntityLogo = (entityId, onSuccess, onErrors) => {
     let path = `/projects/getLogo?entityId=${entityId}`;
-    appFetch(path,config('GET'), image => onSuccess(image));
+    appFetch(path,config('GET'), image => onSuccess(image), onErrors);
 }
 
 export const getProjectDetails = (projectId, onSuccess) => {
     let path = `/projects/project/${projectId}`;
     appFetch(path,config('GET'), onSuccess)
+}
+
+export const createParticipationAsVolunteer = (participation, onSuccess, onErrors) => {
+    appFetch('/projects/createMyParticipation',config('POST',participation),
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors);
 }

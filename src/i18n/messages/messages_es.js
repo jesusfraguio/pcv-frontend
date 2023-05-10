@@ -61,6 +61,7 @@ export default {
     'project.users.SignUp.fields.confirmPassword': 'Confirmar contraseña',
     'project.users.SignUp.title': 'Registrarse',
     'project.users.UpdateProfile.title': 'Actualizar perfil',
+    'project.users.MyProfile.title': 'Mi perfil',
 
     'project.header.whoWeAre': 'Quiénes somos',
     'project.header.whatAreWeDoing': 'Qué hacemos',
@@ -90,7 +91,9 @@ export default {
     'project.updateEntity.title':'Cambiar datos de {name}',
     'project.projects.noProjectsFound':'No se encontraron proyectos',
     'project.project.FindProject.title':'Buscar proyectos',
+    'project.project.FindMoreProjects.title':'Ver más proyectos',
     'project.project.buttons.addFilter':'Añadir filtros',
     'project.global.buttons.searchProjects':'Buscar proyectos',
     'project.allAreas.title': 'Todas las áreas',
+    'project.project.CreateParticipationCompleted.title': 'Se ha confirmado su interés en el proyecto. La entidad se comunicará con usted para concertar una entrevista'
 }

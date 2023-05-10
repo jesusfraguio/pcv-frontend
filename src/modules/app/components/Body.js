@@ -12,6 +12,7 @@ import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import project, {CreateProject, ProjectDetail, SeeProjectsResult} from "../../project";
 import admin from "../../admin";
+import CompletedProjectParticipation from "../../project/components/CompletedProjectParticipation";
 
 const Body = () => {
 
@@ -53,6 +54,7 @@ const Body = () => {
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
                 <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
                 <Route path="/projects/:projectId" element={<ProjectDetail/>} />
+                <Route path="/projects/createMyParticipation-completed" element ={<CompletedProjectParticipation/>} />
             </Routes>
             </nav>
         </div>

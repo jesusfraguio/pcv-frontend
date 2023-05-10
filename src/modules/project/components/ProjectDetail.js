@@ -6,20 +6,31 @@ import {Card, Col, Row, Container, ListGroup, Button} from "react-bootstrap";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import './ProjectDetail.css';
 import {useIntl} from "react-intl";
+import users from '../../users';
+import {Errors} from "../../common";
 
 const ProjectDetail = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const intl = useIntl();
     const { projectId } = useParams();
     const [projectData, setProjectData] = useState(null);
     const odsList = useSelector(selectors.getOds);
+    const user = useSelector(users.selectors.getUser);
+    const [backendErrors, setBackendErrors] = useState(null);
 
     useEffect(() => {
         dispatch(actions.findProjectDetails(projectId, project => setProjectData(project)));
     },[])
 
+    const handleClick = () => {
+        dispatch(actions.createParticipationAsVolunteer(({recommended: false, volunteerId: user.id, projectId: projectId}),
+            message => navigate("/projects/createMyParticipation-completed"),
+            errors => setBackendErrors(errors)));
+    };
 
     return <div>
+        <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
         {projectData && <Container>
             <Row className="my-5">
                 <Col>
@@ -97,7 +108,7 @@ const ProjectDetail = () => {
                                             {/* Empty space to center button */}
                                         </Col>
                                         <Col md={4} className="d-flex justify-content-center">
-                                            <Button className="addParticipation-button">{intl.formatMessage({ id: 'project.global.buttons.interested' })}</Button>
+                                            <Button onClick={handleClick} className="addParticipation-button">{intl.formatMessage({ id: 'project.global.buttons.interested' })}</Button>
                                         </Col>
                                     </Row>
                                 </Col>
