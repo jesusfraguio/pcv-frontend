@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <div className="text-center">
             {!loggedIn && <NotLoggedUserShowLogin/>}
-            <SeeProjectsFilters/>
+            {loggedIn && <SeeProjectsFilters/>}
         </div>
     );
 }

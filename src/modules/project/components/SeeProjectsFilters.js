@@ -56,7 +56,8 @@ const SeeProjectsFilters = () => {
 
         <div className="row" id="find-project-wrapper">
             <div className="col">
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" className="btn btn-primary buttonGrey"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <FormattedMessage id='project.project.buttons.addFilter'/>
                 </button>
             </div>
@@ -108,14 +109,15 @@ const SeeProjectsFilters = () => {
 
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Añadir filtros</button>
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                        <FormattedMessage id='project.project.buttons.addFilter'/></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     </div>
 
-                    <button type="submit" className="btn btn-primary" id="search" data-bs-dismiss="modal">
+                    <button type="submit" className="btn btn-primary buttonSecondary" id="search" data-bs-dismiss="modal">
                         <FormattedMessage id='project.global.buttons.searchProjects' />
                     </button>
                 </form>
