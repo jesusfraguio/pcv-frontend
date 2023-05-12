@@ -1,0 +1,17 @@
+.status-pending {
+    color: #FFA500;
+}
+
+.status-approved {
+    color: #7CFC00;
+}
+
+.status-accepted {
+    color: #90EE90;
+}
+
+.name-link {
+    color: #BA55D3;
+    cursor: pointer;
+}
+
