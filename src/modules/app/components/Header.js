@@ -26,7 +26,7 @@ const Header = () => {
                 <Nav.Link href="/main/2030Agenda" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
                     <FormattedMessage id="project.header.2030Agenda"/>
                 </Nav.Link>
-                <Nav.Link href="/projects/myProjects" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                <Nav.Link href="/myProjects" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
                     <FormattedMessage id="project.header.projects"/>
                 </Nav.Link>
                 <Nav.Link href="/entities/seeEntities" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
