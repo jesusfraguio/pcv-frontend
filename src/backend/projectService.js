@@ -36,3 +36,14 @@ export const createParticipationAsVolunteer = (participation, onSuccess, onError
         },
         onErrors);
 }
+
+export const findMyParticipations = ({page, size},
+                               onSuccess) => {
+
+    let path = `/participation/my?page=${page}`;
+
+    path += size ? `&size=${size}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
+
+}

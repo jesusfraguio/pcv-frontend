@@ -24,9 +24,11 @@ const ProjectDetail = () => {
     },[])
 
     const handleClick = () => {
+        user!==null ?
         dispatch(actions.createParticipationAsVolunteer(({recommended: false, volunteerId: user.id, projectId: projectId}),
             message => navigate("/projects/createMyParticipation-completed"),
-            errors => setBackendErrors(errors)));
+            errors => setBackendErrors(errors)))
+        :navigate("/users/login");
     };
 
     return <div>

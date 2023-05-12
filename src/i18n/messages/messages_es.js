@@ -11,6 +11,8 @@ export default {
 
     'project.common.ErrorDialog.title': 'Error',
 
+    'project.upload.uploadSignedCert': 'Subir archivo de compromiso firmado',
+    'project.upload.downloadSignedCertByEntity': 'Descargar archivo de compromiso',
     'project.global.buttons.register':'Dar de alta',
     'project.global.buttons.cancel': 'Cancelar',
     'project.global.buttons.close': 'Cerrar',
@@ -95,5 +97,11 @@ export default {
     'project.project.buttons.addFilter':'Añadir filtros',
     'project.global.buttons.searchProjects':'Buscar proyectos',
     'project.allAreas.title': 'Todas las áreas',
-    'project.project.CreateParticipationCompleted.title': 'Se ha confirmado su interés en el proyecto. La entidad se comunicará con usted para concertar una entrevista'
+    'project.project.CreateParticipationCompleted.title': 'Se ha confirmado su interés en el proyecto. La entidad se comunicará con usted para concertar una entrevista',
+    'project.projectName.title': 'Nombre del proyecto',
+    'project.totalHours.title': 'Horas totales',
+    'project.status.title': 'Estado de tu participación',
+    'project.status.Pending': 'Pendiente',
+    'project.status.Approved': 'Aprobada',
+    'project.status.Accepted': 'Aceptada'
 }
