@@ -106,6 +106,10 @@ a:any-link {
     padding: 10px;
 }
 
+.name-link {
+    color: #BA55D3;
+    cursor: pointer;
+}
 
 .buttonSecondary {
     background-color: #c634e2;

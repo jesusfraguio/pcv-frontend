@@ -9,6 +9,9 @@ export const getCachedEntities = (state) =>
 export const getProjectSearch = state =>
     getModuleState(state)?.projectSearch;
 
+export const getEntityProjects = state =>
+    getModuleState(state)?.entityProjects;
+
 export const getOds = state =>
     getModuleState(state)?.cachedData?.odsSummary;
 

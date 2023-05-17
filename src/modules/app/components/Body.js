@@ -14,6 +14,7 @@ import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsRe
 import admin from "../../admin";
 import CompletedProjectParticipation from "../../project/components/CompletedProjectParticipation";
 import {MyParticipationsResult} from "../../participation";
+import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 
 const Body = () => {
 
@@ -58,6 +59,7 @@ const Body = () => {
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
+                {isRepresentative && <Route path="/projects-list" element={<SeeMyEntityProjects/>}/> }
                 <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
                 <Route path="/projects/:projectId" element={<ProjectDetail/>} />
                 <Route path="/allProjects" element={<SeeProjectsFilters/>} />

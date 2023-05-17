@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 
 import * as actionTypes from './actionTypes';
-import {MY_ENTITY_COMPLETED} from "./actionTypes";
 
 const initialState = {
     entities: null,

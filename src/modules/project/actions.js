@@ -72,3 +72,22 @@ export const createParticipationAsVolunteer = (participation, onSuccess, onError
         },
         onErrors
     );
+
+
+// Entity 's projects
+const findEntityProjectsCompleted = entityProjects => ({
+    type: actionTypes.FIND_ENTITY_PROJECTS_COMPLETED,
+    entityProjects
+});
+
+export const findEntityProjects = criteria => dispatch => {
+    backend.projectService.findMyEntityProjects(criteria,
+        result => dispatch(findEntityProjectsCompleted({ criteria, result })));
+
+}
+
+export const previousFindEntityProjectsResultPage = criteria =>
+    findEntityProjects({ ...criteria, page: criteria.page - 1 });
+
+export const nextFindEntityProjectsResultPage = criteria =>
+    findEntityProjects({ ...criteria, page: criteria.page + 1 });
