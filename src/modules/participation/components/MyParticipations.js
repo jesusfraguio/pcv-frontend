@@ -14,10 +14,16 @@ const MyParticipations = ({ myParticipations }) => {
         switch (status) {
             case 'PENDING':
                 return intl.formatMessage({id : 'project.status.Pending'});
+            case 'SCHEDULED':
+                return intl.formatMessage({id : 'project.status.Scheduled'});
             case 'APPROVED':
                 return intl.formatMessage({id : 'project.status.Approved'});
             case 'ACCEPTED':
                 return intl.formatMessage({id : 'project.status.Accepted'});
+            case 'REJECTED':
+                return intl.formatMessage({id : 'project.status.Rejected'});
+            case 'DELETED':
+                return intl.formatMessage({id : 'project.status.Deleted'});
             default:
                 return status;
         }

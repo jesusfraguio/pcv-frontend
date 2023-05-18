@@ -53,6 +53,10 @@ export default {
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',
+    'project.global.state.title': 'Estado',
+    'project.global.sort.orderBy': 'Ordenar por',
+    'project.global.sort.asc': 'Ascendente',
+    'project.global.sort.desc': 'Descendente',
 
     'project.admin.CreateProject.title':'Crear un proyecto',
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirmar contraseña nueva',
@@ -99,12 +103,19 @@ export default {
     'project.project.seeParticipants.title':'Ver participantes',
     'project.project.buttons.addFilter':'Añadir filtros',
     'project.global.buttons.searchProjects':'Buscar proyectos',
+    'project.project.projectsOfEntity':'Proyectos de {name}',
     'project.allAreas.title': 'Todas las áreas',
     'project.project.CreateParticipationCompleted.title': 'Se ha confirmado su interés en el proyecto. La entidad se comunicará con usted para concertar una entrevista',
     'project.projectName.title': 'Nombre del proyecto',
     'project.totalHours.title': 'Horas totales',
+    'project.participations.noParticipationsFound': 'No se encontraron participaciones',
     'project.status.title': 'Estado de tu participación',
+    'project.status.their.title': 'Estado de su participación',
+    'project.project.myParticipantsOf': 'Mis participantes de ',
     'project.status.Pending': 'Pendiente',
     'project.status.Approved': 'Aprobada',
-    'project.status.Accepted': 'Aceptada'
+    'project.status.Accepted': 'Aceptada',
+    'project.status.Scheduled': 'Entrevista programada',
+    'project.status.Rejected': 'Rechazada',
+    'project.status.Deleted': 'Eliminada'
 }

@@ -7,3 +7,13 @@ export const createProject = (project, onSuccess, onErrors) => {
         },
         onErrors);
 }
+
+
+export const findMyProjectVolunteers = ({projectId, page, size},
+                                     onSuccess) => {
+    let path = `/participation/getAllProjectParticipations/`;
+    path += projectId;
+    path +=`?page=${page}`;
+    path += size ? `&size=${size}` : "";
+    appFetch(path, config('GET'), onSuccess);
+}

@@ -31,7 +31,7 @@ const MyParticipationsResult = () => {
     if (participationSearch.result.items.length === 0) {
         return (
             <div className="alert alert-info" role="alert">
-                <FormattedMessage id='participation.participations.noParticipationsFound'/>
+                <FormattedMessage id='project.participations.noParticipationsFound'/>
             </div>
         );
     }
