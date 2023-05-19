@@ -59,3 +59,6 @@ export const createNewPassword = (newPassword, onSuccess, onErrors, reauthentica
             onSuccess(authenticatedUser);
         },
         onErrors);
+
+export const seeVolunteerSummaryProfile = (id, onSuccess, onErrors) =>
+    appFetch(`/users/${id}`, config('GET'), onSuccess, onErrors);

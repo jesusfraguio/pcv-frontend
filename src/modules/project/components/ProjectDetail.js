@@ -45,57 +45,56 @@ const ProjectDetail = () => {
                             <Row>
                                 <Col md={6}>
                             <Card.Text className="almost-center-text">
-                                <span className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.shortDescription.title'})}</span>
-                                <br />
-                                {projectData.shortDescription}
+                                <p className="placeholder-bold" style={{ whiteSpace: 'pre-wrap' }}>{intl.formatMessage({id : 'project.global.fields.shortDescription.title'})}</p>
+                                <p>{projectData.shortDescription}</p>
                             </Card.Text>
-                            <Card.Text className="almost-center-text ">
-                                <span className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.longDescription'})}</span>
-                                <br />
-                                {projectData.longDescription}
+                            <Card.Text className="almost-center-text " style={{ whiteSpace: 'pre-wrap' }}>
+                                <p className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.longDescription'})}</p>
+
+                                <p>{projectData.longDescription}</p>
                             </Card.Text>
                             <Card.Text className="almost-center-text">
-                                <span className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.schedule'})}</span>
-                                <br />
-                                {projectData.schedule}
+                                <p className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.schedule'})}</p>
+
+                                <p>{projectData.schedule}</p>
                             </Card.Text>
-                            <ListGroup className="list-group-flush almost-center-text">
-                                <ListGroup.Item>
-                                    <Card.Text>
-                                      <span className="placeholder-bold">
-                                        {intl.formatMessage({ id: 'project.global.fields.tasks' })}
-                                      </span>
-                                        <ul>
-                                            {projectData.tasks.map((task, index) => (
-                                                <li key={index}>{task}</li>
-                                            ))}
-                                        </ul>
-                                    </Card.Text>
-                                </ListGroup.Item>
-                            </ListGroup>
+                                <ListGroup className="list-group-flush no-padding">
+                                    <ListGroup.Item className="no-padding">
+                                        <Card.Text className="almost-center-text">
+                                          <p className="placeholder-bold">
+                                            {intl.formatMessage({ id: 'project.global.fields.tasks' })}
+                                          </p>
+                                            <ul>
+                                                {projectData.tasks.map((task, index) => (
+                                                    <li key={index}>{task}</li>
+                                                ))}
+                                            </ul>
+                                        </Card.Text>
+                                    </ListGroup.Item>
+                                </ListGroup>
                                 </Col>
                                 <Col md={6}>
                             <Card.Text className="almost-center-text">
-                                <span className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.preferableVolunteer'})}</span>
-                                <br />
-                                {projectData.preferableVolunteer}
+                                <p className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.preferableVolunteer'})}</p>
+
+                                <p> {projectData.preferableVolunteer} </p>
                             </Card.Text>
                             <Card.Text className="almost-center-text">
-                                <span className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.collaborationArea'})}</span>
-                                <br />
-                                {projectData.areaName}
+                                <p className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.collaborationArea'})}</p>
+
+                                <p> {projectData.areaName} </p>
                             </Card.Text>
                                     <Card.Text className="almost-center-text">
-                                        <span className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.locality'})}</span>
-                                        <br />
+                                        <p className="placeholder-bold">{intl.formatMessage({id : 'project.global.fields.locality'})}</p>
+
                                         {projectData.locality}
                                     </Card.Text>
-                                    <ListGroup className="list-group-flush almost-center-text">
-                                        <ListGroup.Item>
-                                            <Card.Text>
-                                              <span className="placeholder-bold">
+                                    <ListGroup className="list-group-flush no-padding">
+                                        <ListGroup.Item className="no-padding">
+                                            <Card.Text className="almost-center-text">
+                                              <p className="placeholder-bold">
                                                 {intl.formatMessage({ id: 'project.global.fields.ods' })}
-                                              </span>
+                                              </p>
                                                 <ul>
                                                     {projectData.ods.map((odsId, index) => {
                                                         const odsItem = odsList.find((item) => item.id === odsId);
@@ -106,7 +105,7 @@ const ProjectDetail = () => {
                                         </ListGroup.Item>
                                     </ListGroup>
                                     <Row className="mt-4">
-                                        <Col md={5}>
+                                        <Col md={4}>
                                             {/* Empty space to center button */}
                                         </Col>
                                         <Col md={4} className="d-flex justify-content-center">

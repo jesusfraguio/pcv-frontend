@@ -6,6 +6,7 @@ const initialState = {
     cachedData : null,
     projectSearch: null,
     entitiesLogos: {},
+    entityProjects: null
 };
 
 const cachedData = (state = initialState.cachedData, action) => {
@@ -52,10 +53,26 @@ const entitiesLogos = (state = initialState.entitiesLogos, action) => {
     }
 }
 
+const entityProjects = (state = initialState.entityProjects, action) => {
+    switch (action.type) {
+
+        case actionTypes.FIND_ENTITY_PROJECTS_COMPLETED:
+            return action.entityProjects;
+
+        case actionTypes.CLEAR_ENTITY_PROJECTS_SEARCH:
+            return initialState.entityProjects;
+
+        default:
+            return state;
+
+    }
+}
+
 const reducer = combineReducers({
     cachedData,
     projectSearch,
-    entitiesLogos
+    entitiesLogos,
+    entityProjects
 });
 
 export default reducer;

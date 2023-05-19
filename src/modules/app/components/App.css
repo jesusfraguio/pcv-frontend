@@ -106,6 +106,10 @@ a:any-link {
     padding: 10px;
 }
 
+.name-link {
+    color: #E354FF;
+    cursor: pointer;
+}
 
 .buttonSecondary {
     background-color: #c634e2;
@@ -123,6 +127,7 @@ a:any-link {
     display: inline-block;
     border:none;
 }
+/*#1EE3A3 Color Triada El que tenia antes #1ec7cd*/
 .mainButton {
     background-color: #1ec7cd;
     color: #fff;

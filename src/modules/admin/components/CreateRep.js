@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {useNavigate} from 'react-router-dom';
 import { FaPhone } from 'react-icons/fa';
 
@@ -14,6 +14,7 @@ const CreateRep = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const intl = useIntl();
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -46,11 +47,17 @@ const CreateRep = () => {
                 message => setSuccess(message.message),
                 errors => setBackendErrors(errors),
             ));
-
+            setEmail('');
+            setLastName('');
+            setFirstName('');
+            setSelectedEntity(null);
+            setPhone('');
+            setSuccess(intl.formatMessage({id: "project.common.emailWillBeSent"}));
 
         } else {
 
             setBackendErrors(null);
+            setPhone('');
             form.classList.add('was-validated');
 
         }
@@ -168,7 +175,7 @@ const CreateRep = () => {
                         <div className="form-group row mb-2">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="buttonSecondary btn btn-primary">
-                                    <FormattedMessage id="project.global.buttons.register"/>
+                                    <FormattedMessage id="project.global.buttons.create.representative"/>
                                 </button>
                             </div>
                         </div>

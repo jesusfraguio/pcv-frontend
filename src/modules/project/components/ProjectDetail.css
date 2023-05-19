@@ -26,3 +26,10 @@
     font-size: 1.25rem;
     border: none;
 }
+
+.list-group-item.no-padding {
+    padding: 0 !important;
+}
+.list-group.no-padding {
+    padding: 0 !important;
+}

@@ -4,6 +4,7 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     participationsSearch: null,
+    projectVolunteers: null
 };
 
 const participationsSearch = (state = initialState.participationsSearch, action) => {
@@ -22,8 +23,25 @@ const participationsSearch = (state = initialState.participationsSearch, action)
     }
 }
 
+const projectVolunteers = (state = initialState.projectVolunteers, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.FIND_PROJECT_VOLUNTEERS_COMPLETED:
+            return action.projectVolunteers;
+
+        case actionTypes.CLEAR_PROJECT_VOLUNTEERS_SEARCH:
+            return initialState.projectVolunteers;
+
+        default:
+            return state;
+
+    }
+}
+
 const reducer = combineReducers({
-    participationsSearch
+    participationsSearch,
+    projectVolunteers
 });
 
 export default reducer;
