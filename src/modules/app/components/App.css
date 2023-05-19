@@ -107,7 +107,7 @@ a:any-link {
 }
 
 .name-link {
-    color: #BA55D3;
+    color: #E354FF;
     cursor: pointer;
 }
 
@@ -127,6 +127,7 @@ a:any-link {
     display: inline-block;
     border:none;
 }
+/*#1EE3A3 Color Triada El que tenia antes #1ec7cd*/
 .mainButton {
     background-color: #1ec7cd;
     color: #fff;

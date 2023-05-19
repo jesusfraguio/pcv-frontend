@@ -73,3 +73,6 @@ export const updateProfile = (user, onSuccess, onErrors) => dispatch =>
 
 export const changePassword = (id, oldPassword, newPassword, onSuccess, onErrors) => dispatch =>
     backend.userService.changePassword(id, oldPassword, newPassword, onSuccess, onErrors);
+
+export const seeVolunteerSummary = (id, onSuccess, onErrors) => dispatch =>
+    backend.userService.seeVolunteerSummaryProfile(id,onSuccess,onErrors);

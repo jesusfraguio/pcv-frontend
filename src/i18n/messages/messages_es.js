@@ -13,6 +13,7 @@ export default {
 
     'project.upload.uploadSignedCert': 'Subir archivo de compromiso firmado',
     'project.upload.downloadSignedCertByEntity': 'Descargar archivo de compromiso',
+    'project.upload.downloadDNI': 'Descargar DNI',
     'project.global.buttons.register':'Dar de alta',
     'project.global.buttons.cancel': 'Cancelar',
     'project.global.buttons.close': 'Cerrar',
@@ -68,6 +69,8 @@ export default {
     'project.users.SignUp.title': 'Registrarse',
     'project.users.UpdateProfile.title': 'Actualizar perfil',
     'project.users.MyProfile.title': 'Mi perfil',
+    'project.users.isVerified.true' : 'Verificado',
+    'project.users.isVerified.false' : 'No verificado',
 
     'project.header.whoWeAre': 'Quiénes somos',
     'project.header.whatAreWeDoing': 'Qué hacemos',
@@ -88,6 +91,7 @@ export default {
     'project.month.October':'Octubre',
     'project.month.November':'Noviembre',
     'project.month.December':'Diciembre',
+    'project.actions.sendEmail':'Enviar e-mail',
     'project.admin.CreateRepresentative.title': 'Datos del representante',
     'project.admin.CreateEntity.title': 'Datos de la entidad',
     'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente. El certificado es {certFile} y el logo es {logo}',

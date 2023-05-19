@@ -80,8 +80,8 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="asc">Ascending</Dropdown.Item>
-                            <Dropdown.Item eventKey="desc">Descending</Dropdown.Item>
+                            <Dropdown.Item eventKey="asc">{intl.formatMessage({id: 'project.global.sort.asc'})}</Dropdown.Item>
+                            <Dropdown.Item eventKey="desc">{intl.formatMessage({id: 'project.global.sort.desc'})}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col> }

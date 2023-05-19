@@ -3,7 +3,15 @@ import {Route, Routes, useLocation} from 'react-router-dom';
 
 import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
-import {Login, SignUp, UpdateProfile, ChangePassword, Logout, ValidateToken} from '../../users';
+import {
+    Login,
+    SignUp,
+    UpdateProfile,
+    ChangePassword,
+    Logout,
+    ValidateToken,
+    SeeVolunteerSummaryProfile
+} from '../../users';
 import users from '../../users';
 import SideBar from "./SideBar";
 import SideBarRepresentative from "./SideBarRepresentative";
@@ -67,6 +75,7 @@ const Body = () => {
                 <Route path="/allProjects" element={<SeeProjectsFilters/>} />
                 {loggedIn && <Route path="/projects/createMyParticipation-completed" element ={<CompletedProjectParticipation/>} />}
                 {loggedIn && <Route path="/myProjects" element = {<MyParticipationsResult/>} /> }
+                {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
             </Routes>
             </nav>
         </div>
