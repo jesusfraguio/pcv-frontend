@@ -27,7 +27,6 @@ const ProjectList = ({ projects }) => {
     };
 
     useEffect(() => {
-        console.log("entities:", entities);
         const projectsWithoutLogo = entities ? projects.filter(project => !entities[project.entityId]) : projects;
 
         // All projects have their logos cached

@@ -10,7 +10,8 @@ export default {
     'project.app.Home.IWantBeVolunteer':'Quiero ser voluntario',
 
     'project.common.ErrorDialog.title': 'Error',
-
+    'project.common.thereIsNot': 'No tiene',
+    'project.common.emailWillBeSent': 'Se enviará un e-mail en breve',
     'project.upload.uploadSignedCert': 'Subir archivo de compromiso firmado',
     'project.upload.downloadSignedCertByEntity': 'Descargar archivo de compromiso',
     'project.upload.downloadDNI': 'Descargar DNI',
@@ -22,6 +23,9 @@ export default {
     'project.global.buttons.back': 'Anterior',
     'project.global.buttons.save': 'Guardar',
     'project.global.buttons.interested':'Me interesa',
+    'project.global.buttons.create.Entity': 'Crear entidad',
+    'project.global.buttons.create.representative': 'Dar de alta',
+    'project.global.buttons.create.Project': 'Crear proyecto',
     'project.global.exceptions.NetworkError': 'Fallo de comunicación',
     'project.global.fields.url' :'URL',
     'project.global.fields.address':'Dirección',
@@ -94,7 +98,7 @@ export default {
     'project.actions.sendEmail':'Enviar e-mail',
     'project.admin.CreateRepresentative.title': 'Datos del representante',
     'project.admin.CreateEntity.title': 'Datos de la entidad',
-    'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente. El certificado es {certFile} y el logo es {logo}',
+    'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente.',
     'project.created.new.task': 'Nueva tarea',
     'project.common.add.title':'Añadir',
     'project.common.delete.title':'Eliminar',

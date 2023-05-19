@@ -41,7 +41,7 @@ const SeeVolunteerSummaryProfile = () => {
                     <ListGroup.Item>
                         <strong>{intl.formatMessage({id: "project.global.fields.email"})}</strong>
                         <br />
-                        {volunteerSummary.email ? volunteerSummary.email : "No tiene"}
+                        {volunteerSummary.email ? volunteerSummary.email : intl.formatMessage({id: "project.common.thereIsNot"})}
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <strong>{intl.formatMessage({id: "project.global.fields.phone"})}</strong>
