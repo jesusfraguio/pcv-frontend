@@ -17,6 +17,7 @@ const ProjectDetail = () => {
     const [projectData, setProjectData] = useState(null);
     const odsList = useSelector(selectors.getOds);
     const user = useSelector(users.selectors.getUser);
+    const isRepresentative = useSelector(users.selectors.isRepresentative);
     const [backendErrors, setBackendErrors] = useState(null);
 
     useEffect(() => {
@@ -104,15 +105,25 @@ const ProjectDetail = () => {
                                             </Card.Text>
                                         </ListGroup.Item>
                                     </ListGroup>
-                                    <Row className="mt-4">
-                                        <Col md={4}>
-                                            {/* Empty space to center button */}
-                                        </Col>
-                                        <Col md={4} className="d-flex justify-content-center">
-                                            <Button onClick={handleClick} className="addParticipation-button">{intl.formatMessage({ id: 'project.global.buttons.interested' })}</Button>
-                                        </Col>
-                                    </Row>
                                 </Col>
+                            </Row>
+                            <Row className="mt-4">
+                                <Col md={4}>
+                                    {/* Empty space to center button */}
+                                </Col>
+                                {
+                                    !isRepresentative ?
+                                    <Col md={4} className="d-flex justify-content-center">
+                                        <Button onClick={handleClick}
+                                                className="addParticipation-button">{intl.formatMessage({id: 'project.global.buttons.interested'})}</Button>
+                                    </Col>
+                                        :
+                                        <Col md={4} className="d-flex justify-content-center">
+                                            <Button
+                                                    className="recommend-button">{intl.formatMessage({id: 'project.global.buttons.recommendProject'})}</Button>
+                                        </Col>
+
+                                }
                             </Row>
                         </Card.Body>
                     </Card>

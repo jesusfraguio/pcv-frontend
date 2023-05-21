@@ -9,10 +9,9 @@ export const registerRepresentative = (user, onSuccess, onErrors) => {
         onErrors);
 }
 
-export const createEntity = (formData, onSuccess, onErrors) => {
+export const createEntity = (formData, onErrors) => {
     appFetch('/admin/createEntity',config('POST',formData),
         msg => {
-            onSuccess(msg);
         },
         onErrors);
 }

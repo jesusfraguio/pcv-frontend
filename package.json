@@ -48,6 +48,7 @@
     "react-scripts": "5.0.1",
     "react-bootstrap": "^2.7.2",
     "react-select": "^5.7.2",
-    "react-windowed-select": "^5.1.0"
+    "react-windowed-select": "^5.1.0",
+    "react-use": "^17.4.0"
   }
 }

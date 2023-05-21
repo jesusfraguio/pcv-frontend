@@ -17,3 +17,10 @@ export const findMyProjectVolunteers = ({projectId, page, size},
     path += size ? `&size=${size}` : "";
     appFetch(path, config('GET'), onSuccess);
 }
+
+export const findAllPendingParticipations = ({page, size}, onSuccess) => {
+    let path = `/participation/getAllPendingParticipations`;
+    path +=`?page=${page}`;
+    path += size ? `&size=${size}` : "";
+    appFetch(path, config('GET'), onSuccess);
+}
