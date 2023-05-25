@@ -57,6 +57,16 @@ const CreateEntity = () => {
             setShortDescription('');
             setAddress('');
             setPhone('');
+            if(form.classList.contains('was-validated')) {
+                form.classList.remove('was-validated');
+            }
+            if (photoInput) {
+                photoInput.value = '';
+            }
+
+            if (cert) {
+                cert.value = '';
+            }
 
         } else {
 

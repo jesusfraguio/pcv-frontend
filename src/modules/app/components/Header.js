@@ -5,6 +5,7 @@ import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 import users from '../../users';
 import admin from '../../admin';
+import NotificationBell from "./NotificationBell";
 
 const Header = () => {
 
@@ -12,7 +13,7 @@ const Header = () => {
     const myEntityName = useSelector(admin.selectors.getMyEntity);
     const intl = useIntl();
     return (
-    <Navbar bg="light" expand="lg">
+    <Navbar style={{backgroundColor: '#F5F5F5', boxShadow: '0px 2px 15px rgba(0, 0, 0, 0.1)'}} expand="lg">
         <Navbar.Brand style={{ fontSize: '1.4rem', fontWeight: 'lighter', marginLeft: '5px'}} href="/"> Plataforma Coruñesa de Voluntariado</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -26,13 +27,23 @@ const Header = () => {
                 <Nav.Link href="/main/2030Agenda" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
                     <FormattedMessage id="project.header.2030Agenda"/>
                 </Nav.Link>
+                {userName && !myEntityName &&
                 <Nav.Link href="/myProjects" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
+                    <FormattedMessage id="project.header.myProjects"/>
+                </Nav.Link>
+                }
+                <Nav.Link href="/" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
                     <FormattedMessage id="project.header.projects"/>
                 </Nav.Link>
                 <Nav.Link href="/entities/seeEntities" style={{ backgroundColor: '#1ec7cd', color: '#fff', padding: '6px 12px', borderRadius: '4px', marginRight: '15px' }}>
                     <FormattedMessage id="project.header.entities"/>
                 </Nav.Link>
             </Nav>
+            {myEntityName &&
+                <Nav className="me-auto">
+                    <NotificationBell />
+                </Nav>
+            }
             <Nav>
                 {userName ? (
                     <NavDropdown title={userName} id="user-dropdown">

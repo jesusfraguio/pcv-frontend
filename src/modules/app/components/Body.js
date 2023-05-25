@@ -21,9 +21,8 @@ import {useDispatch} from 'react-redux';
 import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsResult} from "../../project";
 import admin from "../../admin";
 import CompletedProjectParticipation from "../../project/components/CompletedProjectParticipation";
-import {MyParticipationsResult} from "../../participation";
+import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
-import MyProjectVolunteersResult from "../../participation/components/MyProjectVolunteersResult";
 
 const Body = () => {
 
@@ -76,6 +75,7 @@ const Body = () => {
                 {loggedIn && <Route path="/projects/createMyParticipation-completed" element ={<CompletedProjectParticipation/>} />}
                 {loggedIn && <Route path="/myProjects" element = {<MyParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
+                {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
             </Routes>
             </nav>
         </div>

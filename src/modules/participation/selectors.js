@@ -5,3 +5,6 @@ export const getParticipationSearch = state =>
 
 export const getProjectVolunteers = state =>
     getModuleState(state)?.projectVolunteers;
+
+export const getPendingParticipations = state =>
+    getModuleState(state)?.pendingParticipations;

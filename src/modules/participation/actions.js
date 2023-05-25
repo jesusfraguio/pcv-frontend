@@ -36,3 +36,30 @@ export const previousFindProjectVolunteersResultPage = criteria =>
 
 export const nextFindProjectVolunteersResultPage = criteria =>
     findProjectVolunteers({ ...criteria, page: criteria.page + 1 });
+
+
+// My entity's pending participations
+const findPendingParticipationsCompleted = pendingParticipations => ({
+    type: actionTypes.FIND_PENDING_PARTICIPATIONS_COMPLETED,
+    pendingParticipations
+});
+
+export const findAllPendingParticipations = criteria => dispatch => {
+    backend.representativeService.findAllPendingParticipations(criteria,
+        result => dispatch(findPendingParticipationsCompleted({ criteria, result })));
+}
+
+export const previousFindPendingParticipationsResultPage = criteria =>
+    findAllPendingParticipations({ ...criteria, page: criteria.page - 1 });
+
+export const nextFindPendingParticipationsResultPage = criteria =>
+    findAllPendingParticipations({ ...criteria, page: criteria.page + 1 });
+
+export const updateParticipation = (id, newStatus, onSuccess, onErrors) => {
+    backend.representativeService.updateParticipationStatus(id,newStatus, onSuccess);
+}
+
+export const removeParticipation = (id) => ({
+    type: actionTypes.REMOVE_PARTICIPATION,
+    id: id
+});

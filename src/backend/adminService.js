@@ -12,7 +12,7 @@ export const registerRepresentative = (user, onSuccess, onErrors) => {
 export const createEntity = (formData, onSuccess, onErrors) => {
     appFetch('/admin/createEntity',config('POST',formData),
         msg => {
-            onSuccess(msg);
+        onSuccess(msg)
         },
         onErrors);
 }

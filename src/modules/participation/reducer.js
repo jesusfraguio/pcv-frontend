@@ -4,7 +4,8 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     participationsSearch: null,
-    projectVolunteers: null
+    projectVolunteers: null,
+    pendingParticipations: null
 };
 
 const participationsSearch = (state = initialState.participationsSearch, action) => {
@@ -39,9 +40,23 @@ const projectVolunteers = (state = initialState.projectVolunteers, action) => {
     }
 }
 
+const pendingParticipations = (state = initialState.pendingParticipations, action) => {
+    switch (action.type){
+        case actionTypes.FIND_PENDING_PARTICIPATIONS_COMPLETED:
+            return action.pendingParticipations;
+
+        case actionTypes.REMOVE_PARTICIPATION:
+            return initialState.pendingParticipations.result.items.filter(participation => participation.id !== action.id);
+
+        default:
+            return state;
+    }
+}
+
 const reducer = combineReducers({
     participationsSearch,
-    projectVolunteers
+    projectVolunteers,
+    pendingParticipations
 });
 
 export default reducer;
