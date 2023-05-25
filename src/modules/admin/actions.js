@@ -21,8 +21,8 @@ export const createRepresentative = (user, onSuccess, onErrors) => dispatch =>
         onErrors
 );
 
-export const createEntity = (formData, onErrors) => dispatch =>
-    backend.adminService.createEntity(formData,
+export const createEntity = (formData, onSuccess, onErrors) => dispatch =>
+    backend.adminService.createEntity(formData, onSuccess,
         onErrors
     );
 

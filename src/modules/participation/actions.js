@@ -54,3 +54,12 @@ export const previousFindPendingParticipationsResultPage = criteria =>
 
 export const nextFindPendingParticipationsResultPage = criteria =>
     findAllPendingParticipations({ ...criteria, page: criteria.page + 1 });
+
+export const updateParticipation = (id, newStatus, onSuccess, onErrors) => {
+    backend.representativeService.updateParticipationStatus(id,newStatus, onSuccess);
+}
+
+export const removeParticipation = (id) => ({
+    type: actionTypes.REMOVE_PARTICIPATION,
+    id: id
+});

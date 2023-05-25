@@ -45,6 +45,9 @@ const pendingParticipations = (state = initialState.pendingParticipations, actio
         case actionTypes.FIND_PENDING_PARTICIPATIONS_COMPLETED:
             return action.pendingParticipations;
 
+        case actionTypes.REMOVE_PARTICIPATION:
+            return initialState.pendingParticipations.result.items.filter(participation => participation.id !== action.id);
+
         default:
             return state;
     }
