@@ -40,7 +40,7 @@ const MyParticipationsResult = () => {
         }
     }, [sortValue,sortOrder]);
 
-    if (!projectVolunteers) {
+    if (!projectVolunteers || !projectVolunteers.result) {
         return null;
     }
 

@@ -29,7 +29,7 @@ const PendingParticipations = ({ participations}) => {
     const handleSchedule = (id) => {
         dispatch(participationAction.updateParticipation(id,"SCHEDULED",
             message => {
-                setSuccess('OK');
+                setSuccess(intl.formatMessage({id: "project.global.message.schedule.ok"}));
                 setShowModal(true);
                 dispatch(participationAction.removeParticipation(id));
             }
@@ -38,7 +38,7 @@ const PendingParticipations = ({ participations}) => {
     const handleReject = (id) => {
         dispatch(participationAction.updateParticipation(id,"REJECTED",
             message => {
-                setSuccess('OK');
+                setSuccess(intl.formatMessage({id: "project.global.message.reject.ok"}));
                 setShowModal(true);
                 dispatch(participationAction.removeParticipation(id));
             }

@@ -1,16 +1,25 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Link, useNavigate} from 'react-router-dom';
 
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import {Button, Dropdown, Row, Col} from "react-bootstrap";
+import {Button, Dropdown, Row, Col, Modal} from "react-bootstrap";
 import './Participations.css';
+import * as participationAction from "../actions";
+import {Success} from "../../common";
 
 const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy, orderType}) => {
 
     const intl = useIntl();
+
+    const dispatch = useDispatch();
+
+    const [showModal, setShowModal] = useState(false);
+    const [success,setSuccess] = useState('');
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const deletingId = useRef(null);
 
     const getOrderTypeDisplay = (orderType) => {
         switch(orderType) {
@@ -56,6 +65,50 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
         }
     }
 
+    const handleApprove = (id) => {
+        dispatch(participationAction.updateParticipation(id,"APPROVED",
+            message => {
+                setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
+                setShowModal(true);
+                dispatch(participationAction.updateProjectVolunteers(id, "APPROVED"));
+            }
+        ));
+    };
+    const handleAccept = (id) => {
+        dispatch(participationAction.updateParticipation(id,"ACCEPTED",
+            message => {
+                setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
+                setShowModal(true);
+                dispatch(participationAction.updateProjectVolunteers(id, "ACCEPTED"));
+            }
+        ));
+    };
+
+    const confirmDelete = () => {
+        setShowConfirmationModal(false);
+        dispatch(participationAction.updateParticipation(deletingId.value,"DELETED",
+            message => {
+                setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
+                setShowModal(true);
+                dispatch(participationAction.updateProjectVolunteers(deletingId.value, "DELETED"));
+                deletingId.value = null;
+            }
+        ));
+    };
+    const handleDelete = (id) => {
+        setShowConfirmationModal(true);
+        deletingId.value = id;
+    };
+    const handleReject = (id) => {
+        dispatch(participationAction.updateParticipation(id,"REJECTED",
+            message => {
+                setSuccess(intl.formatMessage({id: "project.global.message.reject.ok"}));
+                setShowModal(true);
+                dispatch(participationAction.updateProjectVolunteers(id, "REJECTED"));
+            }
+        ));
+    };
+
     return (
         <div>
             <Row style={{ justifyContent: 'flex-end' }}>
@@ -86,6 +139,10 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                     </Dropdown>
                 </Col> }
             </Row>
+            {
+                showModal &&
+                    <Success message = {success}  onClose= {() => { setSuccess(''); setShowModal(false); }}/>
+            }
             <Table>
                 <thead>
                 <tr>
@@ -109,13 +166,37 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                         <td className={`status-${participation.status.toLowerCase()}`}>{getMessage(participation.status)}</td>
                         <td style={{border: 'none'}}>
                             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-                                {participation.status === 'APPROVED' &&
-                                    <Button variant="primary" className="mainButton">
-                                        {intl.formatMessage({id : 'project.upload.uploadSignedCert'})}</Button>
+                                {showConfirmationModal &&
+                                    <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Confirmation</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>Are you sure you want to delete this participation?</Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>Cancel</Button>
+                                            <Button variant="danger" onClick={() => confirmDelete()}>Confirm Delete</Button>
+                                        </Modal.Footer>
+                                    </Modal>
                                 }
                                 {participation.status === 'APPROVED' &&
-                                    <Button variant="primary" className="mainButton">
-                                        {intl.formatMessage({id : 'project.upload.downloadSignedCertByEntity'})}</Button>
+                                    <Button variant="primary" className="mainButton" onClick={() => handleAccept(participation.id)}>
+                                        {intl.formatMessage({id : 'project.global.buttons.accept'})}</Button>
+                                }
+                                {participation.status === 'APPROVED' &&
+                                    <Button variant="secondary" className="mainButton" onClick={() => handleDelete(participation.id)} style={{backgroundColor: '#CC4233'}}>
+                                        {intl.formatMessage({id : 'project.global.buttons.delete'})}</Button>
+                                }
+                                {participation.status === 'SCHEDULED' &&
+                                    <Button variant="primary" className="mainButton" onClick={() => handleApprove(participation.id)}>
+                                        {intl.formatMessage({id : 'project.global.buttons.approve'})}</Button>
+                                }
+                                {participation.status === 'SCHEDULED' &&
+                                    <Button variant="primary" className="mainButton" onClick={() => handleReject(participation.id)} style={{backgroundColor: '#CC4233'}}>
+                                        {intl.formatMessage({id : 'project.global.buttons.reject'})}</Button>
+                                }
+                                {participation.status === 'ACCEPTED' &&
+                                    <Button variant="secondary" className="mainButton" onClick={() => handleDelete(participation.id)} style={{backgroundColor: '#CC4233'}}>
+                                        {intl.formatMessage({id : 'project.global.buttons.delete'})}</Button>
                                 }
                             </div>
                         </td>

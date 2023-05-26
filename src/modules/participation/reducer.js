@@ -31,6 +31,19 @@ const projectVolunteers = (state = initialState.projectVolunteers, action) => {
         case actionTypes.FIND_PROJECT_VOLUNTEERS_COMPLETED:
             return action.projectVolunteers;
 
+        case actionTypes.UPDATE_PROJECT_VOLUNTEERS:
+            return {
+                ...state,
+                result: {
+                    ...state.result,
+                    items: state.result.items.map(item => {
+                        if (item.id === action.payload.id) {
+                            return { ...item, status: action.payload.status };
+                        }
+                        return item;
+                    })
+                }
+            };
         case actionTypes.CLEAR_PROJECT_VOLUNTEERS_SEARCH:
             return initialState.projectVolunteers;
 
@@ -46,7 +59,13 @@ const pendingParticipations = (state = initialState.pendingParticipations, actio
             return action.pendingParticipations;
 
         case actionTypes.REMOVE_PARTICIPATION:
-            return initialState.pendingParticipations.result.items.filter(participation => participation.id !== action.id);
+            return {
+                ...state,
+                result: {
+                    ...state.result,
+                    items: state.result.items.filter(participation => participation.id !== action.id)
+                }
+            };
 
         default:
             return state;
