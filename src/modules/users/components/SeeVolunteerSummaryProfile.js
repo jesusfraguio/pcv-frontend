@@ -67,10 +67,31 @@ const SeeVolunteerSummaryProfile = () => {
                         <FaEnvelope style={{ marginRight: '5px', fontSize: '32px'}}/>
                         <span style={{ marginLeft: '5px' }}>{intl.formatMessage({id: "project.actions.sendEmail"})}</span>
                     </Button>}
-                <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
+                {volunteerSummary.hasCertFile ?
+                    <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
                     {intl.formatMessage({id: "project.upload.downloadSignedCertByEntity"})}</Button>
-                <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
-                    {intl.formatMessage({id: "project.upload.downloadDNI"})}</Button>
+                : <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
+                        {intl.formatMessage({id: "project.upload.uploadSignedCert"})}</Button>}
+
+                {volunteerSummary.verified ?
+                    <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
+                        {intl.formatMessage({id: "project.upload.downloadDNI"})}</Button>
+                    : <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
+                        {intl.formatMessage({id: "project.upload.uploadDNI"})}</Button>
+                }
+                {volunteerSummary.verified && (
+                    <>
+                        {volunteerSummary.hasHarassmentFile ? (
+                            <Button variant="primary" size="sm" style={{ marginRight: '10px' }} className="mainButton">
+                                {intl.formatMessage({ id: "project.upload.downloadHarassmentFile" })}
+                            </Button>
+                        ) : (
+                            <Button variant="primary" size="sm" style={{ marginRight: '10px' }} className="mainButton">
+                                {intl.formatMessage({ id: "project.upload.uploadHarassmentFile" })}
+                            </Button>
+                        )}
+                    </>
+                )}
             </Card.Footer>
         </Card>
     );

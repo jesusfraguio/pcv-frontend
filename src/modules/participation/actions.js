@@ -25,6 +25,11 @@ const findProjectVolunteersCompleted = projectVolunteers => ({
     projectVolunteers
 });
 
+export const updateProjectVolunteers = (id, status) => ({
+    type: actionTypes.UPDATE_PROJECT_VOLUNTEERS,
+    payload: { id, status }
+});
+
 export const findProjectVolunteers = criteria => dispatch => {
     backend.representativeService.findMyProjectVolunteers(criteria,
         result => dispatch(findProjectVolunteersCompleted({ criteria, result })));
