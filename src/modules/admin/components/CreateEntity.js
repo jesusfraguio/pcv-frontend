@@ -47,11 +47,26 @@ const CreateEntity = () => {
                 formData.append('cert', cert.files[0], cert.files[0].name);
             //}
             dispatch(actions.createEntity(formData,
-                message => setSuccess(intl.formatMessage({ id: 'project.created.entity.success' }, { name: message.name,
-                    certFile: message.certName ? message.certName : 'No se subió el certificado',
-                    logo: message.logoName ? message.logoName : 'No se subió el logo',  })),
+                message => setSuccess(intl.formatMessage({ id: 'project.created.entity.success' }, { name: message.name})),
                 errors => setBackendErrors(errors),
             ));
+
+            setEmail('');
+            setName('');
+            setUrl('');
+            setShortDescription('');
+            setAddress('');
+            setPhone('');
+            if(form.classList.contains('was-validated')) {
+                form.classList.remove('was-validated');
+            }
+            if (photoInput) {
+                photoInput.value = '';
+            }
+
+            if (cert) {
+                cert.value = '';
+            }
 
         } else {
 
@@ -178,7 +193,7 @@ const CreateEntity = () => {
                                 <FormattedMessage id="project.global.fields.photo"/>
                             </label>
                             <div className="col-md-4">
-                                <input type="file" id="fileLogo" name="fileLogo" accept="image/*"/>
+                                <input type="file" id="fileLogo" name="fileLogo" accept="image/*" required/>
                             </div>
                         </div>
                         <div className="form-group row mb-2">
@@ -186,13 +201,13 @@ const CreateEntity = () => {
                                 <FormattedMessage id="project.global.fields.agreement.file"/>
                             </label>
                             <div className="col-md-4">
-                                <input type="file" id="agreementCert" name="agreementCert" accept=".pdf"/>
+                                <input type="file" id="agreementCert" name="agreementCert" accept=".pdf" required/>
                             </div>
                         </div>
                         <div className="form-group row mb-2">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="buttonSecondary btn btn-primary">
-                                    <FormattedMessage id="project.global.buttons.register"/>
+                                    <FormattedMessage id="project.global.buttons.create.Entity"/>
                                 </button>
                             </div>
                         </div>

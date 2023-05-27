@@ -47,3 +47,10 @@ export const findMyParticipations = ({page, size},
     appFetch(path, config('GET'), onSuccess);
 
 }
+
+export const findMyEntityProjects = ({page, size},
+                                     onSuccess) => {
+    let path = `/projects/myEntityProjects?page=${page}`;
+    path += size ? `&size=${size}` : "";
+    appFetch(path, config('GET'), onSuccess);
+}

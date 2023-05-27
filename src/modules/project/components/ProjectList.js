@@ -3,7 +3,7 @@ import {Errors, Success} from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import {useDispatch, useSelector} from "react-redux";
-import {Card, Col, Row, CardGroup} from "react-bootstrap";
+import {Card, Col, Row, CardGroup, Spinner} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import './Project.css';
 
@@ -27,7 +27,6 @@ const ProjectList = ({ projects }) => {
     };
 
     useEffect(() => {
-        console.log("entities:", entities);
         const projectsWithoutLogo = entities ? projects.filter(project => !entities[project.entityId]) : projects;
 
         // All projects have their logos cached
@@ -45,7 +44,7 @@ const ProjectList = ({ projects }) => {
 
 
     if (numberOfEntities===0 || numberOfEntities < numberOfEntities+projectWithoutLogoLength) {
-        return <div>Loading...</div>;
+        return <Spinner animation="border" role="status"> </Spinner>;
     }
 
     return (

@@ -10,8 +10,12 @@
     color: #90EE90;
 }
 
-.name-link {
-    color: #BA55D3;
-    cursor: pointer;
+.status-scheduled {
+    color: #D4B50D
 }
-
+.status-rejected {
+    color: #F6581B
+}
+.status-deleted {
+    color: #FF1D00
+}

@@ -3,7 +3,15 @@ import {Route, Routes, useLocation} from 'react-router-dom';
 
 import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
-import {Login, SignUp, UpdateProfile, ChangePassword, Logout, ValidateToken} from '../../users';
+import {
+    Login,
+    SignUp,
+    UpdateProfile,
+    ChangePassword,
+    Logout,
+    ValidateToken,
+    SeeVolunteerSummaryProfile
+} from '../../users';
 import users from '../../users';
 import SideBar from "./SideBar";
 import SideBarRepresentative from "./SideBarRepresentative";
@@ -13,7 +21,8 @@ import {useDispatch} from 'react-redux';
 import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsResult} from "../../project";
 import admin from "../../admin";
 import CompletedProjectParticipation from "../../project/components/CompletedProjectParticipation";
-import {MyParticipationsResult} from "../../participation";
+import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
+import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 
 const Body = () => {
 
@@ -58,11 +67,15 @@ const Body = () => {
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
+                {isRepresentative && <Route path="/projects-list" element={<SeeMyEntityProjects/>}/> }
+                {isRepresentative && <Route path="/project/myVolunteers/:projectId/:name" element = {<MyProjectVolunteersResult/>}/> }
                 <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
                 <Route path="/projects/:projectId" element={<ProjectDetail/>} />
                 <Route path="/allProjects" element={<SeeProjectsFilters/>} />
                 {loggedIn && <Route path="/projects/createMyParticipation-completed" element ={<CompletedProjectParticipation/>} />}
                 {loggedIn && <Route path="/myProjects" element = {<MyParticipationsResult/>} /> }
+                {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
+                {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
             </Routes>
             </nav>
         </div>

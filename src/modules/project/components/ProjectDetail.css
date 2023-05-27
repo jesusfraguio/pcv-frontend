@@ -26,3 +26,18 @@
     font-size: 1.25rem;
     border: none;
 }
+.recommend-button {
+    background-color: #1ec7cd;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    border: none;
+}
+
+.list-group-item.no-padding {
+    padding: 0 !important;
+}
+.list-group.no-padding {
+    padding: 0 !important;
+}

@@ -142,15 +142,19 @@ const CreateProject = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row mb-2">
+                        <div className="form-group row mb-2" style={{ minHeight: '100%', height: 'auto' }}>
                             <label htmlFor="longDescription" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.longDescription"/>
                             </label>
-                            <div className="col-md-4">
-                                <input type="text" id="longDescription" className="form-control"
-                                       value={longDescription}
-                                       onChange={e => setLongDescription(e.target.value)}
-                                       required/>
+                            <div className="col-md-9">
+                                <textarea
+                                    id="longDescription"
+                                    className="form-control"
+                                    value={longDescription}
+                                    onChange={e => setLongDescription(e.target.value)}
+                                    required
+                                    style={{ minHeight: '100px', height: 'auto', resize: 'none' }}
+                                />
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required'/>
                                 </div>
@@ -312,7 +316,7 @@ const CreateProject = () => {
                         <div className="form-group row mb-2">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="buttonSecondary btn btn-primary">
-                                    <FormattedMessage id="project.global.buttons.register"/>
+                                    <FormattedMessage id="project.global.buttons.create.Project"/>
                                 </button>
                             </div>
                         </div>
