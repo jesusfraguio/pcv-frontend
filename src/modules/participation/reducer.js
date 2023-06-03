@@ -18,6 +18,20 @@ const participationsSearch = (state = initialState.participationsSearch, action)
         case actionTypes.CLEAR_PARTICIPATIONS_SEARCH:
             return initialState.participationsSearch;
 
+        case actionTypes.UPDATE_MY_PARTICIPATION_STATUS:
+            return {
+                ...state,
+                result: {
+                    ...state.result,
+                    items: state.result.items.map(item => {
+                        if (item.id === action.payload.id) {
+                            return { ...item, status: action.payload.status };
+                        }
+                        return item;
+                    })
+                }
+            };
+
         default:
             return state;
 

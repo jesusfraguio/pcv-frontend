@@ -1,3 +1,4 @@
+export const UPDATE_MY_PARTICIPATION_STATUS = "participations/update-my-participation-status";
 export const FIND_PENDING_PARTICIPATIONS_COMPLETED = "participations/find-all-pending-participations-completed";
 export const REMOVE_PARTICIPATION = 'participations/removeParticipation';
 export const CLEAR_PROJECT_VOLUNTEERS_SEARCH = "participations/myProject/clear";

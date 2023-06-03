@@ -8,16 +8,19 @@ import Table from 'react-bootstrap/Table';
 import {Button, Dropdown, Row, Col, Modal} from "react-bootstrap";
 import './Participations.css';
 import * as participationAction from "../actions";
-import {Success} from "../../common";
+import {Errors, Success} from "../../common";
 
 const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy, orderType}) => {
 
     const intl = useIntl();
 
     const dispatch = useDispatch();
+    const participationId = useRef();
 
     const [showModal, setShowModal] = useState(false);
-    const [success,setSuccess] = useState('');
+    const [showUploadCertModal, setShowUploadCertModal] = useState(false);
+    const [success,setSuccess] = useState(null);
+    const [failure,setFailure] = useState(null);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const deletingId = useRef(null);
 
@@ -80,8 +83,41 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                 setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
                 setShowModal(true);
                 dispatch(participationAction.updateProjectVolunteers(id, "ACCEPTED"));
+            },
+            errors => {
+            debugger;
+                handleUploadSignedCert(id);
             }
         ));
+    };
+    const handleUploadSignedCert = (id) => {
+        if(!showUploadCertModal) {
+            participationId.current = id;
+            setShowUploadCertModal(true);
+        }
+
+        else{
+            const cert = document.getElementById('signedUploadCert');
+            const formData = new FormData();
+            formData.set('participationNumber',participationId.current);
+            formData.append('cert', cert.files[0], cert.files[0].name);
+            participationAction.uploadMyVolunteerSignedCert(formData,
+                success => {
+                    setShowUploadCertModal(false);
+                    dispatch(participationAction.updateProjectVolunteers(participationId.current,"ACCEPTED"));
+                    setTimeout(() => {
+                        setSuccess(intl.formatMessage({id: "project.upload.uploadSignedCertFull.success"}));
+                        setShowModal(true);
+                    }, 600);
+                },
+                failure => {
+                    setShowUploadCertModal(false);
+                    setTimeout(() => {
+                        setFailure(intl.formatMessage({id: "project.global.errors"}));
+                    }, 600);
+                }
+            );
+        }
     };
 
     const confirmDelete = () => {
@@ -111,6 +147,7 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
 
     return (
         <div>
+            <Errors errors={failure} onClose={() => setFailure(null)}/>
             <Row style={{ justifyContent: 'flex-end' }}>
                 <Col xs="auto">
                     <Dropdown onSelect={(key) => setOrderBy(key)}>
@@ -143,6 +180,20 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                 showModal &&
                     <Success message = {success}  onClose= {() => { setSuccess(''); setShowModal(false); }}/>
             }
+            {showUploadCertModal && <Modal show={showUploadCertModal} onHide={() => setShowUploadCertModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{intl.formatMessage({id: 'project.upload.uploadSignedCertRepresentativeFull'})}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <input type="file" id="signedUploadCert" onChange={handleUploadSignedCert} accept=".pdf" />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowUploadCertModal(false)}>
+                        {intl.formatMessage({id: 'project.global.buttons.close'})}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            }
             <Table>
                 <thead>
                 <tr>
@@ -169,12 +220,14 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                                 {showConfirmationModal &&
                                     <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)}>
                                         <Modal.Header closeButton>
-                                            <Modal.Title>Confirmation</Modal.Title>
+                                            <Modal.Title>{intl.formatMessage({id: 'project.global.confirmation'})}</Modal.Title>
                                         </Modal.Header>
-                                        <Modal.Body>Are you sure you want to delete this participation?</Modal.Body>
+                                        <Modal.Body>{intl.formatMessage({id: 'project.participation.sureToDeleteParticipation'})}</Modal.Body>
                                         <Modal.Footer>
-                                            <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>Cancel</Button>
-                                            <Button variant="danger" onClick={() => confirmDelete()}>Confirm Delete</Button>
+                                            <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
+                                                {intl.formatMessage({id:'project.global.buttons.cancel'})}</Button>
+                                            <Button variant="danger" onClick={() => confirmDelete()}>
+                                                {intl.formatMessage({id:'project.global.buttons.participation.confirmDelete'})}</Button>
                                         </Modal.Footer>
                                     </Modal>
                                 }
