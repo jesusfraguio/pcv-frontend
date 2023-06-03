@@ -27,8 +27,8 @@ export const findAllPendingParticipations = ({page, size}, onSuccess) => {
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const updateParticipationStatus = (id, newStatus, onSuccess) => {
+export const updateParticipationStatus = (id, newStatus, onSuccess, onErrors) => {
     let path = `/participation/`;
     path += id;
-    appFetch(path,config('PATCH', newStatus), onSuccess);
+    appFetch(path,config('PATCH', newStatus), onSuccess, onErrors);
 }

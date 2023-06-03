@@ -1,6 +1,23 @@
 import backend from "../../backend";
 import * as actionTypes from './actionTypes';
 
+export const uploadMySignedCert = (formData, onSuccess, onErrors) =>
+    backend.projectService.uploadMySignedCert(formData,
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors
+    );
+
+export const uploadMyVolunteerSignedCert = (formData, onSuccess, onErrors) =>
+    backend.projectService.uploadMyVolunteerSignedCert(formData,
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors
+    );
+
+
 const findMyParticipationsCompleted = participationsSearch => ({
     type: actionTypes.FIND_MYPARTICIPATIONS_COMPLETED,
     participationsSearch
@@ -29,6 +46,11 @@ export const updateProjectVolunteers = (id, status) => ({
     type: actionTypes.UPDATE_PROJECT_VOLUNTEERS,
     payload: { id, status }
 });
+
+export const updateMyParticipationStatus = (id, status) => ({
+    type: actionTypes.UPDATE_MY_PARTICIPATION_STATUS,
+    payload: {id, status }
+})
 
 export const findProjectVolunteers = criteria => dispatch => {
     backend.representativeService.findMyProjectVolunteers(criteria,
@@ -61,7 +83,7 @@ export const nextFindPendingParticipationsResultPage = criteria =>
     findAllPendingParticipations({ ...criteria, page: criteria.page + 1 });
 
 export const updateParticipation = (id, newStatus, onSuccess, onErrors) => {
-    backend.representativeService.updateParticipationStatus(id,newStatus, onSuccess);
+    backend.representativeService.updateParticipationStatus(id,newStatus, onSuccess, onErrors);
 }
 
 export const removeParticipation = (id) => ({
