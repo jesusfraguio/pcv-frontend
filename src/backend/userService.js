@@ -45,6 +45,9 @@ export const updateProfile = (user, onSuccess, onErrors) =>
     appFetch(`/users/${user.id}`, config('PUT', user),
         onSuccess, onErrors);
 
+export const updateMyDoc = (formData,id,onSuccess, onErrors) =>
+    appFetch(`/users/update-my-doc/${id}`,  config('POST', formData), onSuccess, onErrors);
+
 export const changePassword = (id, oldPassword, newPassword, onSuccess,
     onErrors) =>
     appFetch(`/users/${id}/changePassword`, 

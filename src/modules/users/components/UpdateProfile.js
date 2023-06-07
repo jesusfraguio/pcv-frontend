@@ -1,11 +1,12 @@
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import {Errors} from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
+import {FormGroup} from "react-bootstrap";
 
 const UpdateProfile = () => {
 
@@ -80,7 +81,7 @@ const UpdateProfile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row">
+                        <FormGroup className="form-group row">
                             <label htmlFor="email" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.email"/>
                             </label>
@@ -93,10 +94,15 @@ const UpdateProfile = () => {
                                     <FormattedMessage id='project.global.validator.email'/>
                                 </div>
                             </div>
-                        </div>
+                        </FormGroup>
+
+                        <FormGroup className="mb-2">
+                            <Link to="/users/update-my-doc"><FormattedMessage id ="project.user.doc.title"/></Link>
+                        </FormGroup>
+
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-1">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="buttonSecondary btn btn-primary">
                                     <FormattedMessage id="project.global.buttons.save"/>
                                 </button>
                             </div>
