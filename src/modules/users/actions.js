@@ -71,6 +71,9 @@ export const updateProfile = (user, onSuccess, onErrors) => dispatch =>
         },
         onErrors);
 
+export const updateMyDoc = (formData, id, onSuccess, onErrors) =>
+    backend.userService.updateMyDoc(formData,id,onSuccess,onErrors);
+
 export const changePassword = (id, oldPassword, newPassword, onSuccess, onErrors) => dispatch =>
     backend.userService.changePassword(id, oldPassword, newPassword, onSuccess, onErrors);
 

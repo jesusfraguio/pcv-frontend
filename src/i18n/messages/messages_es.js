@@ -31,6 +31,10 @@ export default {
     'project.global.message.schedule.ok': 'Se ha programado la entrevista correctamente',
     'project.global.buttons.back': 'Anterior',
     'project.global.buttons.save': 'Guardar',
+    'project.global.agreement': 'Acuerdo',
+    'project.user.doc.title':'Actualizar mi documentación',
+    'project.global.why.cert.harassmentCert': 'Necesitamos este documento si en el proyecto hay menores, puede descargarlo en {link}',
+    'project.global.cert.harassmentCert.link': 'https://sede.mjusticia.gob.es/es/tramites/certificado-registro-central',
     'project.global.buttons.interested':'Me interesa',
     'project.global.buttons.create.Entity': 'Crear entidad',
     'project.global.buttons.create.representative': 'Dar de alta',
@@ -49,6 +53,8 @@ export default {
     'project.global.fields.address':'Dirección',
     'project.global.fields.photo':'Foto',
     'project.global.fields.agreement.file':'Archivo de compromiso (sin firmar)',
+    'project.global.fields.cert.harassmentCert': 'Certificado de delitos sexuales',
+    'project.global.fields.dni': 'Copia del DNI',
     'project.global.fields.shortDescription' :'Descripción breve',
     'project.global.fields.shortDescription.title':'Descripción',
     'project.global.fields.date': 'Fecha',
@@ -145,5 +151,17 @@ export default {
     'project.status.Accepted': 'Aceptada',
     'project.status.Scheduled': 'Entrevista programada',
     'project.status.Rejected': 'Rechazada',
-    'project.status.Deleted': 'Eliminada'
+    'project.status.Deleted': 'Eliminada',
+    'project.law.verifyAgreement': 'Yo, {name} autorizo a compartir mi documentación con las entidades que colaboro con el fin de participar en los proyectos y declaro que he leído la autorización',
+    'project.law.agreement':'Autorizo a https://pcv-front.onrender.com/, en adelante denominado "el Responsable", así como a las entidades colaboradoras que forman parte de este sitio web, en adelante denominadas "las Entidades Colaboradoras", a tratar los datos personales que he proporcionado voluntariamente a través de este sitio web y a cederlos entre ellas, de conformidad con lo establecido en la legislación vigente en materia de protección de datos personales.\n' +
+        '\n' +
+        'El tratamiento de los datos personales se llevará a cabo con la finalidad de realizar las actividades propias del sitio web https://pcv-front.onrender.com/, las cuales incluyen participar en proyectos de voluntariado, gestionar y administrar voluntarios. Además, el Responsable y las Entidades Colaboradoras podrán utilizar mi DNI, certificado de delitos y fotografía, cuando sea necesario para cumplir con los fines mencionados anteriormente.\n' +
+        '\n' +
+        'Declaro que los datos personales proporcionados son verídicos, completos y actualizados, y me comprometo a informar al Responsable y a las Entidades Colaboradoras sobre cualquier modificación o actualización de los mismos.\n' +
+        '\n' +
+        'El Responsable y las Entidades Colaboradoras garantizarán la confidencialidad de los datos personales y adoptarán las medidas de seguridad necesarias para protegerlos contra el acceso no autorizado, la pérdida, la alteración o la divulgación.\n' +
+        '\n' +
+        'Esta autorización es voluntaria y puede ser revocada en cualquier momento. Para ejercer mis derechos de acceso, rectificación, cancelación y oposición, puedo enviar una solicitud por escrito al Responsable, a la dirección e-mail o al correo electrónico e-mail, de acuerdo con lo establecido en la legislación vigente.\n' +
+        '\n' +
+        'Al aceptar esta autorización, declaro que he sido informado(a) sobre mis derechos y sobre la política de privacidad del Responsable y de las Entidades Colaboradoras'
 }
