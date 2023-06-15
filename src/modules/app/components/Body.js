@@ -24,6 +24,7 @@ import CompletedProjectParticipation from "../../project/components/CompletedPro
 import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 import UpdateDoc from "../../users/components/UpdateDoc";
+import {CreateVolunteer} from "../../rep";
 
 const Body = () => {
 
@@ -78,6 +79,7 @@ const Body = () => {
                 {loggedIn && <Route path="/myProjects" element = {<MyParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
                 {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
+                {isRepresentative && <Route path ="/create-volunteer" element = {<CreateVolunteer/>} /> }
             </Routes>
             </nav>
         </div>
