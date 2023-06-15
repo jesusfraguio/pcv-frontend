@@ -10,13 +10,22 @@ export default {
     'project.app.Home.IWantBeVolunteer':'Quiero ser voluntario',
 
     'project.common.ErrorDialog.title': 'Error',
+    'project.common.goAnyway': 'Continuar igualmente',
     'project.common.thereIsNot': 'No tiene',
     'project.common.emailWillBeSent': 'Se enviará un e-mail en breve',
+    'project.common.optional': 'Opcional',
+    'project.choose.locality': 'Selecciona tu localidad',
     'project.upload.uploadSignedCert': 'Subir archivo de compromiso firmado',
+    'project.upload.uploadSignedCertFull': 'Suba el archivo de compromiso de la entidad firmado con su firma',
+    'project.upload.uploadSignedCertRepresentativeFull': 'Suba el archivo de compromiso firmado con la firma del voluntario',
+    'project.upload.uploadSignedCertFull.success': 'Se ha subido correctamente el archivo de compromiso y ya tiene su participación aceptada en el proyecto',
     'project.upload.downloadSignedCertByEntity': 'Descargar archivo de compromiso',
     'project.upload.downloadDNI': 'Descargar DNI',
     'project.upload.uploadDNI': 'Subir escaneado del DNI',
+    'project.global.confirmation': 'Confirmación',
+    'project.participation.sureToDeleteParticipation': '¿Estás seguro de dar de baja esta participación?',
     'project.global.buttons.register':'Dar de alta',
+    'project.global.buttons.create.Volunteer': 'Dar de alta al voluntario',
     'project.global.buttons.cancel': 'Cancelar',
     'project.global.buttons.close': 'Cerrar',
     'project.global.buttons.next': 'Siguiente',
@@ -25,7 +34,12 @@ export default {
     'project.global.message.reject.ok': 'Se ha rechazado correctamente',
     'project.global.message.schedule.ok': 'Se ha programado la entrevista correctamente',
     'project.global.buttons.back': 'Anterior',
+    'project.global.buttons.goBack': 'Atrás',
     'project.global.buttons.save': 'Guardar',
+    'project.global.agreement': 'Acuerdo',
+    'project.user.doc.title':'Actualizar mi documentación',
+    'project.global.why.cert.harassmentCert': 'Necesitamos este documento si en el proyecto hay menores, puede descargarlo en {link}',
+    'project.global.cert.harassmentCert.link': 'https://sede.mjusticia.gob.es/es/tramites/certificado-registro-central',
     'project.global.buttons.interested':'Me interesa',
     'project.global.buttons.create.Entity': 'Crear entidad',
     'project.global.buttons.create.representative': 'Dar de alta',
@@ -36,12 +50,20 @@ export default {
     'project.global.buttons.approve': 'Aprobar',
     'project.global.buttons.accept': 'Aceptar',
     'project.global.buttons.delete': 'Dar de baja',
+    'project.global.buttons.participation.confirmDelete': 'Confirmar la baja',
     'project.global.exceptions.NetworkError': 'Fallo de comunicación',
+    'project.global.errors': 'Ha ocurrido un error inesperado',
+    'project.volunteer.dniValidation.error':'Error. El DNI {dni} no es español',
     'project.global.fields.project' :'Proyecto',
     'project.global.fields.url' :'URL',
     'project.global.fields.address':'Dirección',
     'project.global.fields.photo':'Foto',
     'project.global.fields.agreement.file':'Archivo de compromiso (sin firmar)',
+    'project.global.fields.agreement.file.signedByBoth':'Archivo de compromiso firmado por la entidad y el voluntario',
+    'project.global.fields.cert.harassmentCert': 'Certificado de delitos sexuales',
+    'project.global.fields.dni.title':'DNI',
+    'project.global.fields.dni': 'Copia del DNI',
+    'project.global.fields.dniExpiration': 'Fecha de expiración del DNI',
     'project.global.fields.shortDescription' :'Descripción breve',
     'project.global.fields.shortDescription.title':'Descripción',
     'project.global.fields.date': 'Fecha',
@@ -110,7 +132,9 @@ export default {
     'project.actions.sendEmail':'Enviar e-mail',
     'project.admin.CreateRepresentative.title': 'Datos del representante',
     'project.admin.CreateEntity.title': 'Datos de la entidad',
+    'project.representative.CreateVolunteer.title':'Datos del voluntario',
     'project.created.entity.success': 'Entidad de nombre {name} se creo correctamente.',
+    'project.created.volunteer.success': 'Se ha dado de alta al voluntario correctamente',
     'project.created.new.task': 'Nueva tarea',
     'project.common.add.title':'Añadir',
     'project.common.delete.title':'Eliminar',
@@ -138,5 +162,17 @@ export default {
     'project.status.Accepted': 'Aceptada',
     'project.status.Scheduled': 'Entrevista programada',
     'project.status.Rejected': 'Rechazada',
-    'project.status.Deleted': 'Eliminada'
+    'project.status.Deleted': 'Eliminada',
+    'project.law.verifyAgreement': 'Yo, {name} autorizo a compartir mi documentación con las entidades que colaboro con el fin de participar en los proyectos y declaro que he leído la autorización',
+    'project.law.agreement':'Autorizo a https://pcv-front.onrender.com/, en adelante denominado "el Responsable", así como a las entidades colaboradoras que forman parte de este sitio web, en adelante denominadas "las Entidades Colaboradoras", a tratar los datos personales que he proporcionado voluntariamente a través de este sitio web y a cederlos entre ellas, de conformidad con lo establecido en la legislación vigente en materia de protección de datos personales.\n' +
+        '\n' +
+        'El tratamiento de los datos personales se llevará a cabo con la finalidad de realizar las actividades propias del sitio web https://pcv-front.onrender.com/, las cuales incluyen participar en proyectos de voluntariado, gestionar y administrar voluntarios. Además, el Responsable y las Entidades Colaboradoras podrán utilizar mi DNI, certificado de delitos y fotografía, cuando sea necesario para cumplir con los fines mencionados anteriormente.\n' +
+        '\n' +
+        'Declaro que los datos personales proporcionados son verídicos, completos y actualizados, y me comprometo a informar al Responsable y a las Entidades Colaboradoras sobre cualquier modificación o actualización de los mismos.\n' +
+        '\n' +
+        'El Responsable y las Entidades Colaboradoras garantizarán la confidencialidad de los datos personales y adoptarán las medidas de seguridad necesarias para protegerlos contra el acceso no autorizado, la pérdida, la alteración o la divulgación.\n' +
+        '\n' +
+        'Esta autorización es voluntaria y puede ser revocada en cualquier momento. Para ejercer mis derechos de acceso, rectificación, cancelación y oposición, puedo enviar una solicitud por escrito al Responsable, a la dirección e-mail o al correo electrónico e-mail, de acuerdo con lo establecido en la legislación vigente.\n' +
+        '\n' +
+        'Al aceptar esta autorización, declaro que he sido informado(a) sobre mis derechos y sobre la política de privacidad del Responsable y de las Entidades Colaboradoras'
 }

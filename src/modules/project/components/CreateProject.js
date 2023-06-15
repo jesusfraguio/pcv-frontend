@@ -2,8 +2,6 @@ import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useNavigate} from 'react-router-dom';
-import { FaPhone } from 'react-icons/fa';
-
 import {Errors, Success} from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
@@ -49,11 +47,11 @@ const CreateProject = () => {
 
         event.preventDefault();
 
-        if (!selectedOds || !selectedArea) {
-            setSelectEmptyError(true);
-            return;
-        }
         if (form.checkValidity()) {
+            if (!selectedOds || !selectedArea) {
+                setSelectEmptyError(true);
+                return;
+            }
             dispatch(actions.createProject(
                 {name: name.trim(),
                     shortDescription: shortDescription.trim(),
@@ -289,35 +287,46 @@ const CreateProject = () => {
                             <label htmlFor="preferableVolunteer" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.tasks"/>
                             </label>
-                            <div className="col-md-4">
-                                <FormControl
-                                    type="text"
-                                    placeholder={intl.formatMessage({ id: 'project.created.new.task'})}
-                                    value={inputValue}
-                                    onChange={handleInputChange}
-                                />
-                                <Button onClick={handleAddButtonClick}>{intl.formatMessage({ id: 'project.common.add.title'})}</Button>
-                                <ListGroup>
-                                    {tasks.map((task, index) => (
-                                        <ListGroupItem className="list-item" key={index}>
-                                            {task}
-                                            <Button
-                                                variant="danger"
-                                                className="delete-button"
-                                                onClick={() => handleDeleteButtonClick(index)}
-                                            >
-                                                {intl.formatMessage({ id: 'project.common.delete.title'})}
-                                            </Button>
-                                        </ListGroupItem>
-                                    ))}
-                                </ListGroup>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <div>
+                                            <div className="d-flex mb-3">
+                                                <FormControl
+                                                    type="text"
+                                                    placeholder={intl.formatMessage({ id: 'project.created.new.task'})}
+                                                    value={inputValue}
+                                                    onChange={handleInputChange}
+                                                    className="me-3"
+                                                />
+                                                <Button onClick={handleAddButtonClick} className="buttonGrey">
+                                                    {intl.formatMessage({ id: 'project.common.add.title'})}
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ListGroup>
+                                        {tasks.map((task, index) => (
+                                            <ListGroupItem className="list-item" key={index}>
+                                                {task}
+                                                <Button
+                                                    variant="danger"
+                                                    className="delete-button"
+                                                    onClick={() => handleDeleteButtonClick(index)}
+                                                >
+                                                    {intl.formatMessage({ id: 'project.common.delete.title'})}
+                                                </Button>
+                                            </ListGroupItem>
+                                        ))}
+                                    </ListGroup>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group row mb-2">
-                            <div className="offset-md-3 col-md-2">
-                                <button type="submit" className="buttonSecondary btn btn-primary">
-                                    <FormattedMessage id="project.global.buttons.create.Project"/>
-                                </button>
+                            <div className="row mt-4">
+                                <div className="col-md-2">
+                                    <button type="submit" className="buttonSecondary btn btn-primary">
+                                        <FormattedMessage id="project.global.buttons.create.Project"/>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>

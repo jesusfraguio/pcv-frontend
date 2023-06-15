@@ -1,5 +1,22 @@
 import {config, appFetch} from './appFetch';
 
+export const uploadMySignedCert = (formData, onSuccess, onErrors) => {
+    appFetch('/participation/addCertFile',config('POST',formData),
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors);
+}
+
+export const uploadMyVolunteerSignedCert = (formData, onSuccess, onErrors) => {
+    appFetch('/participation/representative/addCertFile',config('POST',formData),
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors);
+}
+
+
 export const findAllCachedData = (onSuccess) =>
     appFetch('/projects/getSummaryOdsAndCollaborationArea', config('GET'), onSuccess);
 

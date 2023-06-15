@@ -23,6 +23,8 @@ import admin from "../../admin";
 import CompletedProjectParticipation from "../../project/components/CompletedProjectParticipation";
 import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
+import UpdateDoc from "../../users/components/UpdateDoc";
+import {CreateVolunteer} from "../../rep";
 
 const Body = () => {
 
@@ -60,6 +62,7 @@ const Body = () => {
                 <Route path="/*" element={<Home/>}/>
                 <Route path="/users/validate/registerToken/:registerToken" element={<ValidateToken/>}/>
                 {loggedIn && <Route path="/users/update-profile" element={<UpdateProfile/>}/>}
+                {loggedIn && <Route path ="/users/update-my-doc" element = {<UpdateDoc/>} /> }
                 {loggedIn && <Route path="/users/change-password" element={<ChangePassword/>}/>}
                 {loggedIn && <Route path="/users/logout" element={<Logout/>}/>}
                 {isAdmin && <Route path="/admin/create-representative" element={<CreateRep/>}/>}
@@ -76,6 +79,7 @@ const Body = () => {
                 {loggedIn && <Route path="/myProjects" element = {<MyParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
                 {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
+                {isRepresentative && <Route path ="/create-volunteer" element = {<CreateVolunteer/>} /> }
             </Routes>
             </nav>
         </div>
