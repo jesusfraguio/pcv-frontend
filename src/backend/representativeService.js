@@ -32,3 +32,11 @@ export const updateParticipationStatus = (id, newStatus, onSuccess, onErrors) =>
     path += id;
     appFetch(path,config('PATCH', newStatus), onSuccess, onErrors);
 }
+
+export const createVolunteer = (formData, onSuccess, onErrors) => {
+    appFetch('/users/createVolunteer',config('POST',formData),
+        msg => {
+            onSuccess(msg)
+        },
+        onErrors);
+}

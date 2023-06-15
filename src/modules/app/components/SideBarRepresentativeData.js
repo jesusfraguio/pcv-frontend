@@ -23,8 +23,8 @@ export const SideBarRepresentativeData = [
         cName: 'nav-text'
     },
     {
-        title: 'Dar de alta un usuario',
-        path: '/create-user',
+        title: 'Dar de alta un voluntario',
+        path: '/create-volunteer',
         icon: <FaIcons.FaIdCard />,
         cName: 'nav-text'
     },
