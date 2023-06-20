@@ -24,7 +24,7 @@ import CompletedProjectParticipation from "../../project/components/CompletedPro
 import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 import UpdateDoc from "../../users/components/UpdateDoc";
-import {CreateVolunteer} from "../../rep";
+import {CreateVolunteer, SeeVolunteers} from "../../rep";
 
 const Body = () => {
 
@@ -80,6 +80,7 @@ const Body = () => {
                 {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
                 {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/create-volunteer" element = {<CreateVolunteer/>} /> }
+                {isRepresentative && <Route path ="/see-all-volunteers" element = {<SeeVolunteers/>} /> }
             </Routes>
             </nav>
         </div>
