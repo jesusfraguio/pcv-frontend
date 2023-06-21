@@ -40,3 +40,13 @@ export const createVolunteer = (formData, onSuccess, onErrors) => {
         },
         onErrors);
 }
+
+export const findVolunteers = ({sortValue, sortOrder, page},
+                               onSuccess) => {
+
+    let path = `/users/representative/findMyVolunteers?page=${page}`;
+    path += sortValue ? `&sortValue=${sortValue}` : "";
+    path += sortOrder ? `&sortOrder=${sortOrder}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
+}
