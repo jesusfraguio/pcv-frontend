@@ -1,6 +1,6 @@
-import {useState, useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {useState, useRef} from 'react';
+import {useDispatch} from 'react-redux';
+import {useIntl} from 'react-intl';
 import {Link, useNavigate} from 'react-router-dom';
 
 import React from 'react';
@@ -10,66 +10,79 @@ import './Participations.css';
 import * as participationAction from "../actions";
 import {Errors, Success} from "../../common";
 
-const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy, orderType}) => {
+const MyProjectVolunteers = ({
+                                 participations,
+                                 setOrderBy,
+                                 setOrderType,
+                                 orderBy,
+                                 orderType,
+                                 projectId,
+                                 projectName
+                             }) => {
 
     const intl = useIntl();
 
     const dispatch = useDispatch();
     const participationId = useRef();
+    const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false);
     const [showUploadCertModal, setShowUploadCertModal] = useState(false);
-    const [success,setSuccess] = useState(null);
-    const [failure,setFailure] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const [failure, setFailure] = useState(null);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const deletingId = useRef(null);
 
+    function handleSeeAvailableVolunteers(id, name) {
+        navigate(`/see-all-volunteers/${id}/${name}`);
+    }
+
     const getOrderTypeDisplay = (orderType) => {
-        switch(orderType) {
+        switch (orderType) {
             case 'asc':
-                return intl.formatMessage({id : 'project.global.sort.asc'});
+                return intl.formatMessage({id: 'project.global.sort.asc'});
             case 'desc':
-                return intl.formatMessage({id : 'project.global.sort.desc'});
+                return intl.formatMessage({id: 'project.global.sort.desc'});
             default:
-                return intl.formatMessage({id : 'project.global.sort.asc'});
+                return intl.formatMessage({id: 'project.global.sort.asc'});
         }
     };
     const getOrderByDisplay = (orderBy) => {
-        switch(orderBy) {
+        switch (orderBy) {
             case 'state':
-                return intl.formatMessage({id : 'project.global.state.title'});
+                return intl.formatMessage({id: 'project.global.state.title'});
             case 'volunteerName':
-                return intl.formatMessage({id : 'project.global.fields.firstName'});
+                return intl.formatMessage({id: 'project.global.fields.firstName'});
             case 'volunteerSurname':
-                return intl.formatMessage({id : 'project.global.fields.lastName'});
+                return intl.formatMessage({id: 'project.global.fields.lastName'});
             case 'totalHours':
-                return intl.formatMessage({id : 'project.totalHours.title'});
+                return intl.formatMessage({id: 'project.totalHours.title'});
             default:
-                return intl.formatMessage({id : 'project.global.sort.orderBy'});
+                return intl.formatMessage({id: 'project.global.sort.orderBy'});
         }
     };
 
     function getMessage(status) {
         switch (status) {
             case 'PENDING':
-                return intl.formatMessage({id : 'project.status.Pending'});
+                return intl.formatMessage({id: 'project.status.Pending'});
             case 'SCHEDULED':
-                return intl.formatMessage({id : 'project.status.Scheduled'});
+                return intl.formatMessage({id: 'project.status.Scheduled'});
             case 'APPROVED':
-                return intl.formatMessage({id : 'project.status.Approved'});
+                return intl.formatMessage({id: 'project.status.Approved'});
             case 'ACCEPTED':
-                return intl.formatMessage({id : 'project.status.Accepted'});
+                return intl.formatMessage({id: 'project.status.Accepted'});
             case 'REJECTED':
-                return intl.formatMessage({id : 'project.status.Rejected'});
+                return intl.formatMessage({id: 'project.status.Rejected'});
             case 'DELETED':
-                return intl.formatMessage({id : 'project.status.Deleted'});
+                return intl.formatMessage({id: 'project.status.Deleted'});
             default:
                 return status;
         }
     }
 
     const handleApprove = (id) => {
-        dispatch(participationAction.updateParticipation(id,"APPROVED",
+        dispatch(participationAction.updateParticipation(id, "APPROVED",
             message => {
                 setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
                 setShowModal(true);
@@ -78,33 +91,30 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
         ));
     };
     const handleAccept = (id) => {
-        dispatch(participationAction.updateParticipation(id,"ACCEPTED",
+        dispatch(participationAction.updateParticipation(id, "ACCEPTED",
             message => {
                 setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
                 setShowModal(true);
                 dispatch(participationAction.updateProjectVolunteers(id, "ACCEPTED"));
             },
             errors => {
-            debugger;
                 handleUploadSignedCert(id);
             }
         ));
     };
     const handleUploadSignedCert = (id) => {
-        if(!showUploadCertModal) {
+        if (!showUploadCertModal) {
             participationId.current = id;
             setShowUploadCertModal(true);
-        }
-
-        else{
+        } else {
             const cert = document.getElementById('signedUploadCert');
             const formData = new FormData();
-            formData.set('participationNumber',participationId.current);
+            formData.set('participationNumber', participationId.current);
             formData.append('cert', cert.files[0], cert.files[0].name);
             participationAction.uploadMyVolunteerSignedCert(formData,
                 success => {
                     setShowUploadCertModal(false);
-                    dispatch(participationAction.updateProjectVolunteers(participationId.current,"ACCEPTED"));
+                    dispatch(participationAction.updateProjectVolunteers(participationId.current, "ACCEPTED"));
                     setTimeout(() => {
                         setSuccess(intl.formatMessage({id: "project.upload.uploadSignedCertFull.success"}));
                         setShowModal(true);
@@ -122,7 +132,7 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
 
     const confirmDelete = () => {
         setShowConfirmationModal(false);
-        dispatch(participationAction.updateParticipation(deletingId.value,"DELETED",
+        dispatch(participationAction.updateParticipation(deletingId.value, "DELETED",
             message => {
                 setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
                 setShowModal(true);
@@ -136,7 +146,7 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
         deletingId.value = id;
     };
     const handleReject = (id) => {
-        dispatch(participationAction.updateParticipation(id,"REJECTED",
+        dispatch(participationAction.updateParticipation(id, "REJECTED",
             message => {
                 setSuccess(intl.formatMessage({id: "project.global.message.reject.ok"}));
                 setShowModal(true);
@@ -148,7 +158,10 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
     return (
         <div>
             <Errors errors={failure} onClose={() => setFailure(null)}/>
-            <Row style={{ justifyContent: 'flex-end' }}>
+            <Button variant="primary" className="mainButton"
+                    onClick={() => handleSeeAvailableVolunteers(projectId, projectName)}>
+                {intl.formatMessage({id: 'project.project.addParticipant.title'})}</Button>
+            <Row style={{justifyContent: 'flex-end'}}>
                 <Col xs="auto">
                     <Dropdown onSelect={(key) => setOrderBy(key)}>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -156,10 +169,14 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="state">{intl.formatMessage({id : 'project.global.state.title'})}</Dropdown.Item>
-                            <Dropdown.Item eventKey="volunteerName">{intl.formatMessage({id : 'project.global.fields.firstName'})}</Dropdown.Item>
-                            <Dropdown.Item eventKey="volunteerSurname">{intl.formatMessage({id : 'project.global.fields.lastName'})}</Dropdown.Item>
-                            <Dropdown.Item eventKey="totalHours">{intl.formatMessage({id : 'project.totalHours.title'})}</Dropdown.Item>
+                            <Dropdown.Item
+                                eventKey="state">{intl.formatMessage({id: 'project.global.state.title'})}</Dropdown.Item>
+                            <Dropdown.Item
+                                eventKey="volunteerName">{intl.formatMessage({id: 'project.global.fields.firstName'})}</Dropdown.Item>
+                            <Dropdown.Item
+                                eventKey="volunteerSurname">{intl.formatMessage({id: 'project.global.fields.lastName'})}</Dropdown.Item>
+                            <Dropdown.Item
+                                eventKey="totalHours">{intl.formatMessage({id: 'project.totalHours.title'})}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
@@ -170,22 +187,27 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="asc">{intl.formatMessage({id: 'project.global.sort.asc'})}</Dropdown.Item>
-                            <Dropdown.Item eventKey="desc">{intl.formatMessage({id: 'project.global.sort.desc'})}</Dropdown.Item>
+                            <Dropdown.Item
+                                eventKey="asc">{intl.formatMessage({id: 'project.global.sort.asc'})}</Dropdown.Item>
+                            <Dropdown.Item
+                                eventKey="desc">{intl.formatMessage({id: 'project.global.sort.desc'})}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                </Col> }
+                </Col>}
             </Row>
             {
                 showModal &&
-                    <Success message = {success}  onClose= {() => { setSuccess(''); setShowModal(false); }}/>
+                <Success message={success} onClose={() => {
+                    setSuccess('');
+                    setShowModal(false);
+                }}/>
             }
             {showUploadCertModal && <Modal show={showUploadCertModal} onHide={() => setShowUploadCertModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{intl.formatMessage({id: 'project.upload.uploadSignedCertRepresentativeFull'})}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <input type="file" id="signedUploadCert" onChange={handleUploadSignedCert} accept=".pdf" />
+                    <input type="file" id="signedUploadCert" onChange={handleUploadSignedCert} accept=".pdf"/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowUploadCertModal(false)}>
@@ -197,10 +219,10 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
             <Table>
                 <thead>
                 <tr>
-                    <th>{intl.formatMessage({id : 'project.global.fields.name'})}</th>
-                    <th>{intl.formatMessage({id : 'project.global.fields.lastName'})}</th>
-                    <th>{intl.formatMessage({id : 'project.totalHours.title'})}</th>
-                    <th>{intl.formatMessage({id : 'project.status.their.title'})}</th>
+                    <th>{intl.formatMessage({id: 'project.global.fields.name'})}</th>
+                    <th>{intl.formatMessage({id: 'project.global.fields.lastName'})}</th>
+                    <th>{intl.formatMessage({id: 'project.totalHours.title'})}</th>
+                    <th>{intl.formatMessage({id: 'project.status.their.title'})}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -222,34 +244,48 @@ const MyProjectVolunteers = ({ participations, setOrderBy, setOrderType, orderBy
                                         <Modal.Header closeButton>
                                             <Modal.Title>{intl.formatMessage({id: 'project.global.confirmation'})}</Modal.Title>
                                         </Modal.Header>
-                                        <Modal.Body>{intl.formatMessage({id: 'project.participation.sureToDeleteParticipation'})}</Modal.Body>
+                                        <Modal.Body>{intl.formatMessage(
+                                            {id: 'project.participation.sureToDeleteParticipation'},
+                                            {
+                                                name: participation.volunteerName,
+                                                surname: participation.volunteerSurname
+                                            }
+                                        )}</Modal.Body>
                                         <Modal.Footer>
                                             <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
-                                                {intl.formatMessage({id:'project.global.buttons.cancel'})}</Button>
+                                                {intl.formatMessage({id: 'project.global.buttons.cancel'})}</Button>
                                             <Button variant="danger" onClick={() => confirmDelete()}>
-                                                {intl.formatMessage({id:'project.global.buttons.participation.confirmDelete'})}</Button>
+                                                {intl.formatMessage({id: 'project.global.buttons.participation.confirmDelete'})}</Button>
                                         </Modal.Footer>
                                     </Modal>
                                 }
                                 {participation.status === 'APPROVED' &&
-                                    <Button variant="primary" className="mainButton" onClick={() => handleAccept(participation.id)}>
-                                        {intl.formatMessage({id : 'project.global.buttons.accept'})}</Button>
+                                    <Button variant="primary" className="mainButton"
+                                            onClick={() => handleAccept(participation.id)}>
+                                        {intl.formatMessage({id: 'project.global.buttons.accept'})}</Button>
                                 }
                                 {participation.status === 'APPROVED' &&
-                                    <Button variant="secondary" className="mainButton" onClick={() => handleDelete(participation.id)} style={{backgroundColor: '#CC4233'}}>
-                                        {intl.formatMessage({id : 'project.global.buttons.delete'})}</Button>
+                                    <Button variant="secondary" className="mainButton"
+                                            onClick={() => handleDelete(participation.id)}
+                                            style={{backgroundColor: '#CC4233'}}>
+                                        {intl.formatMessage({id: 'project.global.buttons.delete'})}</Button>
                                 }
                                 {participation.status === 'SCHEDULED' &&
-                                    <Button variant="primary" className="mainButton" onClick={() => handleApprove(participation.id)}>
-                                        {intl.formatMessage({id : 'project.global.buttons.approve'})}</Button>
+                                    <Button variant="primary" className="mainButton"
+                                            onClick={() => handleApprove(participation.id)}>
+                                        {intl.formatMessage({id: 'project.global.buttons.approve'})}</Button>
                                 }
                                 {participation.status === 'SCHEDULED' &&
-                                    <Button variant="primary" className="mainButton" onClick={() => handleReject(participation.id)} style={{backgroundColor: '#CC4233'}}>
-                                        {intl.formatMessage({id : 'project.global.buttons.reject'})}</Button>
+                                    <Button variant="primary" className="mainButton"
+                                            onClick={() => handleReject(participation.id)}
+                                            style={{backgroundColor: '#CC4233'}}>
+                                        {intl.formatMessage({id: 'project.global.buttons.reject'})}</Button>
                                 }
                                 {participation.status === 'ACCEPTED' &&
-                                    <Button variant="secondary" className="mainButton" onClick={() => handleDelete(participation.id)} style={{backgroundColor: '#CC4233'}}>
-                                        {intl.formatMessage({id : 'project.global.buttons.delete'})}</Button>
+                                    <Button variant="secondary" className="mainButton"
+                                            onClick={() => handleDelete(participation.id)}
+                                            style={{backgroundColor: '#CC4233'}}>
+                                        {intl.formatMessage({id: 'project.global.buttons.delete'})}</Button>
                                 }
                             </div>
                         </td>

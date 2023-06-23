@@ -3,14 +3,17 @@ import * as actions from "../actions";
 import {Pager} from "../../common";
 import {useDispatch, useSelector} from "react-redux";
 import * as selectors from "../selectors";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 import AvailableVolunteers from "./AvailableVolunteers";
+import {Link, useParams} from "react-router-dom";
 
 const SeeVolunteers = () => {
 
+    const {projectId,name} = useParams();
     const dispatch = useDispatch();
     const [sortValue,setSortValue] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
+    const intl = useIntl();
 
     useEffect(() => {
         if(!sortValue) {
@@ -28,6 +31,7 @@ const SeeVolunteers = () => {
             }));
         }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [sortValue,sortOrder]);
 
     const volunteersResult = useSelector(selectors.getVolunteerSearch);
@@ -46,7 +50,13 @@ const SeeVolunteers = () => {
 
     return (
         <div id='find-volunteers-result-wrapper'>
-                <AvailableVolunteers volunteers={volunteersResult.result.items}
+            <h2 style={{ marginBottom: '40px' }}>
+                {intl.formatMessage({ id: 'project.project.availableVolunteers' })}
+                <Link to={`/projects/${projectId}`} className="name-link">
+                    {name}
+                </Link>
+            </h2>
+            <AvailableVolunteers projectId={projectId} volunteers={volunteersResult.result.items}
                                      orderBy={sortValue} setOrderBy={setSortValue}
                                      orderType={sortOrder} setOrderType={setSortOrder}/>
             <Pager

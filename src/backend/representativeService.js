@@ -39,6 +39,14 @@ export const createVolunteer = (formData, onSuccess, onErrors) => {
             onSuccess(msg)
         },
         onErrors);
+};
+
+export const createParticipationToVolunteer = (participation, onSuccess, onErrors) => {
+    appFetch('/projects/representative/createParticipation',config('POST',participation),
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors);
 }
 
 export const findVolunteers = ({sortValue, sortOrder, page},
