@@ -43,13 +43,17 @@ const Body = () => {
 
         dispatch(project.actions.getOdsAndAreas());
 
-    }, []);
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []);
     useEffect(() => {
       if(isAdmin || isRepresentative) {
           dispatch(admin.actions.getMyEntity());
       }
 
-    }, [isAdmin, isRepresentative]);
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [isAdmin, isRepresentative]);
     return (
 
        <div className={getAppBodyClass()}>
@@ -80,7 +84,7 @@ const Body = () => {
                 {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
                 {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/create-volunteer" element = {<CreateVolunteer/>} /> }
-                {isRepresentative && <Route path ="/see-all-volunteers" element = {<SeeVolunteers/>} /> }
+                {isRepresentative && <Route path ="/see-all-volunteers/:projectId/:name" element = {<SeeVolunteers/>} /> }
             </Routes>
             </nav>
         </div>

@@ -1,17 +1,17 @@
 import {useIntl} from "react-intl";
-//import {useDispatch} from "react-redux";
-//import * as action from "../actions";
-import {Col, Dropdown, Row} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import * as action from "../actions";
+import {Button, Col, Dropdown, Row} from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import {Errors, Success} from "../../common";
 
-const AvailableVolunteers = ({ volunteers, setOrderBy, setOrderType, orderBy, orderType}) => {
+const AvailableVolunteers = ({ projectId, volunteers, setOrderBy, setOrderType, orderBy, orderType}) => {
 
     const intl = useIntl();
 
-    //const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [showModal, setShowModal] = useState(false);
     const [success,setSuccess] = useState(null);
@@ -40,6 +40,18 @@ const AvailableVolunteers = ({ volunteers, setOrderBy, setOrderType, orderBy, or
         }
     };
 
+    const handleAdd = (id) => {
+        dispatch(action.addVolunteer({recommended: false, volunteerId: id, projectId: projectId},
+            message => {
+                setSuccess(intl.formatMessage({id: "project.global.message.ok"}));
+                setShowModal(true);
+            },
+            errors => {
+                setFailure(errors);
+            }
+        ));
+    };
+
     return (
         <div>
             <Errors errors={failure} onClose={() => setFailure(null)}/>
@@ -51,9 +63,9 @@ const AvailableVolunteers = ({ volunteers, setOrderBy, setOrderType, orderBy, or
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="volunteerPhone">{intl.formatMessage({id : 'project.global.state.title'})}</Dropdown.Item>
                             <Dropdown.Item eventKey="volunteerName">{intl.formatMessage({id : 'project.global.fields.firstName'})}</Dropdown.Item>
                             <Dropdown.Item eventKey="volunteerSurname">{intl.formatMessage({id : 'project.global.fields.lastName'})}</Dropdown.Item>
+                            <Dropdown.Item eventKey="volunteerPhone">{intl.formatMessage({id : 'project.global.fields.phone'})}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
@@ -79,6 +91,7 @@ const AvailableVolunteers = ({ volunteers, setOrderBy, setOrderType, orderBy, or
                 <tr>
                     <th>{intl.formatMessage({id : 'project.global.fields.name'})}</th>
                     <th>{intl.formatMessage({id : 'project.global.fields.lastName'})}</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,6 +103,12 @@ const AvailableVolunteers = ({ volunteers, setOrderBy, setOrderType, orderBy, or
                             </Link>
                         </td>
                         <td>{volunteer.surname}</td>
+                        <td style={{border: 'none'}}>
+                            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+                                <Button variant="primary" className="mainButton" onClick={() => handleAdd(volunteer.volunteerId)}>
+                                    {intl.formatMessage({id : 'project.project.addProjectParticipant.title'})}</Button>
+                            </div>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

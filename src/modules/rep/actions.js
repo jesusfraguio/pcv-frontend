@@ -13,7 +13,15 @@ export const findVolunteers = criteria => dispatch => {
     backend.representativeService.findVolunteers(criteria,
         result => dispatch(findVolunteersCompleted({ criteria, result })));
 
-}
+};
+
+export const addVolunteer = (participation, onSuccess, onErrors) =>
+    backend.representativeService.createParticipationToVolunteer(participation,
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors
+    );
 
 const findVolunteersCompleted = volunteerSearch => ({
     type: actionTypes.FIND_VOLUNTEERS_COMPLETED,

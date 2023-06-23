@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {FormattedMessage, useIntl} from "react-intl";
 import * as actions from "../actions";
 import * as selectors from "../selectors";
@@ -11,7 +11,6 @@ import * as participationAction from "../actions";
 const MyParticipationsResult = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const intl = useIntl();
     const { projectId, name } = useParams();
 
@@ -38,6 +37,7 @@ const MyParticipationsResult = () => {
                 sortOrder: sortOrder
             }));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortValue,sortOrder]);
 
     if (!projectVolunteers || !projectVolunteers.result) {
@@ -61,7 +61,7 @@ const MyParticipationsResult = () => {
                 </Link>
             </h2>
             <MyProjectVolunteers participations={projectVolunteers.result.items} orderBy={sortValue} setOrderBy={setSortValue}
-            orderType={sortOrder} setOrderType={setSortOrder}/>
+            orderType={sortOrder} setOrderType={setSortOrder} projectId = {projectId} projectName={name}/>
             <Pager
                 back={{
                     enabled: projectVolunteers.criteria.page >= 1,
