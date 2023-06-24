@@ -98,7 +98,17 @@ const MyProjectVolunteers = ({
                 dispatch(participationAction.updateProjectVolunteers(id, "ACCEPTED"));
             },
             errors => {
-                handleUploadSignedCert(id);
+                if(errors.globalError?.includes("HARASSMENT_CERT")){
+                    errors.globalError = intl.formatMessage({id: 'project.participation.rep.requiredHarassmentCert'});
+                    setFailure(errors);
+                }
+                else if(errors.globalError?.includes("DNI")){
+                    errors.globalError = intl.formatMessage({id: 'project.participation.rep.requiredDni'});
+                    setFailure(errors);
+                }
+                else{
+                    handleUploadSignedCert(id);
+                }
             }
         ));
     };

@@ -106,10 +106,10 @@ const CreateVolunteer = () => {
             if(cert.files.length > 0){
                 formData.append('cert', cert.files[0], cert.files[0].name);
             }
-            if(harassmentCert.files?.length > 0){
+            if(harassmentCert.files.length > 0){
                 formData.append('harassmentCert', harassmentCert.files[0], harassmentCert.files[0].name);
             }
-            if(dniDoc.files?.length > 0){
+            if(dniDoc.files.length > 0){
                 formData.append('dni', dniDoc.files[0], dniDoc.files[0].name);
             }
             actions.createVolunteer(formData,

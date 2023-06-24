@@ -57,10 +57,30 @@ const MyParticipations = ({ myParticipations }) => {
                     }, 600);
                 },
                 failure => {
-                    setShowUploadCertModal(false);
-                    setTimeout(() => {
-                        setFailure(intl.formatMessage({id: "project.global.errors"}));
-                    }, 600);
+                    if(failure.globalError?.includes("HARASSMENT_CERT")){
+                        setShowUploadCertModal(false);
+                        failure.globalError = intl.formatMessage({ id: 'project.participation.requiredHarassmentCert' },
+                            { link: <a href="/users/update-my-doc">{intl.formatMessage({id:'project.user.doc.title'})}</a> }
+                        );
+                        setTimeout(() => {
+                            setFailure(failure);
+                        }, 500);
+                    }
+                    else if(failure.globalError?.includes("DNI")){
+                        setShowUploadCertModal(false);
+                        failure.globalError = intl.formatMessage({ id: 'project.participation.requiredDni' },
+                            { link: <a href="/users/update-my-doc">{intl.formatMessage({id:'project.user.doc.title'})}</a> }
+                        );
+                        setTimeout(() => {
+                            setFailure(failure);
+                        }, 500);
+                    }
+                    else{
+                        setShowUploadCertModal(false);
+                        setTimeout(() => {
+                            setFailure(failure);
+                        }, 500);
+                    }
                 }
             );
         }
