@@ -21,7 +21,7 @@ export const createProject = (project, onSuccess, onErrors) => dispatch =>
     );
 
 export const getLogo = (entityId) => dispatch =>
-    backend.projectService.getEntityLogo(entityId, image =>
+    backend.projectService.getEntityLogo(entityId, (image, fileName) =>
         dispatch(getLogoSuccess(entityId,URL.createObjectURL(image))), errors => dispatch(getLogoSuccess(entityId,process.env.PUBLIC_URL + "/logo192.png")));
 
 

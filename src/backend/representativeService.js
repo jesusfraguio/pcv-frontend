@@ -58,3 +58,11 @@ export const findVolunteers = ({sortValue, sortOrder, page},
 
     appFetch(path, config('GET'), onSuccess);
 }
+
+export const updateVolunteerDoc = (formData,id,onSuccess, onErrors) =>
+    appFetch(`/users/representative/updateVolunteerDoc/${id}`,  config('POST', formData), onSuccess, onErrors);
+
+export const downloadVolunteerFile = (volunteerId, fileType, onSuccess, onErrors) => {
+
+    appFetch(`/users/representative/downloadVolunteerDoc/${volunteerId}?fileType=${fileType}`, config('GET'), onSuccess, onErrors);
+}
