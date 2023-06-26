@@ -195,7 +195,8 @@ const CreateProject = () => {
                                 <input type="number" id="capacity" className="form-control"
                                        value={capacity}
                                        onChange={e => setCapacity(parseInt(e.target.value))}
-                                       required/>
+                                       required
+                                       min={0}/>
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required'/>
                                 </div>
@@ -218,26 +219,30 @@ const CreateProject = () => {
                         </div>
                         <div className="form-group row mb-2">
                             <div className="col-md-4">
-                                <div className="form-check">
-                                    <input type="checkbox" id="areChildren" className="form-check-input"
-                                           checked={areChildren}
-                                           onChange={e => setAreChildren(e.target.checked)}/>
-                                    <label htmlFor="areChildren" className="col-md-3 col-form-label">
+                                <div>
+                                    <label htmlFor="areChildren" className="form-check-label">
                                         <FormattedMessage id="project.global.fields.areChildren"/>
                                     </label>
+                                    <input type="checkbox" id="areChildren" className="form-check-input ms-2"
+                                           checked={areChildren}
+                                           onChange={e => setAreChildren(e.target.checked)}/>
                                 </div>
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
                             <div className="col-md-4">
-                                <div className="form-check">
-                                    <input type="checkbox" id="isVisible" className="form-check-input"
-                                           checked={isVisible}
-                                           onChange={e => setIsVisible(e.target.checked)}/>
-                                    <label htmlFor="isVisible" className="col-md-3 col-form-label">
+                                <div>
+                                    <label htmlFor="isVisible" className="form-check-label">
                                         <FormattedMessage id="project.global.fields.isVisible"/>
                                     </label>
+                                    <input
+                                        type="checkbox"
+                                        id="isVisible"
+                                        className="form-check-input ms-2"
+                                        checked={isVisible}
+                                        onChange={e => setIsVisible(e.target.checked)}
+                                    />
                                 </div>
                             </div>
                         </div>
