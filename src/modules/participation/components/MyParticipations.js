@@ -37,6 +37,9 @@ const MyParticipations = ({ myParticipations }) => {
         }
     }
 
+    const handleDownloadCert = (id) => {
+        participationAction.downloadEntityCert(id);
+    }
     const handleUploadSignedCert = (id) => {
         if(!showUploadCertModal) {
             participationId.current = id;
@@ -131,7 +134,7 @@ const MyParticipations = ({ myParticipations }) => {
                                     {intl.formatMessage({id : 'project.upload.uploadSignedCert'})}</Button>
                             }
                             {participation.status === 'APPROVED' &&
-                                <Button variant="primary" className="mainButton">
+                                <Button variant="primary" className="mainButton" onClick={() => handleDownloadCert(participation.entityId)}>
                                     {intl.formatMessage({id : 'project.upload.downloadSignedCertByEntity'})}</Button>
                             }
                         </div>

@@ -82,6 +82,7 @@ export default {
     'project.global.fields.lastName': 'Apellidos',
     'project.global.fields.name': 'Nombre',
     'project.global.fields.password': 'Contraseña',
+    'project.global.fields.newPassword': 'Nueva contraseña',
     'project.global.fields.postalAddress': 'Dirección postal',
     'project.global.fields.postalCode': 'Código postal',
     'project.global.fields.userName': 'Usuario',
