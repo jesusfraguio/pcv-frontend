@@ -1,6 +1,6 @@
 import {useState, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {useIntl} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link, useNavigate} from 'react-router-dom';
 
 import React from 'react';
@@ -171,6 +171,14 @@ const MyProjectVolunteers = ({
             <Button variant="primary" className="mainButton"
                     onClick={() => handleSeeAvailableVolunteers(projectId, projectName)}>
                 {intl.formatMessage({id: 'project.project.addParticipant.title'})}</Button>
+            {participations.length === 0 &&
+                <div className="alert alert-info mt-4" role="alert">
+                    <FormattedMessage id='project.participations.noParticipationsFound'/>
+                </div>
+            }
+
+            {participations.length !== 0 &&
+            <div>
             <Row style={{justifyContent: 'flex-end'}}>
                 <Col xs="auto">
                     <Dropdown onSelect={(key) => setOrderBy(key)}>
@@ -303,6 +311,8 @@ const MyProjectVolunteers = ({
                 ))}
                 </tbody>
             </Table>
+            </div>
+            }
         </div>
     );
 };

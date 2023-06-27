@@ -44,14 +44,6 @@ const MyParticipationsResult = () => {
         return null;
     }
 
-    if (projectVolunteers.result.items.length === 0) {
-        return (
-            <div className="alert alert-info" role="alert">
-                <FormattedMessage id='project.participations.noParticipationsFound'/>
-            </div>
-        );
-    }
-
     return (
         <div id='find-participation-result-wrapper'>
             <h2 style={{ marginBottom: '40px' }}>

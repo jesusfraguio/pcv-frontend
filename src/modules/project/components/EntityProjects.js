@@ -22,6 +22,10 @@ const EntityProjects = ({ entityProjects }) => {
         navigate(`/project/myVolunteers/${id}/${name}`);
     }
 
+    function handleEditProject(id) {
+        navigate(`/projects/update-project/${id}`);
+    }
+
     return (
         <div>
             <h2 style={{ marginBottom: '40px' }}>{intl.formatMessage({ id: 'project.project.projectsOfEntity' }, { name: myEntity?.name})}</h2>
@@ -48,7 +52,7 @@ const EntityProjects = ({ entityProjects }) => {
                         <td style={{border: 'none'}}>
                             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                                 {myEntity?.id === project.entityId &&
-                                    <Button variant="primary" className="mainButton">
+                                    <Button variant="primary" className="mainButton" onClick={() => handleEditProject(project.id)}>
                                         {intl.formatMessage({id : 'project.project.update.title'})}</Button>
                                 }
                                 {myEntity?.id === project.entityId &&
