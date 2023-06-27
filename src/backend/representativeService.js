@@ -8,6 +8,14 @@ export const createProject = (project, onSuccess, onErrors) => {
         onErrors);
 }
 
+export const updateProject = (project, onSuccess, onErrors) => {
+    appFetch('/projects/updateProject',config('POST',project),
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors);
+}
+
 
 export const findMyProjectVolunteers = ({projectId, page, size, sortValue, sortOrder},
                                      onSuccess) => {
