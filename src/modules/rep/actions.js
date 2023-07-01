@@ -15,6 +15,18 @@ export const findVolunteers = criteria => dispatch => {
 
 };
 
+export const getAllMyProjectsName = (onSuccess, onErrors) => {
+    backend.representativeService.getAllMyProjects(onSuccess, onErrors);
+};
+
+export const getAllProjectParticipationName = (projectId, onSuccess, onErrors) => {
+    backend.representativeService.getAllProjectParticipation(projectId,onSuccess,onErrors);
+};
+
+export const addNewParticipationHourRegister = (data, onSuccess, onErrors) => {
+  backend.representativeService.createParticipationHourRegister(data, onSuccess, onErrors);
+};
+
 export const addVolunteer = (participation, onSuccess, onErrors) =>
     backend.representativeService.createParticipationToVolunteer(participation,
         msg => {

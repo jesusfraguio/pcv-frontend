@@ -1,0 +1,20 @@
+.rbc-calendar {
+    background-color: white;
+    height: 500px; /* adjusting height */
+    overflow: auto;
+}
+
+.rbc-date-cell {
+    color: black;
+}
+
+.rbc-time-header-gutter,
+.rbc-time-content > .rbc-time-gutter {
+    display: none;
+}
+.rbc-time-view .rbc-time-content {
+    display: none;
+}
+.rbc-time-header {
+    border-bottom: 1px solid #DDD;
+}

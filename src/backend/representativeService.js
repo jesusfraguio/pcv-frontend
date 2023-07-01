@@ -1,5 +1,10 @@
 import {config, appFetch} from './appFetch';
 
+export const createParticipationHourRegister = (data, onSuccess, onErrors) => {
+    appFetch('/participation/createHourRegister',config('POST',data), onSuccess, onErrors);
+}
+
+
 export const createProject = (project, onSuccess, onErrors) => {
     appFetch('/projects/createProject',config('POST',project),
         msg => {
@@ -73,4 +78,11 @@ export const updateVolunteerDoc = (formData,id,onSuccess, onErrors) =>
 export const downloadVolunteerFile = (volunteerId, fileType, onSuccess, onErrors) => {
 
     appFetch(`/users/representative/downloadVolunteerDoc/${volunteerId}?fileType=${fileType}`, config('GET'), onSuccess, onErrors);
+}
+
+export const getAllMyProjects = (onSuccess, onErrors) => {
+    appFetch(`/participation/all-my-projects`, config('GET'), onSuccess, onErrors);
+}
+export const getAllProjectParticipation = (projectId, onSuccess, onErrors) => {
+    appFetch(`/participation/project/${projectId}/participation`, config('GET'), onSuccess, onErrors);
 }

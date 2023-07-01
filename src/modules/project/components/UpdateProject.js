@@ -26,6 +26,7 @@ const UpdateProject = () => {
     const [preferableVolunteer, setPreferableVolunteer] = useState('');
     const [areChildren, setAreChildren] = useState(null);
     const [isVisible, setIsVisible] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
     const [tasks, setTasks] = useState([]);
     const myEntity = useSelector(admin.selectors.getMyEntity);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -54,6 +55,7 @@ const UpdateProject = () => {
                     setCapacity(projectSummary.capacity);
                     setName(projectSummary.name);
                     setIsVisible(projectSummary.visible);
+                    setIsPaused(projectSummary.paused);
                     setLocality(projectSummary.locality);
                     setShortDescription(projectSummary.shortDescription);
                     setLongDescription(projectSummary.longDescription);
@@ -65,7 +67,6 @@ const UpdateProject = () => {
                     });
                     setSelectedOds(optionsOds?.filter(ods => projectSummary.ods.includes(ods.value)));
                     setTasks(projectSummary.tasks);
-
                 }));
             }
         },
@@ -87,7 +88,7 @@ const UpdateProject = () => {
                 setSelectEmptyError(true);
                 return;
             }
-            dispatch(actions.updateProject(
+            actions.updateProject(
                 {id: projectId,
                     name: name.trim(),
                     shortDescription: shortDescription.trim(),
@@ -98,14 +99,15 @@ const UpdateProject = () => {
                     preferableVolunteer: preferableVolunteer.trim(),
                     areChildren,
                     visible: isVisible,
+                    paused: !isVisible ? false : isPaused,
                     tasks: tasks.map((task) => task.trim()),
                     ods: selectedOds.map((ee) => ee.value),
                     entityId: myEntity.id,
                     areaId: selectedArea.value,
                 },
-                message => navigate("/projects/myProjects/"+message.id),
+                message => navigate("/projects/"+message.id),
                 errors => setBackendErrors(errors),
-            ));
+            );
 
         } else {
 
@@ -282,6 +284,24 @@ const UpdateProject = () => {
                                 </div>
                             </div>
                         </div>
+                        {isVisible &&
+                        <div className="form-group row mb-2">
+                            <div className="col-md-4">
+                                <div>
+                                    <label htmlFor="isPaused" className="form-check-label">
+                                        <FormattedMessage id="project.global.fields.isPaused"/>
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="isPaused"
+                                        className="form-check-input ms-2"
+                                        checked={isPaused}
+                                        onChange={e => setIsPaused(e.target.checked)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        }
                         <div className="form-group row mb-2">
                             <label htmlFor="ods" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.ods"/>
@@ -365,7 +385,7 @@ const UpdateProject = () => {
                             <div className="row mt-4">
                                 <div className="col-md-2">
                                     <button type="submit" className="buttonSecondary btn btn-primary">
-                                        <FormattedMessage id="project.global.buttons.create.Project"/>
+                                        <FormattedMessage id="project.global.buttons.update.Project"/>
                                     </button>
                                 </div>
                             </div>

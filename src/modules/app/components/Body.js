@@ -18,13 +18,13 @@ import SideBarRepresentative from "./SideBarRepresentative";
 import {CreateRep, CreateEntity} from "../../admin";
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsResult} from "../../project";
+import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsResult, UpdateProject} from "../../project";
 import admin from "../../admin";
 import CompletedProjectParticipation from "../../project/components/CompletedProjectParticipation";
 import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 import UpdateDoc from "../../users/components/UpdateDoc";
-import {CreateVolunteer, SeeVolunteers} from "../../rep";
+import {CreateVolunteer, SeeVolunteers, UpdateInvolvementHours} from "../../rep";
 
 const Body = () => {
 
@@ -74,8 +74,10 @@ const Body = () => {
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
+                {isRepresentative && <Route path="/projects/update-project/:projectId" element={<UpdateProject/>}/> }
                 {isRepresentative && <Route path="/projects-list" element={<SeeMyEntityProjects/>}/> }
                 {isRepresentative && <Route path="/project/myVolunteers/:projectId/:name" element = {<MyProjectVolunteersResult/>}/> }
+                {isRepresentative && <Route path="/update-participation-hours" element={<UpdateInvolvementHours/>}/> }
                 <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
                 <Route path="/projects/:projectId" element={<ProjectDetail/>} />
                 <Route path="/allProjects" element={<SeeProjectsFilters/>} />
