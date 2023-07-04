@@ -4,6 +4,13 @@ export const createParticipationHourRegister = (data, onSuccess, onErrors) => {
     appFetch('/participation/createHourRegister',config('POST',data), onSuccess, onErrors);
 }
 
+export const getAllParticipationHourRegister = ({projectId, startDate, endDate}, onSuccess, onErrors) => {
+    let path = `/participation/getAllRegisteredHours`;
+    path +=`?startDate=${startDate}`;
+    path += projectId ? `&projectId=${projectId}` : "";
+    path += `&endDate=${endDate}`;
+    appFetch(path,config('GET'), onSuccess, onErrors);
+}
 
 export const createProject = (project, onSuccess, onErrors) => {
     appFetch('/projects/createProject',config('POST',project),

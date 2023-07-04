@@ -5,7 +5,6 @@ import moment from 'moment';
 import './Calendar.css';
 import {FormattedMessage, useIntl} from "react-intl";
 import 'moment/locale/es';
-import {useNavigate} from "react-router-dom";
 import {Alert, Button, Form, Modal} from "react-bootstrap";
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
@@ -14,93 +13,23 @@ import Select from "react-select";
 import {useDispatch} from "react-redux";
 import * as actions from "../actions";
 import {Errors} from "../../common";
-const involvements = [
-    {
-        id: 1,
-        userName: 'Pedro Sánchez Sánchez',
-        projectName: 'Projecto X',
-        date: '2023-06-25',
-        numberOfHours: 15,
-    },
-    {
-        id: 2,
-        userName: 'Luís Fernández González',
-        projectName: 'Projecto X',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 3,
-        userName: 'Pedro Sánchez Sánchez',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 2,
-    },
-    {
-        id: 3,
-        userName: 'Jaime Smith',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 4,
-        userName: 'Pepe López López',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 5,
-        userName: 'Pepe López López',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 6,
-        userName: 'Rafael Nadal',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 7,
-        userName: 'Rafael Nadal',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 8,
-        userName: 'Rafael Nadal',
-        projectName: 'Limpieza de playas',
-        date: '2023-06-25',
-        numberOfHours: 10,
-    },
-    {
-        id: 9,
-        userName: 'Pedro Sánchez Sánchez',
-        projectName: 'Projecto X',
-        date: '2023-06-26',
-        numberOfHours: 2,
-    },
-];
+import {updateParticipationHour} from "../actions";
+import {Link} from "react-router-dom";
 
-const UpdateInvolvementHours = () => {
+const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filterProject}) => {
     const { locale } = useIntl();
     const intl = useIntl();
-    const languageCode = intl.locale.split('-')[0];
+    const languageCode = intl.locale.split('-')[0];    // es, en.... any language supported by react-intl
     const dispatch = useDispatch();
 
     moment.locale(locale);
     const localizer = momentLocalizer(moment);
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(moment(new Date()).startOf('week').toDate());
+    const [selectedDate, setSelectedDate] = useState(moment(new Date()).startOf('month').toDate());
+    const [month, setMonth] = useState(moment(new Date()).startOf('month').toDate().getMonth())
     const [addParticipation, setAddParticipation] = useState(false);
     const [viewType,setViewType] = useState('week');
-    const [projectList, setProjectList] = useState([]);
     const [selectedProject,setSelectedProject] = useState(null);
 
     const [participationList, setParticipationList] = useState([]);
@@ -109,7 +38,7 @@ const UpdateInvolvementHours = () => {
     const [backendErrors, setBackendErrors] = useState('');
     const [success, setSuccess] = useState(false);
     const [selectEmptyError, setSelectEmptyError] = useState(false);
-    const [hours, setHours] = useState(null);
+    const [hours, setHours] = useState(0);
 
     let form;
 
@@ -125,29 +54,29 @@ const UpdateInvolvementHours = () => {
 
     useEffect(() => {
         const newEvents = involvements.map((involvement) => {
-            const { date, numberOfHours, projectName, userName } = involvement;
-            const start = moment(date, 'YYYY-MM-DD').toDate();
+            const { date, hours, volunteerName, volunteerId } = involvement;
+            const date2 =  new Date(date[0], date[1]-1, date[2]);
+            const start = moment(date2, 'YYYY-MM-DD').toDate();
             return {
-                title: `${userName} - ${projectName} - ${numberOfHours}`,
-                date,
-                projectName,
-                userName,
-                numberOfHours,
+                title: `${volunteerName} - ${hours}`,
+                date: date2,
+                volunteerName,
+                volunteerId,
+                hours,
                 start,
                 end: start,
-                allDay: true,
+                allDay: false,
             };
         });
         setEvents(newEvents);
     }, [involvements]);
 
-
     useEffect(() => {
-        if(addParticipation){
-            actions.getAllMyProjectsName(data => setProjectList(data?.map(item => ({ value: item.id, label: item.name }))),
-                    errors => setBackendErrors(errors));
-        }
-    }, [addParticipation]);
+        const startDate = new Date((new Date()).getFullYear(), month , 1);
+        setStartDate(startDate);
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [month]);
 
     useEffect(() => {
         if(selectedProject){
@@ -186,8 +115,12 @@ const UpdateInvolvementHours = () => {
 
             actions.addNewParticipationHourRegister({participationId: selectedParticipation.value,
                 hours: hours,
-                date: selectedDate.toISOString().split('T')[0]},
-                newParticipation => {handleCloseAddModal(); setSuccess(true);},
+                date: new Date(selectedDate.getTime()+86400000).toISOString().split('T')[0]},
+                newParticipation => {
+                    dispatch(updateParticipationHour(newParticipation));
+                    handleCloseAddModal();
+                    setSuccess(true);
+                },
                 errors => setBackendErrors(errors));
         } else {
             setBackendErrors(null);
@@ -199,7 +132,7 @@ const UpdateInvolvementHours = () => {
         <div className="my-calendar">
             {backendErrors && <Errors errors={backendErrors} onClose={() => setBackendErrors('')} />}
             <Button variant="primary" className="buttonSecondary btn btn-primary mb-2" onClick={handleAddParticipation}>
-                {intl.formatMessage({id: 'project.global.buttons.save'})}
+                {intl.formatMessage({id: 'project.global.buttons.addNewRegister'})}
             </Button>
             <Calendar
                 localizer={localizer}
@@ -210,22 +143,36 @@ const UpdateInvolvementHours = () => {
                             setViewType('day');
                         }
                         setSelectedDate(date);
+                        if(date.getMonth() !== month){
+                            setMonth(date.getMonth());
+                        }
                     }
                     else if (view === Views.WEEK){
                         if(viewType!=='week') {
                             setViewType('week');
                         }
-                        setSelectedDate(moment(date).startOf('week').toDate());
+                        const newDate = moment(date).startOf('week').toDate();
+                        if(newDate.getMonth() !== month){
+                            setMonth(newDate.getMonth());
+                        }
+                        setSelectedDate(newDate);
+                    }
+                    else if(view === Views.MONTH){
+                        const newDate = moment(date).startOf('month').toDate();
+                        if(newDate.getMonth() !== month){
+                            setMonth(newDate.getMonth());
+                        }
+                        setSelectedDate(newDate);
                     }
                 }}
                 startAccessor="date"
                 endAccessor="date"
                 defaultView={Views.WEEK}
-                views={['week', 'day']}
+                views={['week', 'day', 'month']}
                 tooltipAccessor={null}
                 components={{
                     event: ({ event }) => (
-                        <div title={`${event.userName} - ${event.numberOfHours} horas`}
+                        <div title={`${event.volunteerName} - ${event.hours} horas`}
                              onClick={() => handleEventClick(event)}>
                             {event.title}
                         </div>
@@ -238,15 +185,18 @@ const UpdateInvolvementHours = () => {
             />
             <Modal show={selectedEvent !== null} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Event Details</Modal.Title>
+                    <Modal.Title>Detalle del registro de horas</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {selectedEvent !== null && (
                         <>
-                            <h1>{selectedEvent.userName}</h1>
-                            <h1>{selectedEvent.projectName}</h1>
-                            <p>{selectedEvent.userName}</p>
-                            <p>{selectedEvent.numberOfHours} horas</p>
+                            <h1><Link to={`/users/${selectedEvent.volunteerId}`} className="name-link">
+                                {selectedEvent.volunteerName}
+                            </Link></h1>
+                            <h1><Link to={`/projects/${filterProject?.value}`} className="name-link">
+                                {filterProject?.label}
+                            </Link></h1>
+                            <p>{selectedEvent.hours +" "} {intl.formatMessage({id: "project.global.fields.hours"})}</p>
                         </>
                     )}
                 </Modal.Body>
@@ -286,7 +236,7 @@ const UpdateInvolvementHours = () => {
                                 })}</p>}
                             />
                             <div className="form-group row mb-2">
-                                <label htmlFor="collaborationArea" className="col-md-3 col-form-label">
+                                <label htmlFor="project" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.global.fields.project"/>
                                 </label>
                                 <Select
@@ -306,7 +256,7 @@ const UpdateInvolvementHours = () => {
                             </div>
 
                             {selectedProject && <div className="form-group row mb-2">
-                                <label htmlFor="collaborationArea" className="col-md-3 col-form-label">
+                                <label htmlFor="volunteer" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.global.fields.volunteer"/>
                                 </label>
                                 <Select className="mt-2"
@@ -327,8 +277,8 @@ const UpdateInvolvementHours = () => {
                             }
 
                             <div className="form-group row mb-2">
-                                <label htmlFor="collaborationArea" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.global.fields.project"/>
+                                <label htmlFor="hours" className="col-md-3 col-form-label">
+                                    <FormattedMessage id="project.global.fields.hours"/>
                                 </label>
                                 <div className="col-md-4">
                                     <input type="number" id="hours" className="form-control"
@@ -348,7 +298,7 @@ const UpdateInvolvementHours = () => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleCloseAddModal}>Close</Button>
+                    <Button onClick={handleCloseAddModal}>{intl.formatMessage({id : "project.global.buttons.close"})}</Button>
                 </Modal.Footer>
             </Modal>
         </div>

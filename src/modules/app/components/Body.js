@@ -24,7 +24,7 @@ import CompletedProjectParticipation from "../../project/components/CompletedPro
 import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 import UpdateDoc from "../../users/components/UpdateDoc";
-import {CreateVolunteer, SeeVolunteers, UpdateInvolvementHours} from "../../rep";
+import {CreateVolunteer, SeeVolunteers, SeeInvolvementHoursResult} from "../../rep";
 
 const Body = () => {
 
@@ -77,7 +77,7 @@ const Body = () => {
                 {isRepresentative && <Route path="/projects/update-project/:projectId" element={<UpdateProject/>}/> }
                 {isRepresentative && <Route path="/projects-list" element={<SeeMyEntityProjects/>}/> }
                 {isRepresentative && <Route path="/project/myVolunteers/:projectId/:name" element = {<MyProjectVolunteersResult/>}/> }
-                {isRepresentative && <Route path="/update-participation-hours" element={<UpdateInvolvementHours/>}/> }
+                {isRepresentative && <Route path="/update-participation-hours" element={<SeeInvolvementHoursResult/>}/> }
                 <Route path="/project/find-projects-result" element={<SeeProjectsResult/>} />
                 <Route path="/projects/:projectId" element={<ProjectDetail/>} />
                 <Route path="/allProjects" element={<SeeProjectsFilters/>} />
