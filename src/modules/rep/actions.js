@@ -15,6 +15,41 @@ export const findVolunteers = criteria => dispatch => {
 
 };
 
+export const getAllMyProjectsName = (onSuccess, onErrors) => {
+    backend.representativeService.getAllMyProjects(onSuccess, onErrors);
+};
+
+export const getAllProjectParticipationName = (projectId, onSuccess, onErrors) => {
+    backend.representativeService.getAllProjectParticipation(projectId,onSuccess,onErrors);
+};
+
+export const addNewParticipationHourRegister = (data, onSuccess, onErrors) => {
+  backend.representativeService.createParticipationHourRegister(data, onSuccess, onErrors);
+};
+
+export const updateDeleteParticipationHour = (participationId) => ({
+    type: actionTypes.DELETE_HOURS_PARTICIPATION,
+    payload: participationId
+})
+export const deleteHourRegister = (id, onSuccess, onErrors) => {
+    backend.representativeService.deleteParticipationHourRegister(id, onSuccess, onErrors);
+};
+
+export const updateParticipationHour = (participation) => ({
+    type: actionTypes.UPDATE_HOURS_PARTICIPATION_SEARCH,
+    payload: participation
+});
+
+const findParticipationHourCompleted = (participationHourSearch) => ({
+    type: actionTypes.FIND_HOURS_PARTICIPATION_COMPLETED,
+    participationHourSearch
+});
+
+export const findAllParticipationHourRegister = (data,onErrors) => dispatch => {
+    backend.representativeService.getAllParticipationHourRegister(data,
+            participation => dispatch(findParticipationHourCompleted(participation),onErrors));
+}
+
 export const addVolunteer = (participation, onSuccess, onErrors) =>
     backend.representativeService.createParticipationToVolunteer(participation,
         msg => {

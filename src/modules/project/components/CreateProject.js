@@ -62,12 +62,13 @@ const CreateProject = () => {
                     preferableVolunteer: preferableVolunteer.trim(),
                     areChildren,
                     visible: isVisible,
+                    paused: false,
                     tasks: tasks.map((task) => task.trim()),
                     ods: selectedOds.map((ee) => ee.value),
                     entityId: myEntity.id,
                     areaId: selectedArea.value,
                 },
-                message => navigate("/projects/myProjects/"+message.id),
+                message => navigate("/projects/"+message.id),
                 errors => setBackendErrors(errors),
             ));
 
