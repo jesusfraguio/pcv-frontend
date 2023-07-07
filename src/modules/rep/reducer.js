@@ -35,7 +35,8 @@ const participationHourSearch = (state = initialState.participationHourSearch, a
                 ...state,
                 action.payload
             ];
-
+        case actionTypes.DELETE_HOURS_PARTICIPATION:
+            return [...state.filter(item => item.id !== action.payload)];
         default:
             return state;
 

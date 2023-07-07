@@ -27,6 +27,14 @@ export const addNewParticipationHourRegister = (data, onSuccess, onErrors) => {
   backend.representativeService.createParticipationHourRegister(data, onSuccess, onErrors);
 };
 
+export const updateDeleteParticipationHour = (participationId) => ({
+    type: actionTypes.DELETE_HOURS_PARTICIPATION,
+    payload: participationId
+})
+export const deleteHourRegister = (id, onSuccess, onErrors) => {
+    backend.representativeService.deleteParticipationHourRegister(id, onSuccess, onErrors);
+};
+
 export const updateParticipationHour = (participation) => ({
     type: actionTypes.UPDATE_HOURS_PARTICIPATION_SEARCH,
     payload: participation

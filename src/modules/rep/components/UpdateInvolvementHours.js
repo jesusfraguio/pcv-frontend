@@ -3,9 +3,9 @@ import {Calendar, Views, momentLocalizer} from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import './Calendar.css';
-import {FormattedMessage, useIntl} from "react-intl";
+import {FormattedDate, FormattedMessage, useIntl} from "react-intl";
 import 'moment/locale/es';
-import {Alert, Button, Form, Modal} from "react-bootstrap";
+import {Alert, Button, Col, Form, Modal, Row} from "react-bootstrap";
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { es, enGB, gl } from 'date-fns/locale';
@@ -13,7 +13,6 @@ import Select from "react-select";
 import {useDispatch} from "react-redux";
 import * as actions from "../actions";
 import {Errors} from "../../common";
-import {updateParticipationHour} from "../actions";
 import {Link} from "react-router-dom";
 
 const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filterProject}) => {
@@ -54,10 +53,11 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
 
     useEffect(() => {
         const newEvents = involvements.map((involvement) => {
-            const { date, hours, volunteerName, volunteerId } = involvement;
+            const { date, hours, volunteerName, volunteerId, id} = involvement;
             const date2 =  new Date(date[0], date[1]-1, date[2]);
             const start = moment(date2, 'YYYY-MM-DD').toDate();
             return {
+                id,
                 title: `${volunteerName} - ${hours}`,
                 date: date2,
                 volunteerName,
@@ -94,6 +94,7 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
     };
     const handleSuccessClose = () => {
         setSuccess(false);
+        setSelectedEvent(null);
     };
     const handleCloseAddModal = () => {
       setAddParticipation(false);
@@ -101,6 +102,13 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
 
     const handleAddParticipation = () => {
         setAddParticipation(true);
+    };
+
+    const handleDeleteParticipation = (id) => {
+        actions.deleteHourRegister(id, (success) => {
+            dispatch(actions.updateDeleteParticipationHour(id));
+            setSuccess(true);
+        }, (errors) => setBackendErrors(errors));
     };
 
     const handleSubmit = event => {
@@ -117,7 +125,7 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
                 hours: hours,
                 date: new Date(selectedDate.getTime()+86400000).toISOString().split('T')[0]},
                 newParticipation => {
-                    dispatch(updateParticipationHour(newParticipation));
+                    dispatch(actions.updateParticipationHour(newParticipation));
                     handleCloseAddModal();
                     setSuccess(true);
                 },
@@ -185,7 +193,7 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
             />
             <Modal show={selectedEvent !== null} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Detalle del registro de horas</Modal.Title>
+                    <Modal.Title>{intl.formatMessage({id: "project.participation.hourRegister.detail"})}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {selectedEvent !== null && (
@@ -196,12 +204,25 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
                             <h1><Link to={`/projects/${filterProject?.value}`} className="name-link">
                                 {filterProject?.label}
                             </Link></h1>
-                            <p>{selectedEvent.hours +" "} {intl.formatMessage({id: "project.global.fields.hours"})}</p>
+                            <Row>
+                                <Col>
+                                    <p>
+                                        <FormattedDate value={selectedEvent.date} />
+                                    </p>
+                                    <p>
+                                        {selectedEvent.hours + ' '}
+                                        {intl.formatMessage({ id: 'project.global.fields.hours' })}
+                                    </p>
+                                </Col>
+                            </Row>
                         </>
                     )}
+                    <Button variant="primary" className="btn-danger mb-2" onClick={() => handleDeleteParticipation(selectedEvent.id)}>
+                        <FormattedMessage id="project.participation.hourRegister.delete" />
+                    </Button>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleCloseModal}>Close</Button>
+                    <Button onClick={handleCloseModal}><FormattedMessage id="project.global.buttons.close"/></Button>
                 </Modal.Footer>
             </Modal>
             {success &&

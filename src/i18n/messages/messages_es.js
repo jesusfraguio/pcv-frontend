@@ -167,6 +167,8 @@ export default {
     'project.participation.requiredHarassmentCert': 'Error. Se necesita que antes suba su documentación. Vaya a su perfil y en {link} suba el certificado de delitos sexuales',
     'project.participation.requiredDni': 'Error. Se necesita que antes suba su documentación. Vaya a su perfil y en {link} suba el escaneado del DNI',
     'project.participation.rep.requiredDni': 'Error. Se necesita que antes suba su escaneado del dni',
+    'project.participation.hourRegister.detail': 'Detalle del registro de horas',
+    'project.participation.hourRegister.delete': 'Eliminar registro',
     'project.projects.noProjectsFound':'No se encontraron proyectos',
     'project.project.FindProject.title':'Buscar proyectos',
     'project.project.FindMoreProjects.title':'Ver más proyectos',
