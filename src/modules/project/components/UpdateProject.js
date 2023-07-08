@@ -1,7 +1,7 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Errors, Success} from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
@@ -10,8 +10,10 @@ import { useIntl } from 'react-intl';
 import './CreateProjectTask.css';
 import Select from "react-select";
 import admin from "../../admin";
-const CreateProject = () => {
 
+const UpdateProject = () => {
+
+    const {projectId} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const intl = useIntl();
@@ -22,8 +24,9 @@ const CreateProject = () => {
     const [schedule, setSchedule] = useState('');
     const [capacity, setCapacity] = useState(0);
     const [preferableVolunteer, setPreferableVolunteer] = useState('');
-    const [areChildren, setAreChildren] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
+    const [areChildren, setAreChildren] = useState(null);
+    const [isVisible, setIsVisible] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
     const [tasks, setTasks] = useState([]);
     const myEntity = useSelector(admin.selectors.getMyEntity);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -33,6 +36,7 @@ const CreateProject = () => {
     const [selectedArea, setSelectedArea] = useState(null);
     const areaList = useSelector(selectors.getAreas);
     const [selectEmptyError, setSelectEmptyError] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
     const optionsOds = odsList?.map(a => ({
         value: a.id,
         label: a.name
@@ -43,6 +47,38 @@ const CreateProject = () => {
     }));
     let form;
 
+
+    useEffect(()=> {
+            if (isLoaded) {
+                dispatch(actions.findProjectDetails(projectId, (projectSummary) => {
+                    setAreChildren(projectSummary.areChildren);
+                    setCapacity(projectSummary.capacity);
+                    setName(projectSummary.name);
+                    setIsVisible(projectSummary.visible);
+                    setIsPaused(projectSummary.paused);
+                    setLocality(projectSummary.locality);
+                    setShortDescription(projectSummary.shortDescription);
+                    setLongDescription(projectSummary.longDescription);
+                    setPreferableVolunteer(projectSummary.preferableVolunteer);
+                    setSchedule(projectSummary.schedule);
+                    setSelectedArea({
+                        value: projectSummary.areaId,
+                        label: (areaList?.find(a => a.id === projectSummary.areaId)).name
+                    });
+                    setSelectedOds(optionsOds?.filter(ods => projectSummary.ods.includes(ods.value)));
+                    setTasks(projectSummary.tasks);
+                }));
+            }
+        },
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+        [projectId, isLoaded]);
+
+    useEffect(() => {
+        if(optionsOds && areaList){
+            setIsLoaded(true);
+        }
+    }, [optionsOds,areaList]);
+
     const handleSubmit = event => {
 
         event.preventDefault();
@@ -52,8 +88,9 @@ const CreateProject = () => {
                 setSelectEmptyError(true);
                 return;
             }
-            dispatch(actions.createProject(
-                {name: name.trim(),
+            actions.updateProject(
+                {id: projectId,
+                    name: name.trim(),
                     shortDescription: shortDescription.trim(),
                     longDescription: longDescription.trim(),
                     locality: locality.trim(),
@@ -62,7 +99,7 @@ const CreateProject = () => {
                     preferableVolunteer: preferableVolunteer.trim(),
                     areChildren,
                     visible: isVisible,
-                    paused: false,
+                    paused: !isVisible ? false : isPaused,
                     tasks: tasks.map((task) => task.trim()),
                     ods: selectedOds.map((ee) => ee.value),
                     entityId: myEntity.id,
@@ -70,7 +107,7 @@ const CreateProject = () => {
                 },
                 message => navigate("/projects/"+message.id),
                 errors => setBackendErrors(errors),
-            ));
+            );
 
         } else {
 
@@ -247,6 +284,24 @@ const CreateProject = () => {
                                 </div>
                             </div>
                         </div>
+                        {isVisible &&
+                        <div className="form-group row mb-2">
+                            <div className="col-md-4">
+                                <div>
+                                    <label htmlFor="isPaused" className="form-check-label">
+                                        <FormattedMessage id="project.global.fields.isPaused"/>
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="isPaused"
+                                        className="form-check-input ms-2"
+                                        checked={isPaused}
+                                        onChange={e => setIsPaused(e.target.checked)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        }
                         <div className="form-group row mb-2">
                             <label htmlFor="ods" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.ods"/>
@@ -330,7 +385,7 @@ const CreateProject = () => {
                             <div className="row mt-4">
                                 <div className="col-md-2">
                                     <button type="submit" className="buttonSecondary btn btn-primary">
-                                        <FormattedMessage id="project.global.buttons.create.Project"/>
+                                        <FormattedMessage id="project.global.buttons.update.Project"/>
                                     </button>
                                 </div>
                             </div>
@@ -343,4 +398,4 @@ const CreateProject = () => {
 
 }
 
-export default CreateProject;
+export default UpdateProject;

@@ -11,6 +11,7 @@ import {FormGroup} from "react-bootstrap";
 const UpdateProfile = () => {
 
     const user = useSelector(selectors.getUser);
+    const isRepresentative = useSelector(selectors.isRepresentative);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState(user.firstName);
@@ -96,9 +97,11 @@ const UpdateProfile = () => {
                             </div>
                         </FormGroup>
 
-                        <FormGroup className="mb-2">
-                            <Link to="/users/update-my-doc"><FormattedMessage id ="project.user.doc.title"/></Link>
-                        </FormGroup>
+                        {!isRepresentative &&
+                            <FormGroup className="mb-2">
+                                <Link to="/users/update-my-doc"><FormattedMessage id ="project.user.doc.title"/></Link>
+                            </FormGroup>
+                        }
 
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-1">

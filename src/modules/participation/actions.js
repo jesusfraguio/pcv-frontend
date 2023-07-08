@@ -16,6 +16,13 @@ export const uploadMyVolunteerSignedCert = (formData, onSuccess, onErrors) =>
         },
         onErrors
     );
+export const downloadEntityCert = (id) =>
+    backend.projectService.getEntityCert(id, (file, fileName) => {
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(file);
+        downloadLink.download = fileName;
+        downloadLink.click();
+    });
 
 
 const findMyParticipationsCompleted = participationsSearch => ({

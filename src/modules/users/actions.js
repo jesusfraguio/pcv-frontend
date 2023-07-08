@@ -74,6 +74,30 @@ export const updateProfile = (user, onSuccess, onErrors) => dispatch =>
 export const updateMyDoc = (formData, id, onSuccess, onErrors) =>
     backend.userService.updateMyDoc(formData,id,onSuccess,onErrors);
 
+export const updateVolunteerDocs = (formData, id, onSuccess, onErrors) =>
+    backend.representativeService.updateVolunteerDoc(formData,id,onSuccess,onErrors);
+
+export const downloadFile = (volunteerId, fileType, onSuccess, onErrors) =>
+    backend.representativeService.downloadVolunteerFile(volunteerId, fileType, (file, fileName) => {
+        /*
+        const blob = new Blob([file.data], {
+            type: file.headers['content-type'],
+        });
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = "descstga"
+        downloadLink.click();*/
+
+        const downloadLink = document.createElement('a');
+        const fileUrl = URL.createObjectURL(file);
+        downloadLink.href = fileUrl;
+        //downloadLink.setAttribute('download', fileName);
+        downloadLink.download = fileName;
+
+        downloadLink.click();
+
+    }, onErrors);
+
 export const changePassword = (id, oldPassword, newPassword, onSuccess, onErrors) => dispatch =>
     backend.userService.changePassword(id, oldPassword, newPassword, onSuccess, onErrors);
 

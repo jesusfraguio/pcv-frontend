@@ -20,8 +20,16 @@ export const createProject = (project, onSuccess, onErrors) => dispatch =>
         onErrors
     );
 
+export const updateProject = (project, onSuccess, onErrors) =>
+    backend.representativeService.updateProject(project,
+        msg => {
+            onSuccess(msg);
+        },
+        onErrors
+    );
+
 export const getLogo = (entityId) => dispatch =>
-    backend.projectService.getEntityLogo(entityId, image =>
+    backend.projectService.getEntityLogo(entityId, (image, fileName) =>
         dispatch(getLogoSuccess(entityId,URL.createObjectURL(image))), errors => dispatch(getLogoSuccess(entityId,process.env.PUBLIC_URL + "/logo192.png")));
 
 

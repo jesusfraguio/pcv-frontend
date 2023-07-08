@@ -1,7 +1,7 @@
 import {FormattedMessage, useIntl} from "react-intl";
 import * as actions from '../actions';
-import {Errors, Success} from "../../common";
-import {Button, Card, Form, Modal} from "react-bootstrap";
+import {Errors} from "../../common";
+import {Alert, Button, Card, Form, Modal} from "react-bootstrap";
 import {FaPhone} from "react-icons/fa";
 import DatePicker, {registerLocale} from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,10 +10,12 @@ import es from 'date-fns/locale/es';
 import { localityList } from '../../users/components/LocalityData.js';
 import Select from "react-windowed-select";
 import {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const CreateVolunteer = () => {
 
     const intl = useIntl();
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [dni, setDni] = useState('');
@@ -27,6 +29,7 @@ const CreateVolunteer = () => {
     const {locale} = useIntl();
     const [goAnyway,setGoAnyway] = useState(false);
     const submitButtonRef = useRef(null);
+    const volunteerIdSuccess = useRef(null);
     let form;
 
     useEffect(() => {registerLocale('es', es);}, [])
@@ -106,15 +109,18 @@ const CreateVolunteer = () => {
             if(cert.files.length > 0){
                 formData.append('cert', cert.files[0], cert.files[0].name);
             }
-            if(harassmentCert.files?.length > 0){
+            if(harassmentCert.files.length > 0){
                 formData.append('harassmentCert', harassmentCert.files[0], harassmentCert.files[0].name);
             }
-            if(dniDoc.files?.length > 0){
+            if(dniDoc.files.length > 0){
                 formData.append('dni', dniDoc.files[0], dniDoc.files[0].name);
             }
             actions.createVolunteer(formData,
-                message => setSuccess(intl.formatMessage({ id: 'project.created.volunteer.success' })),
-                errors => setBackendErrors(errors),
+                id => {
+                    volunteerIdSuccess.current = id;
+                    setSuccess(intl.formatMessage({id: 'project.created.volunteer.success'}));
+                },
+                        errors => setBackendErrors(errors)
             );
             setName('');
             setDni('');
@@ -151,8 +157,15 @@ const CreateVolunteer = () => {
     return (
         <div>
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-            <Success message={createdOk}
-                     onClose={() => setSuccess(null)}/>
+            {createdOk &&
+                <Modal show={createdOk!==null} onHide={() => navigate(`/users/${volunteerIdSuccess.current}`)} centered>
+                    <Modal.Body closeButton>
+                        <Alert variant="success" onClose={() => navigate(`/users/${volunteerIdSuccess.current}`)} dismissible>
+                            <p>{createdOk} </p>
+                        </Alert>
+                    </Modal.Body>
+                </Modal>
+            }
             <Modal show={dniErrorModal} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Error</Modal.Title>

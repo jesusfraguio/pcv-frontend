@@ -28,8 +28,10 @@ const handleOkResponse = (response, onSuccess) => {
         return true;
     }
 
-    if(response.status === 200 && response.headers.get("content-type").includes("image")){
-        response.blob().then(payload => onSuccess(payload));
+    if(response.status === 200 && (response.headers.get("content-type").includes("image") || response.headers.get("content-type").includes("pdf"))){
+        const fileName = response.headers.get("Content-Disposition");
+        const name = extractFileName(fileName);
+        response.blob().then(payload => onSuccess(payload, name));
     }
 
     if (isJson(response)) {
@@ -38,6 +40,18 @@ const handleOkResponse = (response, onSuccess) => {
 
     return true;
 
+}
+
+function extractFileName(header) {
+    const fileNameStartIndex = header.indexOf("filename=");
+    if (fileNameStartIndex !== -1) {
+        const startIndex = fileNameStartIndex + 10; // Add 10 to skip "filename="
+        const endIndex = header.indexOf('"', startIndex); // Find the next occurrence of a double quote (")
+        if (endIndex !== -1) {
+            return header.substring(startIndex, endIndex);
+        }
+    }
+    return null;
 }
 
 const handle4xxResponse = (response, onErrors) => {

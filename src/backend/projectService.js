@@ -41,6 +41,11 @@ export const getEntityLogo = (entityId, onSuccess, onErrors) => {
     appFetch(path,config('GET'), image => onSuccess(image), onErrors);
 }
 
+export const getEntityCert = (entityId, onSuccess) => {
+    let path = `/projects/getAgreementFile/${entityId}`;
+    appFetch(path,config('GET'), onSuccess);
+}
+
 export const getProjectDetails = (projectId, onSuccess) => {
     let path = `/projects/project/${projectId}`;
     appFetch(path,config('GET'), onSuccess)
