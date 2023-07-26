@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Link, useNavigate} from 'react-router-dom';
 import React from 'react';
@@ -11,7 +10,6 @@ import users from "../../users";
 const EntityProjects = ({ entityProjects, entity }) => {
     const intl = useIntl();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const myEntity = useSelector(entities.selectors.getMyEntity);
     const isAdmin = useSelector(users.selectors.isAdmin);
 

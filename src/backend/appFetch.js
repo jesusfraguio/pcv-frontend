@@ -101,13 +101,36 @@ export const init = callback => networkErrorCallback = callback;
 
 export const setReauthenticationCallback = callback => reauthenticationCallback = callback;
 
-export const setServiceToken = serviceToken => 
-    sessionStorage.setItem(SERVICE_TOKEN_NAME, serviceToken);
+export const setServiceToken = (serviceToken) => {
+    const rememberedValue = localStorage.getItem('REMEMBERED');
 
-export const getServiceToken = () => sessionStorage.getItem(SERVICE_TOKEN_NAME);
+    if (!rememberedValue || rememberedValue === 'false') {
+        sessionStorage.setItem(SERVICE_TOKEN_NAME, serviceToken);
+    } else {
+        localStorage.setItem(SERVICE_TOKEN_NAME, serviceToken);
+    }
+};
 
-export const removeServiceToken = () => 
+export const getServiceToken = () => {
+    const rememberedValue = localStorage.getItem('REMEMBERED');
+
+    if (!rememberedValue || rememberedValue === 'false') {
+        return sessionStorage.getItem(SERVICE_TOKEN_NAME);
+    } else {
+        return localStorage.getItem(SERVICE_TOKEN_NAME);
+    }
+};
+
+export const removeServiceToken = () => {
+    localStorage.removeItem(SERVICE_TOKEN_NAME);
     sessionStorage.removeItem(SERVICE_TOKEN_NAME);
+    localStorage.removeItem('REMEMBERED');
+};
+
+export const setRemembered = boolValue =>
+    localStorage.setItem('REMEMBERED',boolValue);
+
+export const getRemembered = () => localStorage.getItem('REMEMBERED');
 
 export const config = (method, body) => {
 

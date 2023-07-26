@@ -105,7 +105,7 @@ const SeeProjectsFilters = () => {
                        value={name} onChange={e => setName(e.target.value)} />
             </div>
             <div className="col mt-4">
-                <button type="submit" className="btn btn-primary buttonSecondary" id="search" data-bs-dismiss="modal" onClick={()=> handleSubmit()}>
+                <button type="submit" className="btn btn-primary buttonSecondary" id="search" onClick={()=> handleSubmit()}>
                     <FormattedMessage id='project.global.buttons.searchProjects' />
                 </button>
             </div>

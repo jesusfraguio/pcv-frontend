@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
@@ -14,8 +14,13 @@ const Login = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [remembered, setRemembered] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
     let form;
+
+    useEffect(() => {
+        localStorage.setItem('REMEMBERED',remembered ? 'true' : 'false');
+    }, [remembered]);
 
     const handleSubmit = event => {
 
@@ -26,7 +31,9 @@ const Login = () => {
             dispatch(actions.login(
                 userName.trim(),
                 password,
-                () => navigate('/'),
+                () => {
+                    navigate('/')
+                },
                 errors => setBackendErrors(errors),
                 () => {
                     navigate('/users/login');
@@ -84,7 +91,21 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <div className="offset-md-3 col-md-1">
+                            <div className="offset-md-3 col-md-5">
+                                <label htmlFor="remembered">
+                                    <input
+                                        type="checkbox"
+                                        id="remembered"
+                                        checked={remembered}
+                                        onChange={(e) => setRemembered(e.target.checked)}
+                                    />
+                                    {' '}
+                                    <FormattedMessage id={"project.app.login.RememberMe"} />
+                                </label>
+                            </div>
+                        </div>
+                        <div className="form-group row mt-1">
+                            <div className="offset-md-3 col-md-5">
                                 <button type="submit" className="buttonSecondary btn btn-primary">
                                     <FormattedMessage id="project.users.Login.title"/>
                                 </button>

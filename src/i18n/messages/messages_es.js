@@ -8,6 +8,7 @@ export default {
     'project.app.Home.joinCommunity':'Únete a la comunidad y elige tu voluntariado!',
     'project.app.Home.IAmEntity':'Soy una entidad',
     'project.app.Home.IWantBeVolunteer':'Quiero ser voluntario',
+    'project.app.login.RememberMe': 'Recuérdame',
 
     'project.common.ErrorDialog.title': 'Error',
     'project.common.goAnyway': 'Continuar igualmente',

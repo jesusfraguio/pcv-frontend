@@ -5,6 +5,7 @@ export default {
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Saír',
     'project.app.Home.welcome': '¡Contido da páxina principal!',
+    'project.app.login.RememberMe': 'Lémbrame',
     
     'project.common.ErrorDialog.title': 'Erro',
 

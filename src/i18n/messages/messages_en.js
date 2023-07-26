@@ -5,6 +5,7 @@ export default {
     'project.app.Header.home': 'Home',
     'project.app.Header.logout': 'Logout',
     'project.app.Home.welcome': 'Main page content!',
+    'project.app.login.RememberMe': 'Remember me',
 
     'project.common.ErrorDialog.title': 'Error',
 
