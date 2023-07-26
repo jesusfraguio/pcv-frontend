@@ -21,8 +21,8 @@
 */
 .nav-menu {
     background-color: #060b26;
-    width: 250px;
-    height: 100vh;
+    width: 300px; /*250 before */
+    max-height: 100vh;
     display: flex;
     flex-direction: column; /* Goes to right instead of down */
     justify-content: center;
@@ -31,6 +31,7 @@
     left: 0;
     transition: 850ms;
     z-index: 999; /* Higher than all other components */
+    overflow-y: auto; /* not needed yet with the current amount of items (8 max) */
 }
 
 .menu-bars {
@@ -48,9 +49,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 8px 0px 8px 16px;
+    padding: 8px 0px 0px 2px;
     list-style: none;
-    height: 90px;
+    height: 87px;
 }
 
 .nav-text a {
@@ -70,6 +71,8 @@
 }
 
 .nav-menu-items {
+    flex-grow: 1;
+    min-height: 0;
     width: 100%;
 }
 

@@ -21,11 +21,12 @@ export const findAllCachedData = (onSuccess) =>
     appFetch('/projects/getSummaryOdsAndCollaborationArea', config('GET'), onSuccess);
 
 
-export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, sortOrder, page},
+export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, sortOrder, page, size},
                            onSuccess) => {
 
     let path = `/projects/searchProjectsBy?page=${page}`;
 
+    path += size ? `&size=${size}` : "";
     path += collaborationAreaId ? `&collaborationAreaId=${collaborationAreaId}` : "";
     path += locality ? `&locality=${locality}` : "";
     path += name.length > 0 ? `&name=${encodeURIComponent(name)}` : "";
@@ -37,12 +38,12 @@ export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, 
 }
 
 export const getEntityLogo = (entityId, onSuccess, onErrors) => {
-    let path = `/projects/getLogo?entityId=${entityId}`;
+    let path = `/entity/getLogo?entityId=${entityId}`;
     appFetch(path,config('GET'), image => onSuccess(image), onErrors);
 }
 
 export const getEntityCert = (entityId, onSuccess) => {
-    let path = `/projects/getAgreementFile/${entityId}`;
+    let path = `/entity/getAgreementFile/${entityId}`;
     appFetch(path,config('GET'), onSuccess);
 }
 
@@ -70,9 +71,10 @@ export const findMyParticipations = ({page, size},
 
 }
 
-export const findMyEntityProjects = ({page, size},
+export const findMyEntityProjects = ({page, size, entityId},
                                      onSuccess) => {
     let path = `/projects/myEntityProjects?page=${page}`;
     path += size ? `&size=${size}` : "";
+    path += entityId ? `&entityId=${entityId}` : "";
     appFetch(path, config('GET'), onSuccess);
 }

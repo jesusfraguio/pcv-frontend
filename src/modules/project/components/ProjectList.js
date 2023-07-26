@@ -48,13 +48,14 @@ const ProjectList = ({ projects }) => {
     }
 
     return (
-        <Row xs={1} md={2} lg={3}>
+        <Row xs={1} sm={2} md={3} lg={3}>
             {projects.map((project, index) => {
                 const image = entities[project.entityId]?.image;
                 return (
-                    <CardGroup>
+                    //+centered on desktop: className="mx-auto d-xs-flex justify-content-center align-items-center"
+                    <CardGroup className="xs-card">
                     <Col key={project.id}>
-                        <Card className="style-card" style={{ width: '18rem' }} onClick={(e) => handleClick(project,e)}>
+                        <Card className="style-card mb-3" style={{ width: '18rem'}} onClick={(e) => handleClick(project,e)}>
                             <Card.Img variant="top" src={image} alt={project.name} style={{ maxWidth: '100%', maxHeight: '150px' }} />
                             <Card.Body>
                                 <Card.Title>{project.name}</Card.Title>

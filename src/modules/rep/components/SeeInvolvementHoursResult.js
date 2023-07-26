@@ -7,6 +7,7 @@ import UpdateInvolvementHours from "./UpdateInvolvementHours";
 import Select from "react-select";
 import moment from 'moment';
 import {Errors} from "../../common";
+import {Button} from "react-bootstrap";
 
 const SeeInvolvementHoursResult = () => {
 
@@ -18,6 +19,7 @@ const SeeInvolvementHoursResult = () => {
     const [selectedProject,setSelectedProject] = useState(null);
     const [backendErrors, setBackendErrors] = useState('');
     const defaultOption = {value: null, label: intl.formatMessage({id:"project.project.all"})};
+    const [addParticipation, setAddParticipation] = useState(false);
     //const [success, setSuccess] = useState(false);
 
     //that number 518400000 are 6 days, this is to print all week registers in case it is in another month but in the same visual UI week.
@@ -46,6 +48,14 @@ const SeeInvolvementHoursResult = () => {
                 errors => setBackendErrors(errors));
     }, []);
 
+    const handleCloseAddModal = () => {
+        setAddParticipation(false);
+    };
+
+    const handleAddParticipation = () => {
+        setAddParticipation(true);
+    };
+
     if (!participationHourSearch) {
         return null;
     }
@@ -53,7 +63,10 @@ const SeeInvolvementHoursResult = () => {
     return (
         <div id='find-participation-result-wrapper'>
             <Errors errors={backendErrors} onClose={() => setBackendErrors('')} />
-            <div className="form-group row mb-2 align-content-center">
+            <Button variant="primary" className="buttonSecondary btn btn-primary mb-2" onClick={handleAddParticipation}>
+                {intl.formatMessage({id: 'project.global.buttons.addNewRegister'})}
+            </Button>
+            <div className="form-group row mb-2 align-content-center" style={{ position: 'relative', zIndex: 998 }}>
                 <label htmlFor="project" className="col-md-3 col-form-label">
                     <FormattedMessage id="project.global.fields.project"/>
                 </label>
@@ -67,7 +80,7 @@ const SeeInvolvementHoursResult = () => {
                 />
             </div>
             <UpdateInvolvementHours involvements={participationHourSearch} projectList={projectList} setStartDate={setStartDate}
-                                    filterProject={selectedProject}/>
+                                    filterProject={selectedProject} addParticipation={addParticipation} handleCloseAddModal = {() => handleCloseAddModal()}/>
         </div>
     );
 

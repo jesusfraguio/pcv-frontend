@@ -17,9 +17,14 @@ const SeeProjectsFilters = () => {
     const navigate = useNavigate();
     const areaList = useSelector(selectors.getAreas);
     const [searched,setSearched] = useState(false);
-    //const [findAuto, setAuto] = useState(false);
+    const [findAuto, setAuto] = useState(false);
+
     useEffect(() => {
-    },[areaList])
+        if(findAuto){
+            handleSubmit();
+        }
+    },[areaId]);
+
     const optionsAreas = areaList ? [
         { value: null, label: (intl.formatMessage({ id: 'project.allAreas.title'})) },
         ...areaList?.map((a) => ({
@@ -28,8 +33,7 @@ const SeeProjectsFilters = () => {
         })),
     ] : [];
 
-    const handleSubmit = event => {
-        event.preventDefault();
+    const handleSubmit = () => {
         dispatch(actions.findProjects(
             {
                 collaborationAreaId: areaId.value ? areaId.value : null,
@@ -38,89 +42,72 @@ const SeeProjectsFilters = () => {
                 sortValue : null,
                 sortOrder: null,
                 page: 0,
+                size: 6
             }));
         setSearched(true);
         //navigate('/project/find-projects-result')
     }
-/*
-    function searchAuto(){
+
+    useEffect(() => {
+        searchAutoFunc();
+    }, []);
+
+    function searchAutoFunc(){
         if(!findAuto){
-            document.getElementById("search").click()
-            setAuto(true)
+            dispatch(actions.findProjects(
+                {
+                    collaborationAreaId: areaId.value ? areaId.value : null,
+                    locality: locality ? locality.trim() : null,
+                    name: name.trim(),
+                    sortValue : null,
+                    sortOrder: null,
+                    page: 0,
+                    size: 6,
+                }));
+            setAuto(true);
+            setSearched(true);
         }
     }
-*/
     // eslint-disable-next-line
     //useEffect(() => {setTimeout(searchAuto,1200);},[]);
     return (
 
         <div className="row" id="find-project-wrapper">
             <div className="col">
-                <button type="button" className="btn btn-primary buttonGrey"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <FormattedMessage id='project.project.buttons.addFilter'/>
-                </button>
-            </div>
-
-            <div className="col">
-                <form className="form-inline mt-2 mt-md-0" onSubmit={e => handleSubmit(e)}>
-                    <div className="modal modal-fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">
-                                        <FormattedMessage id='project.project.FindProject.title'/>
-                                    </h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <div id="find-project-wrapper" className="form_field">
-                                        <div className="row">
-                                            <div className="col">
-                                                <label htmlFor="category">
-                                                    <FormattedMessage id="project.global.fields.collaborationArea"/>
-                                                </label>
-                                            </div>
-                                            <div className="col">
-                                                <label htmlFor="shortDescription">
-                                                    <FormattedMessage id="project.global.fields.name"/>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col">
-                                                <Select
-                                                    options={optionsAreas}
-                                                    value={areaId}
-                                                    onChange={setAreaId}
-                                                    isSearchable={true}
-                                                    isMulti={false}
-                                                    isClearable={false}
-                                                />
-                                            </div>
-                                            <div className="col">
-                                                <input id="keywords" type="text" className="form-control mr-sm-2"
-                                                       value={name} onChange={e => setName(e.target.value)} />
-                                            </div>
-                                        </div>
-                                        <br/>
-
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                        <FormattedMessage id='project.project.buttons.addFilter'/></button>
-                                </div>
+                <div className="d-flex justify-content-center">
+                    <div id="find-project-wrapper2" className="form_field">
+                        <div className="row">
+                            <div className="col">
+                                <label htmlFor="category">
+                                    <FormattedMessage id="project.global.fields.collaborationArea"/>
+                                </label>
                             </div>
                         </div>
-                    </div>
-                    </div>
+                        <div className="row">
+                            <div className="col">
+                                <Select
+                                    options={optionsAreas}
+                                    value={areaId}
+                                    onChange={setAreaId}
+                                    isSearchable={true}
+                                    isMulti={false}
+                                    isClearable={false}
+                                    placeholder={intl.formatMessage({ id: 'project.allAreas.title'})}
+                                />
+                            </div>
+                        </div>
 
-                    <button type="submit" className="btn btn-primary buttonSecondary" id="search" data-bs-dismiss="modal">
-                        <FormattedMessage id='project.global.buttons.searchProjects' />
-                    </button>
-                </form>
+                    </div>
+                </div>
+            </div>
+            <div className="col mt-4">
+                <input id="keywords" type="text" className="form-control mr-sm-2" placeholder={intl.formatMessage({id: "project.search.fields.projectName"})}
+                       value={name} onChange={e => setName(e.target.value)} />
+            </div>
+            <div className="col mt-4">
+                <button type="submit" className="btn btn-primary buttonSecondary" id="search" data-bs-dismiss="modal" onClick={()=> handleSubmit()}>
+                    <FormattedMessage id='project.global.buttons.searchProjects' />
+                </button>
             </div>
 
             {searched && <SeeProjectsResult/>}

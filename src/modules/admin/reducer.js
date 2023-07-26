@@ -28,6 +28,9 @@ const myEntity = (state = initialState.myEntity, action) => {
         case actionTypes.MY_ENTITY_COMPLETED:
             return action.myEntity;
 
+        case actionTypes.UPDATE_MY_ENTITY:
+            return action.myEntity;
+
         default:
             return state;
 

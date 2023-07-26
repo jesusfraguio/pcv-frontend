@@ -18,9 +18,6 @@ const NotLoggedUserShowLogin = () => {
                             <h3>{intl.formatMessage({id : 'project.app.Home.joinCommunity'})}</h3>
                             <Row>
                                 <Col md={9} className="d-flex flex-column flex-md-row">
-                                    <Button variant="outline-primary" className="buttonSecondary mx-2 btn-sm">
-                                        {intl.formatMessage({id : 'project.app.Home.IAmEntity'})}
-                                    </Button>
                                     <Button variant="primary" className="buttonSecondary mx-2 btn-lg" onClick={() => navigate('/users/signup')}>
                                         {intl.formatMessage({id : 'project.app.Home.IWantBeVolunteer'})}
                                     </Button>
@@ -39,9 +36,6 @@ const NotLoggedUserShowLogin = () => {
                             <h3>{intl.formatMessage({id : 'project.app.Home.joinCommunity'})}</h3>
                             <Row>
                                 <Col md={9} className="d-flex flex-column flex-md-row">
-                                    <Button variant="outline-primary" className="buttonSecondary mx-2 btn-sm">
-                                        {intl.formatMessage({id : 'project.app.Home.IAmEntity'})}
-                                    </Button>
                                     <Button variant="primary" className="buttonSecondary mx-2 btn-lg" onClick={() => navigate('/users/signup')}>
                                         {intl.formatMessage({id : 'project.app.Home.IWantBeVolunteer'})}
                                     </Button>
@@ -60,9 +54,6 @@ const NotLoggedUserShowLogin = () => {
                             <h3>{intl.formatMessage({id : 'project.app.Home.joinCommunity'})}</h3>
                             <Row>
                                 <Col md={9} className="d-flex flex-column flex-md-row">
-                                    <Button variant="outline-primary" className="buttonSecondary mx-2 btn-sm">
-                                        {intl.formatMessage({id : 'project.app.Home.IAmEntity'})}
-                                    </Button>
                                     <Button variant="primary" className="buttonSecondary mx-2 btn-lg" onClick={() => navigate('/users/signup')}>
                                         {intl.formatMessage({id : 'project.app.Home.IWantBeVolunteer'})}
                                     </Button>

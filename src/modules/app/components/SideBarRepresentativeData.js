@@ -11,6 +11,12 @@ export const SideBarRepresentativeData = [
         cName: 'nav-text'
     },
     {
+        title: 'Gestionar registros de horas',
+        path: '/update-participation-hours',
+        icon: <FaIcons.FaClock/>,
+        cName: 'nav-text'
+    },
+    {
         title: 'Ver mis proyectos',
         path: '/projects-list',
         icon: <IoIcons.IoIosPaper />,
@@ -33,11 +39,11 @@ export const SideBarRepresentativeData = [
         path: '/admin/create-representative',
         icon: <IoIcons.IoIosCreate />,
         cName: 'nav-text'
-    },
-    {
+    }
+    /*{
         title: 'Ver contribuciones de cada entidad',
         path: '/see-contributions',
         icon: <IoIcons.IoMdHelpCircle />,
         cName: 'nav-text'
-    }
+    }*/
 ];
