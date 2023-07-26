@@ -25,7 +25,7 @@ const SeeVolunteerSummaryProfile = () => {
     const intl = useIntl();
 
     const handleToggle = () => {
-        setOnlyUpload(!onlyUpload);
+        setShowUploadModal(true);
     };
 
     const handleUploadDni = () => {

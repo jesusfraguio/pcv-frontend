@@ -4,6 +4,16 @@
     transition: all 0.3s ease-in-out;
 }
 
+@media (max-width: 576px) { /* XS screen */
+    .xs-card {
+        width: 18rem;
+        margin: 0 auto; /* Center horizontally */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 .project-card {
     border-radius: 8px;
     border: 1px solid #ced4da;

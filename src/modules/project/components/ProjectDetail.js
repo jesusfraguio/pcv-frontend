@@ -41,7 +41,8 @@ const ProjectDetail = () => {
                         <Card.Body>
                             <Card.Title className="project-title">{projectData.name}</Card.Title>
                             <br/>
-                            <Card.Subtitle className="mb-2 subtitle-center">{projectData.entityName}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 subtitle-center"><Link to={`/entities/${projectData.entityId}`} className="name-link">
+                                {projectData.entityName} </Link> </Card.Subtitle>
                             <br/>
                             <Row>
                                 <Col md={6}>

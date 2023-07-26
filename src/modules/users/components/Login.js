@@ -91,24 +91,24 @@ const Login = () => {
                             </div>
                         </div>
                     </form>
+                    <div className="mt-4">
+                        <p className="text-center">
+                            <Link to="/users/forgotPassword">
+                                <FormattedMessage id="project.users.forgotPassword.title"/>
+                            </Link>
+                        </p>
+
+                        <p className="text-center">
+                                <FormattedMessage id="project.users.noAccount.title"/>
+                        </p>
+                    <p className="text-center">
+                        <Nav.Link href="/users/signup" style={{ backgroundColor: '#A0A0A0', color: '#fff', padding: '6px 12px', borderRadius: '6px', display: 'inline-block'}}>
+                            <FormattedMessage id="project.users.SignUp.title"/>
+                        </Nav.Link>
+                    </p>
+                    </div>
                 </Card.Body>
             </Card>
-            <div className="mt-4">
-                <p className="text-center">
-                    <Link to="/users/forgotPassword">
-                        <FormattedMessage id="project.users.forgotPassword.title"/>
-                    </Link>
-                </p>
-
-                <p className="text-center">
-                        <FormattedMessage id="project.users.noAccount.title"/>
-                </p>
-            <p className="text-center">
-                <Nav.Link href="/users/signup" style={{ backgroundColor: '#A0A0A0', color: '#fff', padding: '6px 12px', borderRadius: '6px', display: 'inline-block'}}>
-                    <FormattedMessage id="project.users.SignUp.title"/>
-                </Nav.Link>
-            </p>
-            </div>
         </div>
     );
 

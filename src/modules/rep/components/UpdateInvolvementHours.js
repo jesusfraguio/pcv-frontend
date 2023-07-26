@@ -15,7 +15,7 @@ import * as actions from "../actions";
 import {Errors} from "../../common";
 import {Link} from "react-router-dom";
 
-const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filterProject}) => {
+const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filterProject, addParticipation, handleCloseAddModal}) => {
     const { locale } = useIntl();
     const intl = useIntl();
     const languageCode = intl.locale.split('-')[0];    // es, en.... any language supported by react-intl
@@ -27,7 +27,6 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [selectedDate, setSelectedDate] = useState(moment(new Date()).startOf('month').toDate());
     const [month, setMonth] = useState(moment(new Date()).startOf('month').toDate().getMonth())
-    const [addParticipation, setAddParticipation] = useState(false);
     const [viewType,setViewType] = useState('week');
     const [selectedProject,setSelectedProject] = useState(null);
 
@@ -96,13 +95,6 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
         setSuccess(false);
         setSelectedEvent(null);
     };
-    const handleCloseAddModal = () => {
-      setAddParticipation(false);
-    };
-
-    const handleAddParticipation = () => {
-        setAddParticipation(true);
-    };
 
     const handleDeleteParticipation = (id) => {
         actions.deleteHourRegister(id, (success) => {
@@ -139,9 +131,6 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
     return (
         <div className="my-calendar">
             {backendErrors && <Errors errors={backendErrors} onClose={() => setBackendErrors('')} />}
-            <Button variant="primary" className="buttonSecondary btn btn-primary mb-2" onClick={handleAddParticipation}>
-                {intl.formatMessage({id: 'project.global.buttons.addNewRegister'})}
-            </Button>
             <Calendar
                 localizer={localizer}
                 events={events}
@@ -180,7 +169,7 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
                 tooltipAccessor={null}
                 components={{
                     event: ({ event }) => (
-                        <div title={`${event.volunteerName} - ${event.hours} horas`}
+                        <div style={{zIndex: 1}} title={`${event.volunteerName} - ${event.hours} horas`}
                              onClick={() => handleEventClick(event)}>
                             {event.title}
                         </div>
@@ -201,9 +190,9 @@ const UpdateInvolvementHours = ({involvements, projectList, setStartDate, filter
                             <h1><Link to={`/users/${selectedEvent.volunteerId}`} className="name-link">
                                 {selectedEvent.volunteerName}
                             </Link></h1>
-                            <h1><Link to={`/projects/${filterProject?.value}`} className="name-link">
+                            {filterProject?.value && <h1><Link to={`/projects/${filterProject?.value}`} className="name-link">
                                 {filterProject?.label}
-                            </Link></h1>
+                            </Link></h1>}
                             <Row>
                                 <Col>
                                     <p>

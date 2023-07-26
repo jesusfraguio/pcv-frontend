@@ -1,5 +1,18 @@
 import backend from "../../backend";
 import * as actionTypes from "./actionTypes";
+import * as adminTypes from "../admin/actionTypes";
+
+const updateMyEntityStore = (myEntity) => ({
+    type: adminTypes.UPDATE_MY_ENTITY,
+    myEntity
+});
+export const updateMyEntity = (formData, entityId, onSuccess, onErrors) => dispatch =>
+    backend.entityService.updateMyEntity(formData, entityId, myEntity => {
+        dispatch(updateMyEntityStore(myEntity));
+        onSuccess(myEntity);
+        },
+        onErrors
+    );
 
 export const createVolunteer = (formData, onSuccess, onErrors) =>
     backend.representativeService.createVolunteer(formData, onSuccess,

@@ -44,3 +44,7 @@ export const getMyEntity = () => (dispatch, getState) => {
     }
 
 }
+
+export const updateProjectOds = (projectId, odsList, onSuccess, onErrors)  => dispatch => {
+    backend.adminService.updateProjectOds(projectId,odsList,onSuccess,onErrors);
+}

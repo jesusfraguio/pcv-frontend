@@ -15,7 +15,7 @@ import {
 import users from '../../users';
 import SideBar from "./SideBar";
 import SideBarRepresentative from "./SideBarRepresentative";
-import {CreateRep, CreateEntity} from "../../admin";
+import {CreateRep, CreateEntity, UpdateProjectOds} from "../../admin";
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsResult, UpdateProject} from "../../project";
@@ -24,7 +24,8 @@ import CompletedProjectParticipation from "../../project/components/CompletedPro
 import {MyParticipationsResult, MyProjectVolunteersResult, PendingParticipationsResult} from "../../participation";
 import SeeMyEntityProjects from "../../project/components/SeeMyEntityProjects";
 import UpdateDoc from "../../users/components/UpdateDoc";
-import {CreateVolunteer, SeeVolunteers, SeeInvolvementHoursResult} from "../../rep";
+import {CreateVolunteer, SeeVolunteers, SeeInvolvementHoursResult, UpdateMyEntity} from "../../rep";
+import {EntityDetail} from "../../entity";
 
 const Body = () => {
 
@@ -32,7 +33,7 @@ const Body = () => {
     const location = useLocation();
     const isAdmin = useSelector(users.selectors.isAdmin);
     const isRepresentative = useSelector(users.selectors.isRepresentative);
-    const isOnlyRepresentative = useSelector(users.selectors.isOnlyRepresentative);
+    //const isOnlyRepresentative = useSelector(users.selectors.isOnlyRepresentative);
     const dispatch = useDispatch();
 
     const getAppBodyClass = () => {
@@ -59,8 +60,6 @@ const Body = () => {
        <div className={getAppBodyClass()}>
             <br/>
             <AppGlobalComponents/>
-            {isAdmin && <SideBar/>}
-            {isOnlyRepresentative && <SideBarRepresentative/>}
             <nav className="nav__links">
             <Routes>
                 <Route path="/*" element={<Home/>}/>
@@ -71,8 +70,10 @@ const Body = () => {
                 {loggedIn && <Route path="/users/logout" element={<Logout/>}/>}
                 {isAdmin && <Route path="/admin/create-representative" element={<CreateRep/>}/>}
                 {isAdmin && <Route path="/admin/create-entity" element={<CreateEntity/>}/>}
+                {isAdmin && <Route path="/admin/update-project-ods/:projectId" element={<UpdateProjectOds/>}/>}
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
+                {isRepresentative && <Route path="/update-my-entity" element={<UpdateMyEntity/>}/> }
                 {isRepresentative && <Route path="/projects/create-project" element={<CreateProject/>}/> }
                 {isRepresentative && <Route path="/projects/update-project/:projectId" element={<UpdateProject/>}/> }
                 {isRepresentative && <Route path="/projects-list" element={<SeeMyEntityProjects/>}/> }
@@ -87,6 +88,7 @@ const Body = () => {
                 {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/create-volunteer" element = {<CreateVolunteer/>} /> }
                 {isRepresentative && <Route path ="/see-all-volunteers/:projectId/:name" element = {<SeeVolunteers/>} /> }
+                <Route path="/entities/:entityId" element={<EntityDetail/>} />
             </Routes>
             </nav>
         </div>

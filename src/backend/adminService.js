@@ -23,4 +23,8 @@ export const seeEntitiesList = ({page,size}, onSuccess) =>
 export const seeMyEntity = (onSuccess) =>
     appFetch(`/admin/getMyEntity`, config('GET'), onSuccess);
 
+export const updateProjectOds = (projectId, odsList, onSuccess, onErrors) =>
+    appFetch(`/admin/update/project/${projectId}/ods`,config('PATCH',odsList), onSuccess,
+        onErrors);
+
 

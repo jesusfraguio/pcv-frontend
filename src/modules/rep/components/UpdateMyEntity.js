@@ -1,5 +1,5 @@
-import {useRef, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useNavigate} from 'react-router-dom';
 import { FaPhone } from 'react-icons/fa';
@@ -8,9 +8,11 @@ import {Errors, Success} from '../../common';
 import * as actions from '../actions';
 import {Alert, Card, Modal} from "react-bootstrap";
 import { useIntl } from 'react-intl';
+import entities from "../../admin";
 
-const CreateEntity = () => {
+const UpdateMyEntity = () => {
 
+    const myEntity = useSelector(entities.selectors.getMyEntity);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const intl = useIntl();
@@ -24,6 +26,17 @@ const CreateEntity = () => {
     const [createdOk, setSuccess] = useState(null);
     const createdId = useRef(null);
     let form;
+
+    useEffect(() => {
+        if(myEntity){
+            setEmail(myEntity.email);
+            setAddress(myEntity.address);
+            setName(myEntity.name);
+            setPhone(myEntity.phone);
+            setShortDescription(myEntity.shortDescription);
+            setUrl(myEntity.url);
+        }
+    }, [myEntity]);
 
     const handleSuccessClose = () => {
         setSuccess(null);
@@ -45,17 +58,17 @@ const CreateEntity = () => {
                 url: !url ? null : url.trim(),
                 address: address.trim(),
                 shortDescription: shortDescription.trim()}));
-            //This allows to send optional files so you can add them later
-            //if(photoInput.files.length > 0){
+            //This allows to send optional files
+            if(photoInput.files.length > 0){
                 formData.append('logo', photoInput.files[0], photoInput.files[0].name);
-            //}
-            //if(cert.files.length > 0){
+            }
+            if(cert.files.length > 0){
                 formData.append('cert', cert.files[0], cert.files[0].name);
-            //}
-            dispatch(actions.createEntity(formData,
+            }
+            dispatch(actions.updateMyEntity(formData, myEntity.id,
                 message => {
-                createdId.current = message.id;
-                setSuccess(intl.formatMessage({ id: 'project.created.entity.success' }, { name: message.name}));
+                    createdId.current = message.id;
+                    setSuccess(intl.formatMessage({ id: 'project.updated.entity.success' }, { name: message.name}));
                 },
                 errors => setBackendErrors(errors),
             ));
@@ -127,10 +140,10 @@ const CreateEntity = () => {
                             </label>
                             <div className="col-md-4">
                                 <textarea id="shortDescription" className="form-control"
-                                          value={shortDescription}
-                                          onChange={e => setShortDescription(e.target.value)}
-                                          required
-                                          style={{ minHeight: '100px', height: 'auto', resize: 'none' }}/>
+                                       value={shortDescription}
+                                       onChange={e => setShortDescription(e.target.value)}
+                                       required
+                                       style={{ minHeight: '100px', height: 'auto', resize: 'none' }}/>
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required'/>
                                 </div>
@@ -210,7 +223,7 @@ const CreateEntity = () => {
                                 <FormattedMessage id="project.global.fields.photo"/>
                             </label>
                             <div className="col-md-4">
-                                <input type="file" id="fileLogo" name="fileLogo" accept="image/*" required/>
+                                <input type="file" id="fileLogo" name="fileLogo" accept="image/*"/>
                             </div>
                         </div>
                         <div className="form-group row mb-2">
@@ -218,7 +231,7 @@ const CreateEntity = () => {
                                 <FormattedMessage id="project.global.fields.agreement.file"/>
                             </label>
                             <div className="col-md-4">
-                                <input type="file" id="agreementCert" name="agreementCert" accept=".pdf" required/>
+                                <input type="file" id="agreementCert" name="agreementCert" accept=".pdf"/>
                             </div>
                         </div>
                         <div className="form-group row mb-2">
@@ -236,4 +249,4 @@ const CreateEntity = () => {
 
 }
 
-export default CreateEntity;
+export default UpdateMyEntity;
