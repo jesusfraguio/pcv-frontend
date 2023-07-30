@@ -15,6 +15,7 @@ const ValidateToken = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
+    const [passwordLackSecurity, setPasswordLackSecurity] = useState(false);
     let form;
     let confirmNewPasswordInput;
 
@@ -54,7 +55,12 @@ const ValidateToken = () => {
             return false;
 
         } else {
-            return true;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{9,}$/;
+            //OWASP Recommendations 2023. 9 char minimum length, 1 mayus, 1 minus, 1 digit
+            const a = passwordRegex.test(newPassword) //true if is secure, false if not
+            confirmNewPasswordInput.setCustomValidity('error');
+            setPasswordLackSecurity(!a);
+            return a;
         }
 
     }
@@ -104,10 +110,16 @@ const ValidateToken = () => {
                                        onChange={e => handleConfirmNewPasswordChange(e)}
                                        required/>
                                 <div className="invalid-feedback">
-                                    {passwordsDoNotMatch ?
-                                        <FormattedMessage id='project.global.validator.passwordsDoNotMatch'/> :
-                                        <FormattedMessage id='project.global.validator.required'/>}
-
+                                    {
+                                        passwordsDoNotMatch ? (
+                                            <FormattedMessage id='project.global.validator.passwordsDoNotMatch'/>
+                                        ) : (
+                                            passwordLackSecurity ? (
+                                                <FormattedMessage id='project.global.validator.passwordIsInsecure'/>
+                                            ) : (
+                                                <FormattedMessage id='project.global.validator.required'/>
+                                            )
+                                        )}
                                 </div>
                             </div>
                         </div>

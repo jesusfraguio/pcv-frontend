@@ -10,11 +10,10 @@ import {
     ChangePassword,
     Logout,
     ValidateToken,
-    SeeVolunteerSummaryProfile
+    SeeVolunteerSummaryProfile,
+    ForgotPasswordRecovery, UpdateVolunteerProfile
 } from '../../users';
 import users from '../../users';
-import SideBar from "./SideBar";
-import SideBarRepresentative from "./SideBarRepresentative";
 import {CreateRep, CreateEntity, UpdateProjectOds} from "../../admin";
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
@@ -64,6 +63,7 @@ const Body = () => {
             <Routes>
                 <Route path="/*" element={<Home/>}/>
                 <Route path="/users/validate/registerToken/:registerToken" element={<ValidateToken/>}/>
+                <Route path="/users/forgotPassword" element={<ForgotPasswordRecovery/>} />
                 {loggedIn && <Route path="/users/update-profile" element={<UpdateProfile/>}/>}
                 {loggedIn && <Route path ="/users/update-my-doc" element = {<UpdateDoc/>} /> }
                 {loggedIn && <Route path="/users/change-password" element={<ChangePassword/>}/>}
@@ -87,6 +87,7 @@ const Body = () => {
                 {isRepresentative && <Route path ="/users/:id" element={<SeeVolunteerSummaryProfile/>} /> }
                 {isRepresentative && <Route path ="/pendingParticipations" element = {<PendingParticipationsResult/>} /> }
                 {isRepresentative && <Route path ="/create-volunteer" element = {<CreateVolunteer/>} /> }
+                {isRepresentative && <Route path ="/users/:id/update-volunteer-profile" element = {<UpdateVolunteerProfile/>} /> }
                 {isRepresentative && <Route path ="/see-all-volunteers/:projectId/:name" element = {<SeeVolunteers/>} /> }
                 <Route path="/entities/:entityId" element={<EntityDetail/>} />
             </Routes>

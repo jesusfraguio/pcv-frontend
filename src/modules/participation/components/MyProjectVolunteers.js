@@ -17,7 +17,8 @@ const MyProjectVolunteers = ({
                                  orderBy,
                                  orderType,
                                  projectId,
-                                 projectName
+                                 projectName,
+                                 selectedYear
                              }) => {
 
     const intl = useIntl();
@@ -239,7 +240,7 @@ const MyProjectVolunteers = ({
                 <tr>
                     <th>{intl.formatMessage({id: 'project.global.fields.name'})}</th>
                     <th>{intl.formatMessage({id: 'project.global.fields.lastName'})}</th>
-                    <th>{intl.formatMessage({id: 'project.totalHours.title'})}</th>
+                    <th>{!selectedYear ? intl.formatMessage({id: 'project.totalHours.title'}) : intl.formatMessage({id: 'project.totalHours.year.title'}, {year : selectedYear.label}) }</th>
                     <th>{intl.formatMessage({id: 'project.status.their.title'})}</th>
                     <th></th>
                 </tr>
@@ -253,7 +254,7 @@ const MyProjectVolunteers = ({
                             </Link>
                         </td>
                         <td>{participation.volunteerSurname}</td>
-                        <td>{participation.totalHours}</td>
+                        <td>{selectedYear ? participation.yearHours : participation.totalHours}</td>
                         <td className={`status-${participation.status.toLowerCase()}`}>{getMessage(participation.status)}</td>
                         <td style={{border: 'none'}}>
                             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>

@@ -27,6 +27,10 @@ export const tryLoginFromServiceToken = (onSuccess, reauthenticationCallback) =>
 
 }
 
+export const sendRecoveryEmail = (email) => {
+    appFetch('/users/sendRecoveryEmail',config('POST', email));
+}
+
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => {
 
     appFetch('/users/signUp', config('POST', user), 
@@ -65,3 +69,9 @@ export const createNewPassword = (newPassword, onSuccess, onErrors, reauthentica
 
 export const seeVolunteerSummaryProfile = (id, onSuccess, onErrors) =>
     appFetch(`/users/${id}`, config('GET'), onSuccess, onErrors);
+
+export const seeVolunteerFullProfile = (id, onSuccess, onErrors) =>
+    appFetch(`/users/myVolunteer/${id}`, config('GET'), onSuccess, onErrors);
+
+export const updateMyVolunteer = (id, volunteerData, onSuccess, onErrors) =>
+    appFetch(`/users/myVolunteer/${id}`, config('PUT', volunteerData), onSuccess, onErrors);

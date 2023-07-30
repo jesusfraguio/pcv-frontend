@@ -6,7 +6,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Errors} from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
-import {FormGroup} from "react-bootstrap";
+import {Form, FormGroup} from "react-bootstrap";
+import {FaPhone} from "react-icons/fa";
 
 const UpdateProfile = () => {
 
@@ -14,9 +15,10 @@ const UpdateProfile = () => {
     const isRepresentative = useSelector(selectors.isRepresentative);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [firstName, setFirstName] = useState(user.firstName);
-    const [lastName, setLastName] = useState(user.lastName);
+    const [firstName, setFirstName] = useState(user.name);
+    const [lastName, setLastName] = useState(user.surname);
     const [email, setEmail]  = useState(user.email);
+    const [phone, setPhone] = useState(user.phone);
     const [backendErrors, setBackendErrors] = useState(null);
     let form;
 
@@ -30,7 +32,9 @@ const UpdateProfile = () => {
                 {id: user.id,
                 name: firstName.trim(),
                 surname: lastName.trim(),
-                email: email.trim()},
+                email: email.trim(),
+                phone: !phone ? null : phone.trim()
+                },
                 () => navigate('/'),
                 errors => setBackendErrors(errors)));
 
@@ -53,7 +57,7 @@ const UpdateProfile = () => {
                 <div className="card-body">
                     <form ref={node => form = node} 
                         className="needs-validation" noValidate onSubmit={e => handleSubmit(e)}>
-                        <div className="form-group row">
+                        <FormGroup className="mb-2">
                             <label htmlFor="firstName" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.firstName"/>
                             </label>
@@ -67,8 +71,8 @@ const UpdateProfile = () => {
                                     <FormattedMessage id='project.global.validator.required'/>
                                 </div>
                             </div>
-                        </div>
-                        <div className="form-group row">
+                        </FormGroup>
+                        <FormGroup className="mb-2">
                             <label htmlFor="lastName" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.lastName"/>
                             </label>
@@ -81,8 +85,8 @@ const UpdateProfile = () => {
                                     <FormattedMessage id='project.global.validator.required'/>
                                 </div>
                             </div>
-                        </div>
-                        <FormGroup className="form-group row">
+                        </FormGroup>
+                        <FormGroup className="mb-2">
                             <label htmlFor="email" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.email"/>
                             </label>
@@ -96,6 +100,36 @@ const UpdateProfile = () => {
                                 </div>
                             </div>
                         </FormGroup>
+                        <Form.Group controlId="phone" className="mb-2">
+                            <label htmlFor="phone" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.phone"/>
+                            </label>
+                            <div className="col-md-4">
+                                <div className="d-flex align-items-center">
+                                    <FaPhone />
+                                    <div className="phone-input-container">
+                                        <div className="phone-input">
+                                            <input
+                                                type="text"
+                                                name="prefix"
+                                                value="+34"
+                                                readOnly
+                                                minLength="3"
+                                            />
+                                            <input type="tel" id="phone" className="form-control"
+                                                   placeholder="611010101"
+                                                   value={phone}
+                                                   onChange={e => setPhone(e.target.value)}
+                                                   required
+                                            />
+                                            <div className="invalid-feedback">
+                                                <FormattedMessage id='project.global.validator.required'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Form.Group>
 
                         {!isRepresentative &&
                             <FormGroup className="mb-2">
@@ -104,8 +138,8 @@ const UpdateProfile = () => {
                         }
 
                         <div className="form-group row">
-                            <div className="offset-md-3 col-md-1">
-                                <button type="submit" className="buttonSecondary btn btn-primary">
+                            <div>
+                                <button type="submit" className="mt-2 buttonSecondary btn btn-primary">
                                     <FormattedMessage id="project.global.buttons.save"/>
                                 </button>
                             </div>

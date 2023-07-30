@@ -17,6 +17,7 @@ const ChangePassword = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
+    const [passwordLackSecurity, setPasswordLackSecurity] = useState(false);
     let form;
     let confirmNewPasswordInput;
 
@@ -49,7 +50,12 @@ const ChangePassword = () => {
             return false;
 
         } else {
-            return true;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{9,}$/;
+            //OWASP Recommendations 2023. 9 char minimum length, 1 mayus, 1 minus, 1 digit
+            const a = passwordRegex.test(newPassword) //true if is secure, false if not
+            confirmNewPasswordInput.setCustomValidity('error');
+            setPasswordLackSecurity(!a);
+            return a;
         }
 
     }
@@ -72,7 +78,7 @@ const ChangePassword = () => {
                 <div className="card-body">
                     <form ref={node => form = node} 
                         className="needs-validation" noValidate onSubmit={e => handleSubmit(e)}>
-                        <div className="form-group row">
+                        <div className="form-group row mb-2">
                             <label htmlFor="oldPassword" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.users.ChangePassword.fields.oldPassword"/>
                             </label>
@@ -87,7 +93,7 @@ const ChangePassword = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row">
+                        <div className="form-group row mb-2">
                             <label htmlFor="newPassword" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.users.ChangePassword.fields.newPassword"/>
                             </label>
@@ -101,7 +107,7 @@ const ChangePassword = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row">
+                        <div className="form-group row mb-2">
                             <label htmlFor="confirmNewPassword" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.users.ChangePassword.fields.confirmNewPassword"/>
                             </label>
@@ -112,16 +118,22 @@ const ChangePassword = () => {
                                     onChange={e => handleConfirmNewPasswordChange(e)}
                                     required/>
                                 <div className="invalid-feedback">
-                                    {passwordsDoNotMatch ?
-                                        <FormattedMessage id='project.global.validator.passwordsDoNotMatch'/> :
-                                        <FormattedMessage id='project.global.validator.required'/>}
-                                    
+                                    {
+                                        passwordsDoNotMatch ? (
+                                            <FormattedMessage id='project.global.validator.passwordsDoNotMatch'/>
+                                        ) : (
+                                            passwordLackSecurity ? (
+                                                <FormattedMessage id='project.global.validator.passwordIsInsecure'/>
+                                            ) : (
+                                                <FormattedMessage id='project.global.validator.required'/>
+                                            )
+                                        )}
                                 </div>
                             </div>
                         </div>
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-1">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="mt-2 btn btn-primary buttonSecondary">
                                     <FormattedMessage id="project.global.buttons.save"/>
                                 </button>
                             </div>
