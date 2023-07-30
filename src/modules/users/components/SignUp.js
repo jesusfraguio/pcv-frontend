@@ -29,6 +29,7 @@ const SignUp = () => {
     const [email, setEmail]  = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
+    const [passwordLackSecurity, setPasswordLackSecurity] = useState(false);
     let form;
     let confirmPasswordInput;
 
@@ -105,8 +106,14 @@ const SignUp = () => {
 
             return false;
 
-        } else {
-            return true;
+        }
+        else {
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{9,}$/;
+            //OWASP Recommendations 2023. 9 char minimum length, 1 mayus, 1 minus, 1 digit
+            const a = passwordRegex.test(password) //true if is secure, false if not
+            confirmPasswordInput.setCustomValidity('error');
+            setPasswordLackSecurity(!a);
+            return a;
         }
 
     }
@@ -184,9 +191,16 @@ const SignUp = () => {
                                     onChange={e => handleConfirmPasswordChange(e.target.value)}
                                     required/>
                                 <div className="invalid-feedback">
-                                    {passwordsDoNotMatch ?
-                                        <FormattedMessage id='project.global.validator.passwordsDoNotMatch'/> :
-                                        <FormattedMessage id='project.global.validator.required'/>}
+                                    {
+                                        passwordsDoNotMatch ? (
+                                        <FormattedMessage id='project.global.validator.passwordsDoNotMatch'/>
+                                    ) : (
+                                        passwordLackSecurity ? (
+                                            <FormattedMessage id='project.global.validator.passwordIsInsecure'/>
+                                        ) : (
+                                            <FormattedMessage id='project.global.validator.required'/>
+                                        )
+                                    )}
                                 </div>
                             </div>
                         </div>

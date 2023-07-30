@@ -97,3 +97,7 @@ export const getAllMyProjects = (onSuccess, onErrors) => {
 export const getAllProjectParticipation = (projectId, onSuccess, onErrors) => {
     appFetch(`/participation/project/${projectId}/participation`, config('GET'), onSuccess, onErrors);
 }
+
+export const findTotalHours = (projectId,year,volunteerIdsArray,onSuccess,onErrors) => {
+    appFetch(`/participation/totalHours/${year}?projectId=${projectId}`, config('POST', volunteerIdsArray), onSuccess, onErrors);
+}

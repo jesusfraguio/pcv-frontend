@@ -61,6 +61,33 @@ const projectVolunteers = (state = initialState.projectVolunteers, action) => {
         case actionTypes.CLEAR_PROJECT_VOLUNTEERS_SEARCH:
             return initialState.projectVolunteers;
 
+        case actionTypes.FIND_YEAR_HOURS_COMPLETED:
+            return {
+                ...state,
+                result: {
+                    ...state.result,
+                    items: state.result.items.map(item => {
+                        const foundAction = action.totalHoursWrapper.find(actionItem => actionItem.volunteerId === item.volunteerId);
+                        if (foundAction) {
+                            return { ...item, yearHours: foundAction.totalHours};
+                        } else {
+                            return { ...item, yearHours: 0};
+                        }
+                    })
+                }
+            };
+
+        case actionTypes.REMOVE_YEAR_HOURS:
+            return {
+                ...state,
+                result: {
+                    ...state.result,
+                    items: state.result.items.map(item => {
+                        return {... item, yearHours : null}
+                    })
+                }
+            }
+
         default:
             return state;
 

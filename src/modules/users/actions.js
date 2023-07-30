@@ -101,5 +101,14 @@ export const downloadFile = (volunteerId, fileType, onSuccess, onErrors) =>
 export const changePassword = (id, oldPassword, newPassword, onSuccess, onErrors) => dispatch =>
     backend.userService.changePassword(id, oldPassword, newPassword, onSuccess, onErrors);
 
+export const recoverPassword = (email) => dispatch =>
+    backend.userService.sendRecoveryEmail(email);
+
 export const seeVolunteerSummary = (id, onSuccess, onErrors) => dispatch =>
     backend.userService.seeVolunteerSummaryProfile(id,onSuccess,onErrors);
+
+export const seeVolunteerFullProfile = (id, onSuccess, onErrors) => dispatch =>
+    backend.userService.seeVolunteerFullProfile(id,onSuccess,onErrors);
+
+export const updateMyVolunteer = (id,volunteerData, onSuccess, onErrors) => dispatch =>
+    backend.userService.updateMyVolunteer(id,volunteerData,onSuccess,onErrors);

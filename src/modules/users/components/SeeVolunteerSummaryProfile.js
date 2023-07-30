@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 import {Errors, Success} from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
-import {Button, Card, Form, ListGroup, Modal} from "react-bootstrap";
+import {Button, Card, Form, FormGroup, ListGroup, Modal} from "react-bootstrap";
 import {FaEnvelope, FaUpload} from 'react-icons/fa';
 
 
@@ -17,7 +17,6 @@ const SeeVolunteerSummaryProfile = () => {
     const [volunteerSummary, setVolunteerSummary] = useState(null);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
-    const [onlyUpload, setOnlyUpload] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
     const dniInputRef = useRef(null);
     const photoInputRef = useRef(null);
@@ -91,6 +90,9 @@ const SeeVolunteerSummaryProfile = () => {
                         setShowUploadModal(false);
                     }} />
                     <Form>
+                        <FormGroup className="mb-2">
+                            <Link to="update-volunteer-profile"><FormattedMessage id ="project.volunteer.update.title"/></Link>
+                        </FormGroup>
                         <Form.Group controlId="dni" className="mb-2">
                             <Form.Label>
                                 <FormattedMessage id="project.global.fields.dni"/>
@@ -167,19 +169,19 @@ const SeeVolunteerSummaryProfile = () => {
                 </Card.Body>
 
                 <Card.Footer className="text-muted d-flex justify-content-between">
-                    {volunteerSummary.hasCertFile && !onlyUpload ?
+                    {volunteerSummary.hasCertFile ?
                         <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton" onClick={() => handleDownload("AGREEMENT_FILE_SIGNED_BY_BOTH")}>
                         {intl.formatMessage({id: "project.upload.downloadSignedCertByEntity"})}</Button>
                     : <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton">
                             {intl.formatMessage({id: "project.upload.new.uploadSignedCert"})}</Button>}
 
-                    {volunteerSummary.hasDniFile && !onlyUpload ?
+                    {volunteerSummary.hasDniFile ?
                         <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton" onClick={() => handleDownload("DNI")}>
                             {intl.formatMessage({id: "project.upload.downloadDNI"})}</Button>
                         : <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton" onClick={handleUploadDni}>
                             {intl.formatMessage({id: "project.upload.uploadDNI"})}</Button>
                     }
-                    {volunteerSummary.hasHarassmentFile && !onlyUpload ?
+                    {volunteerSummary.hasHarassmentFile ?
                                 <Button variant="primary" size="sm" style={{ marginRight: '10px' }} className="mainButton" onClick={() => handleDownload("HARASSMENT_CERT")}>
                                     {intl.formatMessage({ id: "project.upload.downloadHarassmentFile" })}
                                 </Button>
@@ -188,7 +190,7 @@ const SeeVolunteerSummaryProfile = () => {
                                     {intl.formatMessage({ id: "project.upload.uploadHarassmentFile" })}
                                 </Button>
                     }
-                    {volunteerSummary.hasPhotoFile && !onlyUpload ?
+                    {volunteerSummary.hasPhotoFile ?
                         <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton" onClick={() => handleDownload("PHOTO")}>
                             {intl.formatMessage({id: "project.upload.downloadPhoto"})}</Button>
                         : <Button variant="primary" size="sm" style={{marginRight: '10px'}} className="mainButton" onClick={handleUploadDni}>
@@ -205,7 +207,7 @@ const SeeVolunteerSummaryProfile = () => {
                             onClick={handleToggle}
                         >
                             <FaUpload style={{ marginRight: '5px', fontSize: '16px' }} />
-                            {intl.formatMessage({ id: "project.upload.uploadFiles" })}
+                            {intl.formatMessage({ id: "project.update.updateVolunteer" })}
                         </Button>
                     </>}
             </Card>

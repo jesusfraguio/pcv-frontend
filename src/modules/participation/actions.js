@@ -1,5 +1,6 @@
 import backend from "../../backend";
 import * as actionTypes from './actionTypes';
+import {REMOVE_YEAR_HOURS} from "./actionTypes";
 
 export const uploadMySignedCert = (formData, onSuccess, onErrors) =>
     backend.projectService.uploadMySignedCert(formData,
@@ -96,4 +97,18 @@ export const updateParticipation = (id, newStatus, onSuccess, onErrors) => {
 export const removeParticipation = (id) => ({
     type: actionTypes.REMOVE_PARTICIPATION,
     id: id
+});
+
+const findTotalHoursCompleted = totalHoursWrapper => ({
+    type: actionTypes.FIND_YEAR_HOURS_COMPLETED,
+    totalHoursWrapper
+})
+
+export const findTotalHours = (projectId, year, volunteerIdsArray, onErrors) => dispatch => {
+    backend.representativeService.findTotalHours(projectId,year,volunteerIdsArray,
+        totalHoursWrapper => dispatch(findTotalHoursCompleted(totalHoursWrapper)),onErrors);
+}
+
+export const removeAllYearHours = dispatch => ({
+    type: actionTypes.REMOVE_YEAR_HOURS
 });
