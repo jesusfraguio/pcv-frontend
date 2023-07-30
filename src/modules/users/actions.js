@@ -98,6 +98,11 @@ export const downloadFile = (volunteerId, fileType, onSuccess, onErrors) =>
 
     }, onErrors);
 
+export const getVolunteerEmbedFile = (volunteerId, fileType, onSuccess, onErrors) =>
+    backend.representativeService.downloadVolunteerFile(volunteerId, fileType, (file, fileName) => {
+        onSuccess(URL.createObjectURL(file));
+    }, onErrors);
+
 export const changePassword = (id, oldPassword, newPassword, onSuccess, onErrors) => dispatch =>
     backend.userService.changePassword(id, oldPassword, newPassword, onSuccess, onErrors);
 

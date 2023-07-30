@@ -8,6 +8,7 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 import {Button, Card, Form, FormGroup, ListGroup, Modal} from "react-bootstrap";
 import {FaEnvelope, FaUpload} from 'react-icons/fa';
+import {getVolunteerEmbedFile} from "../actions";
 
 
 const SeeVolunteerSummaryProfile = () => {
@@ -21,6 +22,7 @@ const SeeVolunteerSummaryProfile = () => {
     const dniInputRef = useRef(null);
     const photoInputRef = useRef(null);
     const harassmentCertInputRef = useRef(null);
+    const [volunteerPhoto, setVolunteerPhoto] = useState(null);
     const intl = useIntl();
 
     const handleToggle = () => {
@@ -70,7 +72,8 @@ const SeeVolunteerSummaryProfile = () => {
     }
 
     useEffect(() => {
-        dispatch(actions.seeVolunteerSummary(id,data => setVolunteerSummary(data), errors => setBackendErrors(errors)))
+        dispatch(actions.seeVolunteerSummary(id,data => setVolunteerSummary(data), errors => setBackendErrors(errors)));
+        actions.getVolunteerEmbedFile(id,"PHOTO",photo => setVolunteerPhoto(photo));
     } // eslint-disable-next-line react-hooks/exhaustive-deps
     , [id]);
 
@@ -125,16 +128,25 @@ const SeeVolunteerSummaryProfile = () => {
             }
             <Card style={{ width: '32rem', margin: 'auto', marginTop: '20px' }}>
                 <Card.Body>
-                    <Card.Title className="text-center" style={{ fontWeight: 'bold' }}>
-                        {volunteerSummary.name} {volunteerSummary.surname}
-                    </Card.Title>
-                    <div className="text-center" style={{
-                        fontSize: '1.2em',
-                        color: volunteerSummary.isVerified ? 'green' : 'red',
-                        marginBottom: '10px'
-                    }}>
-                        {volunteerSummary.isVerified ? intl.formatMessage({id: "project.users.isVerified.true"}) :
-                            intl.formatMessage({id: "project.users.isVerified.false"})}
+                    <div className="row align-items-center">
+                        <div className="col">
+                            <Card.Title className="text-center" style={{ fontWeight: 'bold' }}>
+                                {volunteerSummary.name} {volunteerSummary.surname}
+                            </Card.Title>
+                            <div className="text-center" style={{
+                                fontSize: '1.2em',
+                                color: volunteerSummary.isVerified ? 'green' : 'red',
+                                marginBottom: '10px'
+                            }}>
+                                {volunteerSummary.isVerified ? intl.formatMessage({id: "project.users.isVerified.true"}) :
+                                    intl.formatMessage({id: "project.users.isVerified.false"})}
+                            </div>
+                        </div>
+                        {volunteerPhoto && (
+                            <div className="col-sm-auto">
+                                <img src={volunteerPhoto} alt="Volunteer" className="img-fluid" style={{ maxWidth: '100px', maxHeight: '200px' }} />
+                            </div>
+                        )}
                     </div>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
