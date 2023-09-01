@@ -44,8 +44,10 @@ const UpdateVolunteerProfile = () => {
             setLastName(volunteerProfile.surname);
             setEmail(volunteerProfile.email);
             setDni(volunteerProfile.dni);
-            const [year, month, day] = volunteerProfile.dniExpiration;
-            setDniExpiration(new Date(year,month-1,day));
+            if(volunteerProfile?.dniExpiration){
+                const [year, month, day] = volunteerProfile.dniExpiration;
+                setDniExpiration(new Date(year,month-1,day));
+            }
             setLocality(localityList.find((item) => item.value === volunteerProfile.locality));
             setPhone(volunteerProfile.phone);
             const [year1, month1, day1] = volunteerProfile.birth;
@@ -72,6 +74,10 @@ const UpdateVolunteerProfile = () => {
                 setVolunteerProfile(updatedProfile);
                 },
                     errors => setBackendErrors(errors)));
+        }
+        else{
+            setBackendErrors(null);
+            form.classList.add('was-validated');
         }
     };
 

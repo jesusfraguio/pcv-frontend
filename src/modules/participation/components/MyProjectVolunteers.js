@@ -266,8 +266,8 @@ const MyProjectVolunteers = ({
                                         <Modal.Body>{intl.formatMessage(
                                             {id: 'project.participation.sureToDeleteParticipation'},
                                             {
-                                                name: participation.volunteerName,
-                                                surname: participation.volunteerSurname
+                                                name: participations.find(participation => participation.id === deletingId.value).volunteerName,
+                                                surname: participations.find(participation => participation.id === deletingId.value).volunteerSurname
                                             }
                                         )}</Modal.Body>
                                         <Modal.Footer>

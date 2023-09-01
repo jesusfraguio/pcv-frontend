@@ -228,10 +228,10 @@ const CreateVolunteer = () => {
                             </div>
                         </div>
                         <Form.Group className="form-group mb-2">
-                            <label htmlFor="shortDescription" className="col-md-3 col-form-label">
+                            <label htmlFor="dni" className="col-md-2 col-form-label">
                                 <FormattedMessage id="project.global.fields.dni.title"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-2">
                                 <input type="text" id="dni" className="form-control"
                                        value={dni}
                                        onChange={e => setDni(e.target.value)}

@@ -14,7 +14,7 @@ import {
     ForgotPasswordRecovery, UpdateVolunteerProfile
 } from '../../users';
 import users from '../../users';
-import {CreateRep, CreateEntity, UpdateProjectOds} from "../../admin";
+import {CreateRep, CreateEntity, UpdateProjectOds, DeleteVolunteer} from "../../admin";
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import project, {CreateProject, ProjectDetail, SeeProjectsFilters, SeeProjectsResult, UpdateProject} from "../../project";
@@ -71,6 +71,7 @@ const Body = () => {
                 {isAdmin && <Route path="/admin/create-representative" element={<CreateRep/>}/>}
                 {isAdmin && <Route path="/admin/create-entity" element={<CreateEntity/>}/>}
                 {isAdmin && <Route path="/admin/update-project-ods/:projectId" element={<UpdateProjectOds/>}/>}
+                {isAdmin && <Route path="/admin/delete-user" element={<DeleteVolunteer/>}/>}
                 {!loggedIn && <Route path="/users/login" element={<Login/>}/>}
                 {!loggedIn && <Route path="/users/signup" element={<SignUp/>}/>}
                 {isRepresentative && <Route path="/update-my-entity" element={<UpdateMyEntity/>}/> }

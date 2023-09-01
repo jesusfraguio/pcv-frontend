@@ -33,7 +33,7 @@ export const sendRecoveryEmail = (email) => {
 
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => {
 
-    appFetch('/users/signUp', config('POST', user), 
+    appFetch('/users', config('POST', user),
         authenticatedUser => {
             setServiceToken(authenticatedUser.serviceToken);
             setReauthenticationCallback(reauthenticationCallback);
@@ -50,7 +50,7 @@ export const updateProfile = (user, onSuccess, onErrors) =>
         onSuccess, onErrors);
 
 export const updateMyDoc = (formData,id,onSuccess, onErrors) =>
-    appFetch(`/users/update-my-doc/${id}`,  config('POST', formData), onSuccess, onErrors);
+    appFetch(`/users/${id}/volunteerDoc`,  config('POST', formData), onSuccess, onErrors);
 
 export const changePassword = (id, oldPassword, newPassword, onSuccess,
     onErrors) =>
@@ -71,7 +71,7 @@ export const seeVolunteerSummaryProfile = (id, onSuccess, onErrors) =>
     appFetch(`/users/${id}`, config('GET'), onSuccess, onErrors);
 
 export const seeVolunteerFullProfile = (id, onSuccess, onErrors) =>
-    appFetch(`/users/myVolunteer/${id}`, config('GET'), onSuccess, onErrors);
+    appFetch(`/users/${id}/volunteer`, config('GET'), onSuccess, onErrors);
 
 export const updateMyVolunteer = (id, volunteerData, onSuccess, onErrors) =>
-    appFetch(`/users/myVolunteer/${id}`, config('PUT', volunteerData), onSuccess, onErrors);
+    appFetch(`/users/${id}/volunteer`, config('PUT', volunteerData), onSuccess, onErrors);

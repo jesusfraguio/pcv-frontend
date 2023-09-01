@@ -1,15 +1,15 @@
 import {config, appFetch} from './appFetch';
 
 export const createParticipationHourRegister = (data, onSuccess, onErrors) => {
-    appFetch('/participation/createHourRegister',config('POST',data), onSuccess, onErrors);
+    appFetch('/participation/hourRegisters',config('POST',data), onSuccess, onErrors);
 }
 
 export const deleteParticipationHourRegister = (id, onSuccess, onErrors) => {
-    appFetch(`/participation/hourRegister/${id}`, config('DELETE'), onSuccess, onErrors);
+    appFetch(`/participation/hourRegisters/${id}`, config('DELETE'), onSuccess, onErrors);
 }
 
 export const getAllParticipationHourRegister = ({projectId, startDate, endDate}, onSuccess, onErrors) => {
-    let path = `/participation/getAllRegisteredHours`;
+    let path = `/participation/hourRegisters`;
     path +=`?startDate=${startDate}`;
     path += projectId ? `&projectId=${projectId}` : "";
     path += `&endDate=${endDate}`;
@@ -17,7 +17,7 @@ export const getAllParticipationHourRegister = ({projectId, startDate, endDate},
 }
 
 export const createProject = (project, onSuccess, onErrors) => {
-    appFetch('/projects/createProject',config('POST',project),
+    appFetch('/projects',config('POST',project),
         msg => {
             onSuccess(msg);
         },
@@ -25,7 +25,7 @@ export const createProject = (project, onSuccess, onErrors) => {
 }
 
 export const updateProject = (project, onSuccess, onErrors) => {
-    appFetch('/projects/updateProject',config('POST',project),
+    appFetch('/projects',config('PUT',project),
         msg => {
             onSuccess(msg);
         },
@@ -35,8 +35,7 @@ export const updateProject = (project, onSuccess, onErrors) => {
 
 export const findMyProjectVolunteers = ({projectId, page, size, sortValue, sortOrder},
                                      onSuccess) => {
-    let path = `/participation/getAllProjectParticipations/`;
-    path += projectId;
+    let path = `/participation/projects/${projectId}`;
     path +=`?page=${page}`;
     path += size ? `&size=${size}` : "";
     path += sortValue ? `&sortValue=${sortValue}` : "";
@@ -58,7 +57,7 @@ export const updateParticipationStatus = (id, newStatus, onSuccess, onErrors) =>
 }
 
 export const createVolunteer = (formData, onSuccess, onErrors) => {
-    appFetch('/users/createVolunteer',config('POST',formData),
+    appFetch('/users/volunteer',config('POST',formData),
         msg => {
             onSuccess(msg)
         },
@@ -66,7 +65,7 @@ export const createVolunteer = (formData, onSuccess, onErrors) => {
 };
 
 export const createParticipationToVolunteer = (participation, onSuccess, onErrors) => {
-    appFetch('/projects/representative/createParticipation',config('POST',participation),
+    appFetch('/projects/representative/participation',config('POST',participation),
         msg => {
             onSuccess(msg);
         },
@@ -84,20 +83,20 @@ export const findVolunteers = ({sortValue, sortOrder, page},
 }
 
 export const updateVolunteerDoc = (formData,id,onSuccess, onErrors) =>
-    appFetch(`/users/representative/updateVolunteerDoc/${id}`,  config('POST', formData), onSuccess, onErrors);
+    appFetch(`/users/${id}/representative/volunteerDoc`,  config('POST', formData), onSuccess, onErrors);
 
 export const downloadVolunteerFile = (volunteerId, fileType, onSuccess, onErrors) => {
 
-    appFetch(`/users/representative/downloadVolunteerDoc/${volunteerId}?fileType=${fileType}`, config('GET'), onSuccess, onErrors);
+    appFetch(`/users/${volunteerId}/representative/volunteerDoc?fileType=${fileType}`, config('GET'), onSuccess, onErrors);
 }
 
 export const getAllMyProjects = (onSuccess, onErrors) => {
-    appFetch(`/participation/all-my-projects`, config('GET'), onSuccess, onErrors);
+    appFetch(`/participation/projects`, config('GET'), onSuccess, onErrors);
 }
 export const getAllProjectParticipation = (projectId, onSuccess, onErrors) => {
-    appFetch(`/participation/project/${projectId}/participation`, config('GET'), onSuccess, onErrors);
+    appFetch(`/participation/projects/${projectId}/participation`, config('GET'), onSuccess, onErrors);
 }
 
 export const findTotalHours = (projectId,year,volunteerIdsArray,onSuccess,onErrors) => {
-    appFetch(`/participation/totalHours/${year}?projectId=${projectId}`, config('POST', volunteerIdsArray), onSuccess, onErrors);
+    appFetch(`/participation/projects/${projectId}/totalHours/${year}?volunteerIds=${volunteerIdsArray.join(',')}`, config('GET'), onSuccess, onErrors);
 }

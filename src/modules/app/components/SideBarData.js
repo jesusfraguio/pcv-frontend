@@ -54,7 +54,7 @@ export const SideBarData = [
     },
     {
         title: 'Eliminar a un usuario',
-        path: '/delete-user',
+        path: '/admin/delete-user',
         icon: <FaIcons.FaHammer />,
         cName: 'nav-text'
     }

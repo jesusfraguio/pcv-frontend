@@ -1,7 +1,7 @@
 import {config, appFetch} from './appFetch';
 
 export const uploadMySignedCert = (formData, onSuccess, onErrors) => {
-    appFetch('/participation/addCertFile',config('POST',formData),
+    appFetch('/participation/certFiles',config('POST',formData),
         msg => {
             onSuccess(msg);
         },
@@ -9,7 +9,7 @@ export const uploadMySignedCert = (formData, onSuccess, onErrors) => {
 }
 
 export const uploadMyVolunteerSignedCert = (formData, onSuccess, onErrors) => {
-    appFetch('/participation/representative/addCertFile',config('POST',formData),
+    appFetch('/participation/certFiles/representative',config('POST',formData),
         msg => {
             onSuccess(msg);
         },
@@ -38,22 +38,22 @@ export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, 
 }
 
 export const getEntityLogo = (entityId, onSuccess, onErrors) => {
-    let path = `/entity/getLogo?entityId=${entityId}`;
+    let path = `/entities/${entityId}/getLogo`;
     appFetch(path,config('GET'), image => onSuccess(image), onErrors);
 }
 
 export const getEntityCert = (entityId, onSuccess) => {
-    let path = `/entity/getAgreementFile/${entityId}`;
+    let path = `/entities/${entityId}/getAgreementFile`;
     appFetch(path,config('GET'), onSuccess);
 }
 
 export const getProjectDetails = (projectId, onSuccess) => {
-    let path = `/projects/project/${projectId}`;
+    let path = `/projects/${projectId}`;
     appFetch(path,config('GET'), onSuccess)
 }
 
 export const createParticipationAsVolunteer = (participation, onSuccess, onErrors) => {
-    appFetch('/projects/createMyParticipation',config('POST',participation),
+    appFetch('/projects/participation',config('POST',participation),
         msg => {
             onSuccess(msg);
         },

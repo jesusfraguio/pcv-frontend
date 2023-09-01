@@ -2,7 +2,7 @@ import {config, appFetch} from './appFetch';
 
 export const registerRepresentative = (user, onSuccess, onErrors) => {
 
-    appFetch('/admin/createRepresentative', config('POST', user),
+    appFetch('/admin/representatives', config('POST', user),
         msg => {
             onSuccess(msg);
         },
@@ -10,7 +10,7 @@ export const registerRepresentative = (user, onSuccess, onErrors) => {
 }
 
 export const createEntity = (formData, onSuccess, onErrors) => {
-    appFetch('/admin/createEntity',config('POST',formData),
+    appFetch('/admin/entities',config('POST',formData),
         msg => {
         onSuccess(msg)
         },
@@ -18,13 +18,18 @@ export const createEntity = (formData, onSuccess, onErrors) => {
 }
 
 export const seeEntitiesList = ({page,size}, onSuccess) =>
-    appFetch(`/admin/getEntities?page=${page}&size=${size}`, config('GET'), onSuccess);
+    appFetch(`/admin/entities?page=${page}&size=${size}`, config('GET'), onSuccess);
 
 export const seeMyEntity = (onSuccess) =>
-    appFetch(`/admin/getMyEntity`, config('GET'), onSuccess);
+    appFetch(`/admin/entities/getMyEntity`, config('GET'), onSuccess);
 
 export const updateProjectOds = (projectId, odsList, onSuccess, onErrors) =>
-    appFetch(`/admin/update/project/${projectId}/ods`,config('PATCH',odsList), onSuccess,
+    appFetch(`/admin/projects/${projectId}/ods`,config('PATCH',odsList), onSuccess,
         onErrors);
 
+export const deleteVolunteer = (dni, onSuccess, onErrors) => {
+    let path = `/admin/users`;
+    path +=`?dni=${dni}`;
+    appFetch(path, config('DELETE'), onSuccess, onErrors);
+}
 
