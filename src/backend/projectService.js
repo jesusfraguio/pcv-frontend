@@ -18,13 +18,13 @@ export const uploadMyVolunteerSignedCert = (formData, onSuccess, onErrors) => {
 
 
 export const findAllCachedData = (onSuccess) =>
-    appFetch('/projects/getSummaryOdsAndCollaborationArea', config('GET'), onSuccess);
+    appFetch('/projects/summaryOdsAndCollaborationArea', config('GET'), onSuccess);
 
 
 export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, sortOrder, page, size},
                            onSuccess) => {
 
-    let path = `/projects/searchProjectsBy?page=${page}`;
+    let path = `/projects?page=${page}`;
 
     path += size ? `&size=${size}` : "";
     path += collaborationAreaId ? `&collaborationAreaId=${collaborationAreaId}` : "";
@@ -38,12 +38,12 @@ export const findProjectsBy = ({collaborationAreaId, locality, name, sortValue, 
 }
 
 export const getEntityLogo = (entityId, onSuccess, onErrors) => {
-    let path = `/entities/${entityId}/getLogo`;
+    let path = `/entities/${entityId}/logo`;
     appFetch(path,config('GET'), image => onSuccess(image), onErrors);
 }
 
 export const getEntityCert = (entityId, onSuccess) => {
-    let path = `/entities/${entityId}/getAgreementFile`;
+    let path = `/entities/${entityId}/agreementFile`;
     appFetch(path,config('GET'), onSuccess);
 }
 

@@ -28,7 +28,7 @@ export const tryLoginFromServiceToken = (onSuccess, reauthenticationCallback) =>
 }
 
 export const sendRecoveryEmail = (email) => {
-    appFetch('/users/sendRecoveryEmail',config('POST', email));
+    appFetch('/users/recoveryEmail',config('POST', email));
 }
 
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => {
@@ -54,7 +54,7 @@ export const updateMyDoc = (formData,id,onSuccess, onErrors) =>
 
 export const changePassword = (id, oldPassword, newPassword, onSuccess,
     onErrors) =>
-    appFetch(`/users/${id}/changePassword`, 
+    appFetch(`/users/${id}/password`,
         config('POST', {oldPassword, newPassword}),
         onSuccess, onErrors);
 

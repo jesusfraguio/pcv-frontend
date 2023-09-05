@@ -44,7 +44,7 @@ export const findMyProjectVolunteers = ({projectId, page, size, sortValue, sortO
 }
 
 export const findAllPendingParticipations = ({page, size}, onSuccess) => {
-    let path = `/participation/getAllPendingParticipations`;
+    let path = `/participation/pendingParticipation`;
     path +=`?page=${page}`;
     path += size ? `&size=${size}` : "";
     appFetch(path, config('GET'), onSuccess);
@@ -75,7 +75,7 @@ export const createParticipationToVolunteer = (participation, onSuccess, onError
 export const findVolunteers = ({sortValue, sortOrder, page},
                                onSuccess) => {
 
-    let path = `/users/representative/findMyVolunteers?page=${page}`;
+    let path = `/users/representative/myVolunteers?page=${page}`;
     path += sortValue ? `&sortValue=${sortValue}` : "";
     path += sortOrder ? `&sortOrder=${sortOrder}` : "";
 

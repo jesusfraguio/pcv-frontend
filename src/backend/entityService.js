@@ -12,5 +12,5 @@ export const updateMyEntity = (formData, entityId, onSuccess, onErrors) => {
 }
 
 export const getAllEntities = (onSuccess) => {
-    appFetch('/entities/getAllEntitiesSelector', config('GET'), onSuccess);
+    appFetch('/entities/entitiesSelector', config('GET'), onSuccess);
 }

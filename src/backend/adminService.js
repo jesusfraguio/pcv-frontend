@@ -21,7 +21,7 @@ export const seeEntitiesList = ({page,size}, onSuccess) =>
     appFetch(`/admin/entities?page=${page}&size=${size}`, config('GET'), onSuccess);
 
 export const seeMyEntity = (onSuccess) =>
-    appFetch(`/admin/entities/getMyEntity`, config('GET'), onSuccess);
+    appFetch(`/admin/entities/myEntity`, config('GET'), onSuccess);
 
 export const updateProjectOds = (projectId, odsList, onSuccess, onErrors) =>
     appFetch(`/admin/projects/${projectId}/ods`,config('PATCH',odsList), onSuccess,
